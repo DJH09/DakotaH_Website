@@ -46,6 +46,10 @@
             margin: 10px;
         }
 
+        .left-text {
+            margin-top: 20px; /* Added margin to ensure spacing between elements */
+        }
+
         .right-text {
             margin-bottom: 20px;
         }
@@ -80,8 +84,12 @@
                 margin: 20px;
             }
 
+            .left-text {
+                margin-top: 0; /* Reset margin-top on larger screens */
+            }
+
             .right-text {
-                margin-bottom: 0;
+                order: 1; /* Ensure 'Friends' link appears at the end */
             }
         }
     </style>
@@ -89,22 +97,22 @@
 <body>
 
     <div class="container">
-        <!-- Right Side Text with Link -->
-        <div class="right-text">
-            <a href="friends.html">Friends</a>
-        </div>
-
         <!-- Centered Title -->
         <h1>Dakota's Digital Adventure</h1>
+
+        <!-- Adding an image with specific class -->
+        <img src="MyPhoto.png" alt="An image of Dakota's adventure" class="responsive-img" />
 
         <!-- Left Side Text -->
         <div class="left-text">
             This is the start of my own website.
         </div>
-    </div>
 
-    <!-- Adding an image with specific class -->
-    <img src="MyPhoto.png" alt="An image of Dakota's adventure" class="responsive-img" />
+        <!-- Right Side Text with Link -->
+        <div class="right-text">
+            <a href="friends.html">Friends</a>
+        </div>
+    </div>
 
 </body>
 </html>
