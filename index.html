@@ -3,9 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>Dakota's Digital Adventure</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+        }
+
+        h1 {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px;
+            color: #4CAF50;
+        }
+
+        .left-text, .right-text {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+        }
+
+        .left-text {
+            left: 20px;
+            color: #333;
+        }
+
+        .right-text {
+            right: 20px;
+            color: #007BFF;
+        }
+
+        .right-text a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        .right-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
+
+    <!-- Centered Title -->
+    <h1>Dakota's Digital Adventure</h1>
+
+    <!-- Left Side Text -->
+    <div class="left-text">
+        This is the start of my own website.
+    </div>
+
+    <!-- Right Side Text with Link -->
+    <div class="right-text">
+        <a href="friends.html">Friends</a>
+    </div>
+
 </body>
 </html>
