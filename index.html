@@ -6,7 +6,7 @@
     <title>Dakota's Digital Adventure</title>
     <style>
         /* Basic Reset */
-        body, h1, div {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -16,102 +16,97 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f8ff;
+            background-color: #000; /* Black background for sidebars */
+        }
+
+        /* Container for the full-screen image */
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full height */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* The image */
+        .background-img {
+            width: calc(100% - 300px); /* Full width minus 150px on both sides */
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Title overlay on the image */
+        .title-overlay {
+            position: absolute;
+            color: white;
+            font-size: 3rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            z-index: 1; /* Ensure it stays on top of the image */
+        }
+
+        /* Content that appears when scrolling down */
+        .content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-        }
-
-        h1 {
-            font-size: 2rem;
-            color: #4CAF50;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
             padding: 20px;
-            width: 100%;
-            max-width: 800px; /* Maximum width to prevent it from getting too wide on large screens */
             text-align: center;
         }
 
-        .left-text, .right-text {
-            font-size: 1.2rem;
-            margin: 10px;
-        }
-
-        .left-text {
-            margin-top: 20px; /* Added margin to ensure spacing between elements */
-        }
-
-        .right-text {
+        .content p {
+            font-size: 1.5rem;
             margin-bottom: 20px;
         }
 
-        .right-text a {
-            text-decoration: none;
+        .content a {
+            font-size: 1.2rem;
             color: #007BFF;
+            text-decoration: none;
             font-weight: bold;
         }
 
-        .right-text a:hover {
+        .content a:hover {
             text-decoration: underline;
         }
 
-        .responsive-img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            margin-top: 20px;
-            border-radius: 15px;
-        }
-
-        @media (min-width: 600px) {
-            .container {
-                flex-direction: row; /* Align items horizontally on larger screens */
-                justify-content: space-between;
-                align-items: center;
+        /* Media Queries for Mobile */
+        @media (max-width: 768px) {
+            .background-img {
+                width: 100%;
+                height: auto;
             }
 
-            .left-text, .right-text {
-                font-size: 1.5rem;
-                margin: 20px;
+            .title-overlay {
+                font-size: 2rem;
             }
 
-            .left-text {
-                margin-top: 0; /* Reset margin-top on larger screens */
+            .content p {
+                font-size: 1.2rem;
             }
 
-            .right-text {
-                order: 1; /* Ensure 'Friends' link appears at the end */
+            .content a {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Centered Title -->
-        <h1>Dakota's Digital Adventure</h1>
+    <!-- Full-screen image section with title overlay -->
+    <div class="image-container">
+        <h1 class="title-overlay">Dakota's Digital Adventure</h1>
+        <img src="MyPhoto.png" alt="An image of Dakota's adventure" class="background-img">
+    </div>
 
-        <!-- Adding an image with specific class -->
-        <img src="MyPhoto.png" alt="An image of Dakota's adventure" class="responsive-img" />
-
-        <!-- Left Side Text -->
-        <div class="left-text">
-            This is the start of my own website.
-        </div>
-
-        <!-- Right Side Text with Link -->
-        <div class="right-text">
-            <a href="friends.html">Friends</a>
-        </div>
+    <!-- Scrolling content section -->
+    <div class="content">
+        <p>This is the start of my own website.</p>
+        <a href="friends.html">Friends</a>
     </div>
 
 </body>
