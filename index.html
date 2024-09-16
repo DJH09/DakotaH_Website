@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dakota's Digital Adventure</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         /* Basic Reset */
         * {
@@ -112,27 +111,31 @@
             .scroll-content {
                 grid-template-rows: repeat(2, 1fr);
                 grid-template-columns: repeat(2, 1fr);
-                gap: 20px; /* 50px gap between rows */
+                gap: 50px; /* 50px gap between rows */
             }
 
             .section:nth-child(1) {
                 grid-row: 1 / 2;
                 grid-column: 1 / 2;
+                height: 50vh; /* Top left square, half of viewport height */
             }
 
             .section:nth-child(2) {
                 grid-row: 1 / 2;
                 grid-column: 2 / 3;
+                height: 50vh; /* Top right square, half of viewport height */
             }
 
             .section:nth-child(3) {
                 grid-row: 2 / 3;
                 grid-column: 1 / 2;
+                height: 50vh; /* Bottom left square, half of viewport height */
             }
 
             .section:nth-child(4) {
                 grid-row: 2 / 3;
                 grid-column: 2 / 3;
+                height: 50vh; /* Bottom right square, half of viewport height */
             }
         }
     </style>
