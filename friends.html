@@ -3,26 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Friends</title>
+    <title>Friends - Bailee</title>
     <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Container for the image and text */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Image styling for the top left fourth of the screen */
+        .image-container {
+            width: 50%; /* Takes up the left half in desktop view */
+            height: 50%; /* Takes up the top half */
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #f0f8ff;
         }
 
-        h1 {
-            color: #4CAF50;
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Text styling for the bottom left */
+        .text-container {
+            width: 50%;
+            height: 50%; /* Takes up the bottom half */
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .text-container p {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Stack image and text vertically */
+            }
+
+            .image-container, .text-container {
+                width: 100%; /* Take full width */
+                height: 50%; /* Adjust height for stacking */
+            }
+
+            .text-container p {
+                font-size: 1.2rem;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
 
-    <h1>My Friends List</h1>
-    <!-- Add your friends list here -->
-    
+    <!-- Container for the image and text -->
+    <div class="container">
+        <!-- Image at top left -->
+        <div class="image-container">
+            <img src="BPhoto.png" alt="Bailee's Photo">
+        </div>
+
+        <!-- Text at bottom left -->
+        <div class="text-container">
+            <p>This is Bailee</p>
+        </div>
+    </div>
+
 </body>
 </html>
