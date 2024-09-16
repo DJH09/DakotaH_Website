@@ -18,18 +18,30 @@
         }
 
         .myphoto {
-            width: calc(100% - 300px); /* Adjusting width to account for black borders */
-            height: auto;
-            display: block;
+            width: calc(100% - 300px); /* 150px black border on each side */
             margin: 0 auto;
+            display: block;
+            height: auto;
+        }
+
+        .title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2em;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            padding: 10px;
+            border-radius: 5px;
         }
 
         .scroll-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
-            height: 200vh; /* Ensures there's enough space to show all 4 squares */
-            margin-top: calc(100vh - 50%); /* Moves the content down, so the top squares start immediately below the image */
+            height: 200vh; /* Adjust for enough scrolling space */
+            margin-top: -50px; /* Move content up to reduce blank space */
         }
 
         .section {
@@ -90,9 +102,7 @@
 <body>
     <div class="container">
         <img src="MyPhoto.png" alt="My Photo" class="myphoto">
-        <h1>Dakota's Digital Adventure</h1>
-        <p>This is the start of my own website.</p>
-        <a href="friends.html">Friends</a>
+        <h1 class="title">Dakota's Digital Adventure</h1>
     </div>
     <div class="scroll-content">
         <div class="section top-left">
