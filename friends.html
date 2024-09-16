@@ -18,62 +18,51 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
 
         /* Container for the image and text */
         .container {
-            display: flex;
-            flex-wrap: wrap;
+            position: relative;
             width: 100%;
             height: 100%;
         }
 
-        /* Image styling for the top left fourth of the screen */
+        /* Image styling for top-left with white border */
         .image-container {
-            width: 50%; /* Takes up the left half in desktop view */
-            height: 50%; /* Takes up the top half */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: absolute;
+            top: 20px; /* Adjusts distance from the top */
+            left: 20px; /* Adjusts distance from the left */
+            width: 25%; /* Takes up the top left fourth of the screen */
+            border: 5px solid white; /* White border around the image */
         }
 
         .image-container img {
             width: 100%;
-            height: 100%;
+            height: auto;
             object-fit: cover;
         }
 
-        /* Text styling for the bottom left */
+        /* Text styling for bottom-left under the image */
         .text-container {
-            width: 50%;
-            height: 50%; /* Takes up the bottom half */
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            padding: 20px;
-        }
-
-        .text-container p {
+            position: absolute;
+            left: 20px;
+            bottom: 20px; /* Aligns text at the bottom left under the image */
+            width: 25%;
+            padding-top: 10px;
             font-size: 1.5rem;
             color: #333;
+            text-align: left;
         }
 
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column; /* Stack image and text vertically */
+            .image-container {
+                width: 50%; /* Adjusts the image size for smaller screens */
             }
 
-            .image-container, .text-container {
-                width: 100%; /* Take full width */
-                height: 50%; /* Adjust height for stacking */
-            }
-
-            .text-container p {
+            .text-container {
+                width: 50%; /* Adjusts the text width to match the image on mobile */
                 font-size: 1.2rem;
-                text-align: center;
             }
         }
     </style>
@@ -82,12 +71,12 @@
 
     <!-- Container for the image and text -->
     <div class="container">
-        <!-- Image at top left -->
+        <!-- Image in top-left with white border -->
         <div class="image-container">
             <img src="BPhoto.png" alt="Bailee's Photo">
         </div>
 
-        <!-- Text at bottom left -->
+        <!-- Text underneath the image -->
         <div class="text-container">
             <p>This is Bailee</p>
         </div>
