@@ -71,8 +71,8 @@
             .myphoto {
                 left: 0; /* Remove left border on mobile */
                 width: 100%; /* Full width on mobile */
-                border-left: 0; /* Remove left border */
-                border-right: 0; /* Remove right border */
+                border-left: 75px solid black; /* Slightly larger border */
+                border-right: 75px solid black; /* Slightly larger border */
             }
 
             .title {
@@ -84,6 +84,77 @@
                 font-size: 1em;
             }
         }
+
+        .squares-container {
+            display: grid;
+            grid-template-areas: 
+                "top-left top-right"
+                "bottom-left bottom-right";
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .square {
+            border: 1px solid black;
+            background-color: white;
+            box-sizing: border-box;
+        }
+
+        .top-left {
+            grid-area: top-left;
+            background-image: url('CSPhoto.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .top-left .text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            color: black;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .bottom-left {
+            grid-area: bottom-left;
+        }
+
+        .bottom-right {
+            grid-area: bottom-right;
+        }
+
+        .top-right {
+            grid-area: top-right;
+        }
+
+        @media (max-width: 768px) {
+            .squares-container {
+                display: block;
+            }
+
+            .square {
+                height: 50vh;
+                margin-bottom: 10px;
+            }
+
+            .top-left, .bottom-left, .top-right, .bottom-right {
+                width: 100%;
+                height: 50vh;
+            }
+
+            .top-right {
+                margin-bottom: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -91,9 +162,19 @@
         <img src="MyPhoto.png" alt="My Photo" class="myphoto">
         <h1 class="title">Dakota's Digital Adventure</h1>
     </div>
-    <div class="links">
-        <a href="computer-science.html">Computer Science</a>
-        <a href="friends.html">Friends</a>
+    <div class="squares-container">
+        <div class="square top-left">
+            <div class="text">Computer Science Link</div>
+        </div>
+        <div class="square top-right">
+            <!-- Content for top-right -->
+        </div>
+        <div class="square bottom-left">
+            <a href="friends.html">Friends</a>
+        </div>
+        <div class="square bottom-right">
+            <!-- Content for bottom-right -->
+        </div>
     </div>
 </body>
 </html>
