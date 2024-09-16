@@ -81,6 +81,10 @@
             cursor: pointer;
             font-size: 1.2em;
             border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
         .back-link:focus {
@@ -89,7 +93,10 @@
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-link">Back</a>
+    <a href="index.html" class="back-link">
+        <span>&lt;</span>
+        Back
+    </a>
     <div class="container">
         <div class="yellow-box">
             <div class="title" id="title">Education</div>
