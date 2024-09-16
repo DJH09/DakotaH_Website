@@ -3,116 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Friends - Bailee and Cameron</title>
+    <title>Friends</title>
     <style>
-        /* Basic Reset */
-        * {
+        body, html {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        body {
             font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            overflow-x: hidden;
         }
 
-        /* Container for the sections */
-        .section {
+        .friends-container {
             display: flex;
-            flex-direction: row;
-            height: 100vh; /* Full viewport height */
-            width: 100%;
-        }
-
-        .section img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .image-container, .image-container-cameron {
-            width: 50%; /* Half of the screen */
-            border: 5px solid white;
-        }
-
-        .text-container, .text-container-cameron {
-            width: 50%; /* Half of the screen */
-            display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             padding: 20px;
-            font-size: 1.2rem;
-            color: #333;
-            text-align: justify;
         }
 
-        /* Mobile Responsiveness */
+        .friend {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            max-width: 800px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .friend img {
+            max-width: 150px;
+            margin-right: 20px;
+        }
+
+        .friend-text {
+            font-size: 1.2em;
+            max-width: 600px;
+        }
+
+        /* Adjust layout for smaller screens */
         @media (max-width: 768px) {
-            .section {
+            .friend {
                 flex-direction: column;
-                height: auto;
+                align-items: center;
             }
 
-            .image-container, .image-container-cameron {
-                width: 100%;
-                height: 50vh; /* Top half */
-            }
-
-            .text-container {
-                width: 100%;
-                height: 50vh; /* Bottom half */
-                padding: 15px;
-                font-size: 1rem;
-                text-align: center;
-            }
-
-            .text-container-cameron {
-                width: 100%;
-                height: 50vh; /* Bottom half */
-                padding: 15px;
-                font-size: 1rem;
-                text-align: center;
+            .friend img {
+                margin-right: 0;
+                margin-bottom: 10px;
             }
         }
     </style>
 </head>
 <body>
-
-    <!-- Bailee Section -->
-    <div class="section">
-        <div class="image-container">
-            <img src="BPhoto.png" alt="Bailee's Photo">
-        </div>
-        <div class="text-container">
-            <p>
-                My best friend Bailee, in your eyes, I can see my future with you in it. 
-                With us seeing the world and doing so many more things. 
-                Your smile brings warmth throughout my body, and I can feel a sense of love. 
-                Everytime you smile it just makes me smile even bigger to see my favorite person so happy. 
-                You give the best hugs to anyone I've met. Your hugs are so warm and comforting and just hearing your voice soothes me. 
-                Always remember that I will be with you through all your ups and downs, whether you want a hug or a shoulder to cry on to feel some support, 
+    <div class="friends-container">
+        <div class="friend">
+            <img src="BaileePhoto.png" alt="Bailee Jo Lelia Knott" />
+            <div class="friend-text">
+                My best friend Bailee, in your eyes, I can see my future with you in it.<br>
+                With us seeing the world and doing so many more things. Your smile brings warmth throughout my body,<br>
+                and I can feel a sense of love. Every time you smile it just makes me smile even bigger to see my favorite person so happy.<br>
+                You give the best hugs to anyone I've met. Your hugs are so warm and comforting and just hearing your voice soothes me.<br>
+                Always remember that I will be with you through all your ups and downs, whether you want a hug or a shoulder to cry on to feel some support,<br>
                 I will always be there for you and I always want to be.
-            </p>
+            </div>
         </div>
-    </div>
-
-    <!-- Cameron Section -->
-    <div class="section">
-        <div class="text-container-cameron">
-            <p>
-                My best man, Cameron. You have always been there for me during my ups and downs and I want to be there for yours. 
-                I appreciate you being my first friend during my move to my new school and for that you will always have a special place in my heart. 
-                If you would take them I would give you so many hugs to show you how grateful I am to have a friend like you in my life. 
-                Hopefully throughout life's challenges, we can have a little fun, maybe get the cops called on us once or twice without getting arrested. 
+        <div class="friend">
+            <img src="CPhoto.png" alt="Cameron" />
+            <div class="friend-text">
+                My best man, Cameron. You have always been there for me during my ups and downs and I want to be there for yours.<br>
+                I appreciate you being my first friend during my move to my new school and for that you will always have a special place in my heart.<br>
+                If you would take them I would give you so many hugs to show you how grateful I am to have a friend like you in my life.<br>
+                Hopefully throughout life's challenges, we can have a little fun, maybe get the cops called on us once or twice without getting arrested.<br>
                 I will still continue to convince you to let me speak at your future wedding.
-            </p>
+            </div>
         </div>
-        <div class="image-container-cameron">
-            <img src="CPhoto.png" alt="Cameron's Photo">
+        <div class="friend">
+            <img src="SPhoto.png" alt="Samantha" />
+            <div class="friend-text">
+                This is Samantha
+            </div>
         </div>
     </div>
-
 </body>
 </html>
