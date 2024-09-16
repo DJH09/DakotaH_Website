@@ -15,72 +15,129 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f8ff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
         }
 
-        .container {
-            display: grid;
-            grid-template-rows: 1fr 1fr;
-            grid-template-columns: 1fr 1fr;
+        /* Main Content Style */
+        .main-content {
+            position: relative;
             width: 100vw;
             height: 100vh;
-            border: 5px solid black; /* Border around the container */
-            gap: 5px; /* Gap between sections */
+            background-color: black;
+        }
+
+        .main-content img {
+            width: calc(100% - 300px); /* 150px black borders on each side */
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .title {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .scroll-content {
+            position: relative;
+            height: 200vh; /* Make space for scrolling */
+            background-color: white;
+            padding: 10px;
         }
 
         .section {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
+            flex-direction: row;
+            height: 50vh; /* Half of the viewport height */
         }
 
         .section img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border: 5px solid white;
         }
 
-        .section a {
-            text-decoration: none;
-            color: black;
-            font-size: 1.5rem;
-            text-align: center;
+        .section .text-container {
+            padding: 20px;
+            font-size: 1.2rem;
+            color: #333;
+            text-align: justify;
         }
 
-        /* Mobile Responsiveness */
+        .section-cameron {
+            display: flex;
+            flex-direction: row-reverse;
+            height: 50vh;
+        }
+
+        .section-cameron img {
+            border: 5px solid white;
+        }
+
         @media (max-width: 768px) {
-            .container {
-                grid-template-rows: repeat(4, 1fr);
-                grid-template-columns: 1fr;
+            .main-content img {
+                width: 100%;
+            }
+
+            .scroll-content {
+                padding: 0;
+            }
+
+            .section, .section-cameron {
+                flex-direction: column;
+                height: 50vh; /* Half of the viewport height */
+            }
+
+            .section .text-container, .section-cameron .text-container-cameron {
+                padding: 15px;
+                text-align: center;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Top Left -->
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="title">Dakota's Digital Adventure</div>
+        <img src="MyPhoto.png" alt="Dakota's Photo">
+    </div>
+
+    <!-- Scrollable Content -->
+    <div class="scroll-content">
+        <!-- Bailee Section -->
         <div class="section">
-            <a href="computer_science.html">Computer Science Page</a>
+            <img src="BPhoto.png" alt="Bailee's Photo">
+            <div class="text-container">
+                <p>
+                    My best friend Bailee, in your eyes, I can see my future with you in it. 
+                    With us seeing the world and doing so many more things. 
+                    Your smile brings warmth throughout my body, and I can feel a sense of love. 
+                    Everytime you smile it just makes me smile even bigger to see my favorite person so happy. 
+                    You give the best hugs to anyone I've met. Your hugs are so warm and comforting and just hearing your voice soothes me. 
+                    Always remember that I will be with you through all your ups and downs, whether you want a hug or a shoulder to cry on to feel some support, 
+                    I will always be there for you and I always want to be.
+                </p>
+            </div>
         </div>
-        <!-- Top Right -->
-        <div class="section">
-            <!-- Title and Image for the Top Right Section -->
-            <h1>Dakota's Digital Adventure</h1>
-            <img src="MyPhoto.png" alt="Dakota's Photo">
-        </div>
-        <!-- Bottom Left -->
-        <div class="section">
-            <a href="friends.html">Friends</a>
-        </div>
-        <!-- Bottom Right -->
-        <div class="section">
-            <!-- Additional content for Bottom Right -->
+
+        <!-- Cameron Section -->
+        <div class="section-cameron">
+            <div class="text-container-cameron">
+                <p>
+                    My best man, Cameron. You have always been there for me during my ups and downs and I want to be there for yours. 
+                    I appreciate you being my first friend during my move to my new school and for that you will always have a special place in my heart. 
+                    If you would take them I would give you so many hugs to show you how grateful I am to have a friend like you in my life. 
+                    Hopefully throughout life's challenges, we can have a little fun, maybe get the cops called on us once or twice without getting arrested. 
+                    I will still continue to convince you to let me speak at your future wedding.
+                </p>
+            </div>
+            <img src="CPhoto.png" alt="Cameron's Photo">
         </div>
     </div>
 
