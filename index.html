@@ -22,6 +22,9 @@
             margin: 0 auto;
             display: block;
             height: auto;
+            border-left: 150px solid black;
+            border-right: 150px solid black;
+            box-sizing: border-box;
         }
 
         .title {
@@ -40,38 +43,37 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
-            height: 200vh; /* Adjust for enough scrolling space */
-            margin-top: -50px; /* Move content up to reduce blank space */
+            height: 200vh; /* Ensure enough space to scroll */
         }
 
         .section {
             border: 1px solid black;
-            overflow: hidden; /* Ensures the image doesn’t overflow its container */
+            overflow: hidden;
             position: relative;
+        }
+
+        .top-left, .top-right, .bottom-left, .bottom-right {
+            height: 50vh; /* Each section takes up half the viewport height */
         }
 
         .top-left {
             grid-row: 1 / 2;
             grid-column: 1 / 2;
-            height: 50vh; /* Takes up half the viewport height */
         }
 
         .top-right {
             grid-row: 1 / 2;
             grid-column: 2 / 3;
-            height: 50vh; /* Takes up half the viewport height */
         }
 
         .bottom-left {
             grid-row: 2 / 3;
             grid-column: 1 / 2;
-            height: 50vh; /* Takes up half the viewport height */
         }
 
         .bottom-right {
             grid-row: 2 / 3;
             grid-column: 2 / 3;
-            height: 50vh; /* Takes up half the viewport height */
         }
 
         .cs-photo {
@@ -82,7 +84,7 @@
 
         .link {
             position: absolute;
-            top: 10px; /* Adjust position of text over image */
+            top: 10px;
             left: 10px;
             color: white;
             background-color: black;
@@ -93,8 +95,9 @@
             .scroll-content {
                 height: 400vh; /* Adjust height for mobile layout */
             }
+
             .top-left, .top-right, .bottom-left, .bottom-right {
-                height: 50vh; /* Adjust for mobile layout */
+                height: 50vh; /* Ensure proper mobile layout */
             }
         }
     </style>
