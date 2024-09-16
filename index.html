@@ -23,10 +23,13 @@
             width: 100vw;
             height: 100vh;
             background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .main-content img {
-            width: calc(100% - 300px); /* 150px black borders on each side */
+            width: calc(100% - 300px); /* Black borders on each side */
             height: 100%;
             object-fit: cover;
         }
@@ -39,19 +42,25 @@
             color: white;
             font-size: 2rem;
             text-align: center;
+            z-index: 1;
         }
 
+        /* Scrollable Content Style */
         .scroll-content {
-            position: relative;
+            display: grid;
+            grid-template-rows: repeat(2, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+            width: 100vw;
             height: 200vh; /* Make space for scrolling */
-            background-color: white;
-            padding: 10px;
+            gap: 5px; /* Gap between sections */
+            border: 5px solid black; /* Border around sections */
         }
 
         .section {
             display: flex;
-            flex-direction: row;
-            height: 50vh; /* Half of the viewport height */
+            justify-content: center;
+            align-items: center;
+            background-color: white;
         }
 
         .section img {
@@ -61,41 +70,22 @@
             border: 5px solid white;
         }
 
-        .section .text-container {
-            padding: 20px;
-            font-size: 1.2rem;
-            color: #333;
-            text-align: justify;
+        .section a {
+            text-decoration: none;
+            color: black;
+            font-size: 1.5rem;
+            text-align: center;
         }
 
-        .section-cameron {
-            display: flex;
-            flex-direction: row-reverse;
-            height: 50vh;
-        }
-
-        .section-cameron img {
-            border: 5px solid white;
-        }
-
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
-            .main-content img {
-                width: 100%;
-            }
-
             .scroll-content {
-                padding: 0;
+                grid-template-rows: repeat(4, 1fr);
+                grid-template-columns: 1fr;
             }
 
-            .section, .section-cameron {
-                flex-direction: column;
+            .section {
                 height: 50vh; /* Half of the viewport height */
-            }
-
-            .section .text-container, .section-cameron .text-container-cameron {
-                padding: 15px;
-                text-align: center;
-                font-size: 1rem;
             }
         }
     </style>
@@ -110,34 +100,24 @@
 
     <!-- Scrollable Content -->
     <div class="scroll-content">
-        <!-- Bailee Section -->
+        <!-- Top Left: Computer Science Page -->
         <div class="section">
-            <img src="BPhoto.png" alt="Bailee's Photo">
-            <div class="text-container">
-                <p>
-                    My best friend Bailee, in your eyes, I can see my future with you in it. 
-                    With us seeing the world and doing so many more things. 
-                    Your smile brings warmth throughout my body, and I can feel a sense of love. 
-                    Everytime you smile it just makes me smile even bigger to see my favorite person so happy. 
-                    You give the best hugs to anyone I've met. Your hugs are so warm and comforting and just hearing your voice soothes me. 
-                    Always remember that I will be with you through all your ups and downs, whether you want a hug or a shoulder to cry on to feel some support, 
-                    I will always be there for you and I always want to be.
-                </p>
-            </div>
+            <a href="computer_science.html">
+                <img src="CSPhoto.png" alt="Computer Science Photo">
+                <div>Computer Science Page</div>
+            </a>
         </div>
-
-        <!-- Cameron Section -->
-        <div class="section-cameron">
-            <div class="text-container-cameron">
-                <p>
-                    My best man, Cameron. You have always been there for me during my ups and downs and I want to be there for yours. 
-                    I appreciate you being my first friend during my move to my new school and for that you will always have a special place in my heart. 
-                    If you would take them I would give you so many hugs to show you how grateful I am to have a friend like you in my life. 
-                    Hopefully throughout life's challenges, we can have a little fun, maybe get the cops called on us once or twice without getting arrested. 
-                    I will still continue to convince you to let me speak at your future wedding.
-                </p>
-            </div>
-            <img src="CPhoto.png" alt="Cameron's Photo">
+        <!-- Top Right: Empty for Future Content -->
+        <div class="section">
+            <!-- Future content can be added here -->
+        </div>
+        <!-- Bottom Left: Friends Page -->
+        <div class="section">
+            <a href="friends.html">Friends</a>
+        </div>
+        <!-- Bottom Right: Empty for Future Content -->
+        <div class="section">
+            <!-- Future content can be added here -->
         </div>
     </div>
 
