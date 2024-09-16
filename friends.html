@@ -16,8 +16,6 @@
             font-family: Arial, sans-serif;
             background-color: #f0f8ff;
             height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         /* Container for the image and text */
@@ -27,42 +25,49 @@
             height: 100%;
         }
 
-        /* Image styling for top-left with white border */
+        /* Image styling */
         .image-container {
             position: absolute;
-            top: 20px; /* Adjusts distance from the top */
-            left: 20px; /* Adjusts distance from the left */
-            width: 25%; /* Takes up the top left fourth of the screen */
+            top: 0;
+            left: 0;
+            width: 50%; /* Takes up the left half of the screen */
+            height: 50%; /* Takes up the top half of the screen */
             border: 5px solid white; /* White border around the image */
         }
 
         .image-container img {
             width: 100%;
-            height: auto;
-            object-fit: cover;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the container */
         }
 
-        /* Text styling for bottom-left under the image */
+        /* Text styling for bottom left under the image */
         .text-container {
             position: absolute;
-            left: 20px;
-            bottom: 20px; /* Aligns text at the bottom left under the image */
-            width: 25%;
-            padding-top: 10px;
+            left: 0;
+            bottom: 20px; /* Aligns text at the bottom left */
+            width: 50%;
             font-size: 1.5rem;
             color: #333;
             text-align: left;
+            padding-left: 20px;
         }
 
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .image-container {
-                width: 50%; /* Adjusts the image size for smaller screens */
+                width: 100%; /* Full width on mobile */
+                height: 50%; /* Takes up top half of screen on mobile */
             }
 
             .text-container {
-                width: 50%; /* Adjusts the text width to match the image on mobile */
+                width: 100%; /* Full width for text on mobile */
+                height: 50%; /* Takes up bottom half of screen on mobile */
                 font-size: 1.2rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
             }
         }
     </style>
@@ -71,7 +76,7 @@
 
     <!-- Container for the image and text -->
     <div class="container">
-        <!-- Image in top-left with white border -->
+        <!-- Image taking up the top left quarter of the screen -->
         <div class="image-container">
             <img src="BPhoto.png" alt="Bailee's Photo">
         </div>
