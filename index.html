@@ -13,36 +13,29 @@
             overflow-x: hidden; /* Prevent horizontal overflow */
         }
 
-        .myphoto-wrapper {
-            position: relative;
+        .title-section, .squares-section {
             width: 100vw;
             height: 100vh;
+            position: relative;
             overflow: hidden;
-            opacity: 1;
             transition: opacity 0.5s ease; /* Smooth fade effect */
         }
 
-        .myphoto {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            background-color: black; /* Dark background overlay */
-            z-index: -1;
+        .title-section {
+            background: url('DataPhoto.png') no-repeat center center;
+            background-size: cover;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
         }
 
         .title {
-            position: absolute;
-            top: 25%; /* Higher position */
-            left: 50%;
-            transform: translate(-50%, -50%);
             color: transparent;
             font-size: 6em; /* Bigger bubble letters */
             font-weight: bold;
             text-align: center;
-            z-index: 1;
             background: url('DataPhoto.png') no-repeat center center;
             background-size: cover;
             -webkit-background-clip: text;
@@ -55,7 +48,8 @@
                 1px 1px 0 #fff; /* White outline */
         }
 
-        .squares-container {
+        .squares-section {
+            background-color: white;
             display: grid;
             grid-template-areas: 
                 "top-left top-right"
@@ -64,8 +58,8 @@
             grid-template-columns: 1fr 1fr;
             gap: 0; /* Remove gap */
             padding: 0;
-            height: 100vh;
             box-sizing: border-box;
+            opacity: 0; /* Start as hidden */
         }
 
         .square {
@@ -121,13 +115,8 @@
         }
 
         @media (max-width: 768px) {
-            .myphoto-wrapper {
+            .title-section {
                 height: 100vh;
-            }
-
-            .myphoto {
-                height: 100%;
-                background-color: black;
             }
 
             .title {
@@ -135,9 +124,10 @@
                 padding: 0 10px; /* Adjust padding for mobile */
             }
 
-            .squares-container {
+            .squares-section {
                 display: block;
                 height: auto;
+                opacity: 1; /* Ensure it's visible on mobile */
             }
 
             .square {
@@ -153,11 +143,10 @@
     </style>
 </head>
 <body>
-    <div class="myphoto-wrapper">
-        <img src="DataPhoto.png" alt="Data Photo" class="myphoto">
+    <div class="title-section">
         <h1 class="title">Dakota's Digital Adventure</h1>
     </div>
-    <div class="squares-container">
+    <div class="squares-section">
         <div class="square top-left">
             <a href="Computer_Science.html" style="display: block; width: 100%; height: 100%; background: url('CSPhoto.png') no-repeat center center; background-size: cover;">
                 <div class="text">Computer Science Link</div>
@@ -176,16 +165,16 @@
 
     <script>
         window.addEventListener('scroll', function() {
-            const myphotoWrapper = document.querySelector('.myphoto-wrapper');
-            const squares = document.querySelectorAll('.square');
+            const titleSection = document.querySelector('.title-section');
+            const squaresSection = document.querySelector('.squares-section');
             const scrollY = window.scrollY;
-            
+
             // Adjust opacity based on scroll position
-            const opacity = 1 - (scrollY / 1000); // Adjust divisor for sensitivity
-            myphotoWrapper.style.opacity = opacity >= 0 ? opacity : 0;
-            squares.forEach(square => {
-                square.style.opacity = opacity >= 0 ? opacity : 0;
-            });
+            const titleOpacity = Math.max(1 - (scrollY / 500), 0); // Fade out title
+            const squaresOpacity = Math.min(scrollY / 500, 1); // Fade in squares
+
+            titleSection.style.opacity = titleOpacity;
+            squaresSection.style.opacity = squaresOpacity;
         });
     </script>
 </body>
