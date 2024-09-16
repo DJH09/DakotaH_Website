@@ -15,32 +15,32 @@
         .container {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
             padding: 20px;
-        }
-
-        .friend {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
             box-sizing: border-box;
         }
 
-        .friend img {
-            max-width: 150px;
-            border-radius: 10px;
+        .photo-container {
+            width: 50%;
+            padding: 10px;
+            box-sizing: border-box;
         }
 
-        .friend-text {
-            max-width: 600px;
+        .photo {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        .text-container {
+            width: 50%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .text {
             font-size: 1.2em;
-            line-height: 1.5;
-            text-align: left;
-        }
-
-        .friend:nth-child(even) {
-            flex-direction: row-reverse;
+            line-height: 1.6;
         }
 
         @media (max-width: 768px) {
@@ -48,38 +48,51 @@
                 flex-direction: column;
             }
 
-            .friend {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
+            .photo-container, .text-container {
+                width: 100%;
             }
 
-            .friend img {
-                max-width: 100%;
-                height: auto;
+            .photo {
+                max-height: 300px;
+            }
+
+            .text {
+                font-size: 1em;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="friend">
-            <img src="BPhoto.png" alt="Bailee">
-            <div class="friend-text">
-                <p>My best friend Bailee, in your eyes, I can see my future with you in it. With us seeing the world and doing so many more things. Your smile brings warmth throughout my body, and I can feel a sense of love. Everytime you smile it just makes me smile even bigger to see my favorite person so happy. You give the best hugs to anyone I've met. Your hugs are so warm and comforting and just hearing your voice soothes me. Always remember that I will be with you through all your ups and downs, whether you want a hug or a shoulder to cry on to feel some support, I will always be there for you and I always want to be.</p>
-            </div>
+        <div class="photo-container">
+            <img src="BPhoto.png" alt="Bailee" class="photo">
         </div>
-        <div class="friend">
-            <img src="CPhoto.png" alt="Cameron">
-            <div class="friend-text">
-                <p>My best man, Cameron. You have always been there for me during my ups and downs and I want to be there for yours. I appreciate you being my first friend during my move to my new school and for that you will always have a special place in my heart. If you would take them I would give you so many hugs to show you how grateful I am to have a friend like you in my life. Hopefully throughout life's challenges, we can have a little fun, maybe get the cops called on us once or twice without getting arrested. I will still continue to convince you to let me speak at your future wedding.</p>
-            </div>
+        <div class="text-container">
+            <p class="text">
+                My best friend Bailee, in your eyes, I can see my future with you in it. With us seeing the world and doing so many more things. Your smile brings warmth throughout my body, and I can feel a sense of love. Everytime you smile it just makes me smile even bigger to see my favorite person so happy. You give the best hugs to anyone I've met. Your hugs are so warm and comforting and just hearing your voice soothes me. Always remember that I will be with you through all your ups and downs, whether you want a hug or a shoulder to cry on to feel some support, I will always be there for you and I always want to be.
+            </p>
         </div>
-        <div class="friend">
-            <img src="SPhoto.png" alt="Samantha">
-            <div class="friend-text">
-                <p>This is Samantha</p>
-            </div>
+    </div>
+
+    <div class="container">
+        <div class="photo-container">
+            <img src="CPhoto.png" alt="Cameron" class="photo">
+        </div>
+        <div class="text-container">
+            <p class="text">
+                My best man, Cameron. You have always been there for me during my ups and downs and I want to be there for yours. I appreciate you being my first friend during my move to my new school and for that you will always have a special place in my heart. If you would take them I would give you so many hugs to show you how grateful I am to have a friend like you in my life. Hopefully throughout life's challenges, we can have a little fun, maybe get the cops called on us once or twice without getting arrested. I will still continue to convince you to let me speak at your future wedding.
+            </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="photo-container">
+            <img src="SPhoto.png" alt="Samantha" class="photo">
+        </div>
+        <div class="text-container">
+            <p class="text">
+                This is Samantha.
+            </p>
         </div>
     </div>
 </body>
