@@ -54,6 +54,22 @@
             transform: translateY(-50%);
         }
 
+        .arrow {
+            border: solid black;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .arrow.left {
+            transform: rotate(-135deg);
+        }
+
+        .arrow.right {
+            transform: rotate(45deg);
+        }
+
         .back-button {
             position: absolute;
             top: 20px;
@@ -63,6 +79,9 @@
             font-size: 1.5em;
             display: flex;
             align-items: center;
+            background-color: black; /* Black background for button */
+            padding: 10px;
+            border-radius: 5px;
         }
 
         .back-button span {
@@ -70,28 +89,24 @@
             font-size: 1em;
         }
 
-        .arrow {
-            border: solid white;
-            border-width: 0 3px 3px 0;
-            display: inline-block;
-            padding: 5px;
-            transform: rotate(135deg);
+        .back-button:hover {
+            background-color: darkgray; /* Change color on hover */
         }
     </style>
 </head>
-    <div class="overlay">
-        <!-- Back Button -->
-        <a href="javascript:history.back()" class="back-button">
-            <i class="arrow"></i> 
-            <span>Back</span>
-        </a>
+<body>
+    <!-- Back Button -->
+    <a href="index.html" class="back-button">
+        <span>&lt;</span> 
+        <span>Back</span>
+    </a>
     <div class="container">
         <div class="yellow-box">
             <div class="title" id="title">Education</div>
             <div class="text-content" id="text-content">I went to high school at Nevada High School and had an average G.P.A of a 3.5.</div>
             <div class="arrows">
-                <button class="arrow" id="left-arrow">&lt;</button>
-                <button class="arrow" id="right-arrow">&gt;</button>
+                <div class="arrow left" id="left-arrow"></div>
+                <div class="arrow right" id="right-arrow"></div>
             </div>
         </div>
     </div>
