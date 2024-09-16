@@ -10,42 +10,52 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
+            height: 100%;
+            background-color: black; /* Black background covering the image */
         }
 
-        .myphoto-wrapper {
+        .container {
             position: relative;
             width: 100vw;
             height: 100vh;
-            background-color: black; /* Black background to create the border effect */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
             overflow: hidden;
         }
 
-        .myphoto {
+        .container::before {
+            content: '';
             position: absolute;
             top: 0;
-            left: 150px; /* Width of left border */
-            width: calc(100% - 300px); /* Total width minus both borders */
+            left: 0;
+            width: 100%;
             height: 100%;
-            object-fit: cover;
-            border-left: 150px solid black;
-            border-right: 150px solid black;
-            box-sizing: border-box;
+            background-image: url('DataPhoto.png'); /* DataPhoto as background */
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3; /* Darken the image with a black background */
         }
 
         .title {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 2em;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
+            position: relative;
+            font-size: 8vw; /* Responsive text size */
+            font-weight: bold;
+            text-transform: uppercase;
+            background: url('DataPhoto.png'); /* DataPhoto inside bubble letters */
+            background-size: cover;
+            background-position: center;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.2em;
             z-index: 1;
+            text-align: center;
+            line-height: 1.2;
         }
 
+        /* Squares layout for desktop */
         .squares-container {
             display: grid;
             grid-template-areas: 
@@ -53,17 +63,18 @@
                 "bottom-left bottom-right";
             grid-template-rows: 1fr 1fr;
             grid-template-columns: 1fr 1fr;
-            gap: 0; /* Remove gap */
+            gap: 0;
             padding: 0;
             height: 100vh;
             box-sizing: border-box;
+            position: relative;
+            z-index: 2; /* Keep squares above the background */
         }
 
         .square {
             border: 1px solid black;
             background-color: white;
             box-sizing: border-box;
-            position: relative; /* Ensure that absolute positioning of text works */
         }
 
         .top-left {
@@ -71,25 +82,16 @@
             position: relative;
         }
 
-        .top-left a {
-            display: block;
-            width: 100%;
-            height: 100%;
-            background: url('CSPhoto.png') no-repeat center center;
-            background-size: cover;
-            text-decoration: none; /* Remove underline from link */
-        }
-
         .top-left .text {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             color: black;
-            background: rgba(255, 255, 255, 0.8); /* Light background for readability */
+            background: rgba(255, 255, 255, 0.8);
             padding: 10px;
             box-sizing: border-box;
-            text-align: center;
         }
 
         .bottom-left {
@@ -106,38 +108,32 @@
 
         /* Adjustments for mobile */
         @media (max-width: 768px) {
-            .myphoto {
-                left: 0; /* Remove left border on mobile */
-                width: 100%; /* Full width on mobile */
-                border-left: 37.5px solid black; /* Half of 75px */
-                border-right: 37.5px solid black; /* Half of 75px */
-            }
-
             .title {
-                font-size: 1.5em;
-                padding: 5px;
+                font-size: 12vw; /* Adjust font size for mobile */
             }
 
             .squares-container {
                 display: block;
-                height: auto; /* Allow container height to grow as needed */
+                height: auto;
             }
 
             .square {
                 width: 100%;
-                height: 50vh; /* Height adjusted for mobile */
+                height: 50vh; /* Adjust height for mobile */
             }
         }
     </style>
 </head>
 <body>
-    <div class="myphoto-wrapper">
-        <img src="MyPhoto.png" alt="My Photo" class="myphoto">
-        <h1 class="title">Dakota's Digital Adventure</h1>
+    <!-- Title with bubble letters showing DataPhoto -->
+    <div class="container">
+        <h1 class="title">Dakota's<br>Digital<br>Adventure</h1>
     </div>
+
+    <!-- Squares layout below the title -->
     <div class="squares-container">
         <div class="square top-left">
-            <a href="Computer_Science.html">
+            <a href="computer-science.html" style="display: block; width: 100%; height: 100%; background: url('CSPhoto.png') no-repeat center center; background-size: cover;">
                 <div class="text">Computer Science Link</div>
             </a>
         </div>
