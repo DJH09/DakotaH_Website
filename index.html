@@ -49,7 +49,7 @@
         .scroll-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            grid-template-rows: repeat(2, 1fr); /* Ensure there are 2 rows */
+            grid-template-rows: 1fr 1fr;
             gap: 0; /* Ensure no gap between squares */
             margin-top: 0; /* No margin at the top */
             height: 200vh; /* Ensure enough space to scroll */
@@ -78,13 +78,11 @@
         .bottom-left {
             grid-row: 2 / 3;
             grid-column: 1 / 2;
-            margin-top: -50px; /* Remove the gap between top and bottom sections */
         }
 
         .bottom-right {
             grid-row: 2 / 3;
             grid-column: 2 / 3;
-            margin-top: -50px; /* Remove the gap between top and bottom sections */
         }
 
         .cs-photo {
