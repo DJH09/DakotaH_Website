@@ -10,94 +10,100 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            height: 100%;
-            background-color: white;
-        }
-
-        .back-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 1.2em;
+            background-color: black; /* Dark background */
             color: white;
-            text-decoration: none;
-            background-color: black;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
+            height: 100%;
+            overflow: hidden;
         }
 
-        .back-button::before {
-            content: '<';
-            margin-right: 5px;
-        }
-
-        .content {
+        .container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-        }
-
-        .box {
-            width: 80%;
-            max-width: 600px;
-            padding: 20px;
-            background-color: yellow;
-            border: 1px solid black;
-            position: relative;
+            height: 100vh; /* Full viewport height */
             text-align: center;
         }
 
-        .box-title {
-            font-weight: bold;
+        .yellow-box {
+            background-color: yellow;
+            padding: 20px;
+            width: 600px; /* Fixed width for box */
+            height: 400px; /* Increased height for box */
+            position: relative;
+            border: 2px solid black; /* Black border around box */
+        }
+
+        .title {
+            font-size: 1.5em;
             margin-bottom: 10px;
         }
 
-        .arrow {
+        .text-content {
+            margin: 0;
+        }
+
+        .arrows {
             position: absolute;
             top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
             transform: translateY(-50%);
-            font-size: 1.5em;
+        }
+
+        .arrow {
+            background: black;
+            color: white;
+            border: none;
+            padding: 10px;
             cursor: pointer;
-            color: black;
+            font-size: 1.5em;
         }
 
-        .arrow.left {
-            left: 10px;
-        }
-
-        .arrow.right {
-            right: 10px;
-        }
-
-        .hidden {
-            display: none;
+        .arrow:focus {
+            outline: none;
         }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-button">Back</a>
-    <div class="content">
-        <div class="box">
-            <div id="text1">
-                <div class="box-title">Education</div>
-                I went to high school at Nevada High School and had an average G.P.A of a 3.5.
+    <div class="container">
+        <div class="yellow-box">
+            <div class="title" id="title">Education</div>
+            <div class="text-content" id="text-content">I went to high school at Nevada High School and had an average G.P.A of a 3.5.</div>
+            <div class="arrows">
+                <button class="arrow" id="left-arrow">&lt;</button>
+                <button class="arrow" id="right-arrow">&gt;</button>
             </div>
-            <div id="text2" class="hidden">
-                Hello world
-            </div>
-            <span class="arrow left" onclick="showText('text1')">&#9664;</span>
-            <span class="arrow right" onclick="showText('text2')">&#9654;</span>
         </div>
     </div>
+
     <script>
-        function showText(id) {
-            document.getElementById('text1').classList.add('hidden');
-            document.getElementById('text2').classList.add('hidden');
-            document.getElementById(id).classList.remove('hidden');
+        const leftArrow = document.getElementById('left-arrow');
+        const rightArrow = document.getElementById('right-arrow');
+        const title = document.getElementById('title');
+        const textContent = document.getElementById('text-content');
+
+        const texts = [
+            { title: 'Education', text: 'I went to high school at Nevada High School and had an average G.P.A of a 3.5.' },
+            { title: '', text: 'Hello world' }
+        ];
+
+        let currentIndex = 0;
+
+        function updateContent() {
+            title.textContent = texts[currentIndex].title;
+            textContent.textContent = texts[currentIndex].text;
         }
+
+        leftArrow.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + texts.length) % texts.length;
+            updateContent();
+        });
+
+        rightArrow.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % texts.length;
+            updateContent();
+        });
     </script>
 </body>
 </html>
