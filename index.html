@@ -51,7 +51,7 @@
             grid-template-rows: repeat(2, 1fr);
             grid-template-columns: repeat(2, 1fr);
             width: 100vw;
-            height: 200vh; /* Make space for scrolling */
+            height: 100vh; /* Ensure all sections are visible on scroll */
             gap: 0; /* No gap between sections */
             border: 5px solid black; /* Border around sections */
             position: relative;
@@ -61,8 +61,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: white;
             border: 5px solid black; /* Black border around each square */
+            position: relative;
         }
 
         .section img {
@@ -85,17 +85,6 @@
             border-radius: 5px;
         }
 
-        .section-text {
-            position: absolute;
-            bottom: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.7); /* Semi-transparent background for text */
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-        }
-
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .scroll-content {
@@ -107,8 +96,8 @@
                 height: 50vh; /* Half of the viewport height */
             }
 
-            .section-text {
-                bottom: 0;
+            .section a {
+                bottom: 10%;
                 top: auto;
             }
         }
@@ -126,7 +115,7 @@
     <div class="scroll-content">
         <!-- Top Left: Computer Science Page -->
         <div class="section">
-            <a href="computer_science.html" class="section-text">
+            <a href="computer_science.html">
                 Computer Science Page
             </a>
             <img src="CSPhoto.png" alt="Computer Science Photo">
@@ -137,7 +126,7 @@
         </div>
         <!-- Bottom Left: Friends Page -->
         <div class="section">
-            <a href="friends.html" class="section-text">Friends</a>
+            <a href="friends.html">Friends</a>
         </div>
         <!-- Bottom Right: Empty for Future Content -->
         <div class="section">
