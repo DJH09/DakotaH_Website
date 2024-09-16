@@ -28,6 +28,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column; /* Stack elements vertically */
             opacity: 1;
         }
 
@@ -46,6 +47,24 @@
                 1px -1px 0 #fff,
                 -1px 1px 0 #fff,
                 1px 1px 0 #fff; /* White outline */
+        }
+
+        .about-me {
+            margin-top: 20px; /* Space between title and rectangle */
+            background-color: white;
+            border: 2px solid black;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 1.5em;
+            cursor: pointer;
+            text-decoration: none;
+            color: black;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .about-me:hover {
+            background-color: black;
+            color: white;
         }
 
         .squares-section {
@@ -145,6 +164,7 @@
 <body>
     <div class="title-section">
         <h1 class="title">Dakota's Digital Adventure</h1>
+        <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
     </div>
     <div class="squares-section">
         <div class="square top-left">
