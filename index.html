@@ -14,9 +14,10 @@
 
         .myphoto-wrapper {
             position: relative;
-            width: 100%;
-            height: 400px; /* Adjust height as needed */
+            width: 100vw; /* Full viewport width */
+            height: 100vh; /* Full viewport height */
             background-color: black; /* Black background to create the border effect */
+            overflow: hidden; /* Ensure no overflow */
         }
 
         .myphoto {
@@ -64,7 +65,7 @@
 
         @media (max-width: 768px) {
             .myphoto-wrapper {
-                height: 250px; /* Adjust height for mobile */
+                height: 100vh; /* Full viewport height for mobile */
             }
 
             .myphoto {
