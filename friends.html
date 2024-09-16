@@ -37,11 +37,16 @@
             flex: 1;
             box-sizing: border-box;
             padding: 10px;
+            display: flex;
+            align-items: center; /* Center text vertically */
+            justify-content: center; /* Center text horizontally */
         }
 
         .text {
             font-size: 1.2em;
             line-height: 1.6;
+            text-align: center; /* Center text horizontally */
+            max-width: 90%; /* Ensure text doesn't overflow */
         }
 
         @media (max-width: 768px) {
