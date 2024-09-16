@@ -10,52 +10,44 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            height: 100%;
-            background-color: black; /* Black background covering the image */
         }
 
-        .container {
+        /* Title Section */
+        .title-section {
             position: relative;
             width: 100vw;
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: black;
-            overflow: hidden;
+            background: url('DataPhoto.png') no-repeat center center;
+            background-size: cover;
         }
 
-        .container::before {
-            content: '';
+        .dark-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('DataPhoto.png'); /* DataPhoto as background */
-            background-size: cover;
-            background-position: center;
-            opacity: 0.3; /* Darken the image with a black background */
+            background-color: rgba(0, 0, 139, 0.9); /* Dark blue overlay */
         }
 
-        .title {
-            position: relative;
-            font-size: 8vw; /* Responsive text size */
-            font-weight: bold;
-            text-transform: uppercase;
-            background: url('DataPhoto.png'); /* DataPhoto inside bubble letters */
-            background-size: cover;
-            background-position: center;
-            -webkit-background-clip: text;
+        .bubble-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5vw; /* Adjust the size of the bubble text */
             color: transparent;
-            text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-            letter-spacing: 0.2em;
-            z-index: 1;
+            -webkit-text-stroke: 2px white;
             text-align: center;
-            line-height: 1.2;
         }
 
-        /* Squares layout for desktop */
+        .bubble-text span {
+            background: url('DataPhoto.png') no-repeat center center;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        /* Main Content - Squares Section */
         .squares-container {
             display: grid;
             grid-template-areas: 
@@ -63,12 +55,10 @@
                 "bottom-left bottom-right";
             grid-template-rows: 1fr 1fr;
             grid-template-columns: 1fr 1fr;
-            gap: 0;
-            padding: 0;
+            gap: 10px;
+            padding: 10px;
             height: 100vh;
             box-sizing: border-box;
-            position: relative;
-            z-index: 2; /* Keep squares above the background */
         }
 
         .square {
@@ -80,38 +70,39 @@
         .top-left {
             grid-area: top-left;
             position: relative;
+            background: url('CSPhoto.png') no-repeat center center;
+            background-size: cover;
         }
 
-        .top-left .text {
+        .top-left a {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            color: black;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 10px;
-            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay on image */
+            text-decoration: none;
         }
 
         .bottom-left {
             grid-area: bottom-left;
         }
 
-        .bottom-right {
-            grid-area: bottom-right;
-        }
-
         .top-right {
             grid-area: top-right;
         }
 
+        .bottom-right {
+            grid-area: bottom-right;
+        }
+
         /* Adjustments for mobile */
         @media (max-width: 768px) {
-            .title {
-                font-size: 12vw; /* Adjust font size for mobile */
-            }
-
             .squares-container {
                 display: block;
                 height: auto;
@@ -119,34 +110,36 @@
 
             .square {
                 width: 100%;
-                height: 50vh; /* Adjust height for mobile */
+                height: 50vh; /* Height adjusted for mobile */
+                margin-bottom: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Title with bubble letters showing DataPhoto -->
-    <div class="container">
-        <h1 class="title">Dakota's<br>Digital<br>Adventure</h1>
+    <!-- Title Section with Dark Blue Overlay and Bubble Letters -->
+    <div class="title-section">
+        <div class="dark-overlay"></div>
+        <h1 class="bubble-text">
+            <span>Dakota's</span><br>
+            <span>Digital</span><br>
+            <span>Adventure</span>
+        </h1>
     </div>
 
-    <!-- Squares layout below the title -->
+    <!-- Main Squares Content -->
     <div class="squares-container">
         <div class="square top-left">
-            <a href="Computer_Science.html" style="display: block; width: 100%; height: 100%; background: url('CSPhoto.png') no-repeat center center; background-size: cover;">
-                <div class="text">Computer Science Link</div>
-            </a>
+            <a href="computer_science.html">Computer_Science</a>
         </div>
         <div class="square top-right">
-            <!-- Content for top-right -->
+            <!-- Placeholder for future content -->
         </div>
         <div class="square bottom-left">
-            <a href="friends.html" style="display: block; width: 100%; height: 100%; background: white; color: black; text-align: center; line-height: 50vh;">
-                Friends
-            </a>
+            <a href="friends.html">Friends</a>
         </div>
         <div class="square bottom-right">
-            <!-- Content for bottom-right -->
+            <!-- Placeholder for future content -->
         </div>
     </div>
 </body>
