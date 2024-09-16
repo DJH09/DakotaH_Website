@@ -20,26 +20,34 @@
 
         .content {
             position: relative;
-            width: 80%;
-            max-width: 600px;
-            height: 300px;
+            width: 90%; /* Wider box */
+            max-width: 800px; /* Increase max-width */
+            height: 350px;
             background-color: yellow;
             border-radius: 10px;
             padding: 20px;
             box-sizing: border-box;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             text-align: center;
             font-size: 1.2em;
             color: black;
         }
 
+        .title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+
         .text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
         }
 
         .arrow {
@@ -84,6 +92,7 @@
         &#8592; Back
     </a>
     <div class="content">
+        <div class="title">Education</div>
         <div class="text" id="boxText">I went to high school at Nevada High School and had an average G.P.A of a 3.5.</div>
         <div class="arrow left" onclick="prevText()">&#9664;</div>
         <div class="arrow right" onclick="nextText()">&#9654;</div>
