@@ -48,6 +48,9 @@
             align-items: center;
             justify-content: center;
             margin: 0;
+            width: 100%; /* Adjust text width */
+            box-sizing: border-box;
+            padding: 0 20px; /* Add padding to avoid overlap with arrows */
         }
 
         .arrow {
@@ -92,7 +95,6 @@
         &#8592; Back
     </a>
     <div class="content">
-        <div class="title">Education</div>
         <div class="text" id="boxText">I went to high school at Nevada High School and had an average G.P.A of a 3.5.</div>
         <div class="arrow left" onclick="prevText()">&#9664;</div>
         <div class="arrow right" onclick="nextText()">&#9654;</div>
