@@ -10,11 +10,15 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
+            background: url('CSPhoto.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white; /* Ensure text is visible on the image */
         }
 
-        .container {
-            width: 100%;
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay to enhance readability */
             padding: 20px;
+            min-height: 100vh;
         }
 
         h1 {
@@ -36,7 +40,7 @@
 
         .square {
             width: 22%;
-            padding-bottom: 22%; /* This creates square dimensions */
+            padding-bottom: 22%; /* Square dimensions */
             background-color: white;
             border: 1px solid black;
         }
@@ -50,6 +54,7 @@
             margin: 0 auto;
             font-size: 1.2em;
             line-height: 1.6;
+            color: white;
         }
 
         @media (max-width: 768px) {
@@ -71,7 +76,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="overlay">
         <div class="projects-section">
             <h1>Projects</h1>
             <div class="squares-container">
