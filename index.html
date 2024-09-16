@@ -17,8 +17,15 @@
             text-align: center;
         }
 
+        .myphoto-wrapper {
+            position: relative;
+            width: 100%;
+            height: auto;
+            background-color: black; /* Black background to create the border effect */
+        }
+
         .myphoto {
-            width: calc(100% - 300px); /* 150px black border on each side */
+            width: calc(100% - 300px); /* Adjust to account for the black borders */
             margin: 0 auto;
             display: block;
             height: auto;
@@ -43,6 +50,8 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
+            gap: 0; /* Ensure no gap between squares */
+            margin-top: 0; /* No margin at the top */
             height: 200vh; /* Ensure enough space to scroll */
         }
 
@@ -104,8 +113,10 @@
 </head>
 <body>
     <div class="container">
-        <img src="MyPhoto.png" alt="My Photo" class="myphoto">
-        <h1 class="title">Dakota's Digital Adventure</h1>
+        <div class="myphoto-wrapper">
+            <img src="MyPhoto.png" alt="My Photo" class="myphoto">
+            <h1 class="title">Dakota's Digital Adventure</h1>
+        </div>
     </div>
     <div class="scroll-content">
         <div class="section top-left">
