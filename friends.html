@@ -16,24 +16,24 @@
             font-family: Arial, sans-serif;
             background-color: #f0f8ff;
             height: 100vh;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
         }
 
         /* Container for the image and text */
         .container {
             display: flex;
-            width: 100%;
+            flex-direction: row;
             height: 100%;
+            width: 100%;
         }
 
         /* Image container for desktop */
         .image-container {
-            width: 50%; /* Takes up the left half of the screen */
-            height: 100vh; /* Full vertical height of the screen */
+            width: 50%; /* Left half of the screen */
+            height: 100vh; /* Full vertical height */
             border: 5px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .image-container img {
@@ -42,9 +42,9 @@
             object-fit: cover;
         }
 
-        /* Text container on the right of the image */
+        /* Text container on the right for desktop */
         .text-container {
-            width: 50%; /* Takes up the right half of the screen */
+            width: 50%; /* Right half of the screen */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -54,18 +54,18 @@
 
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
-            body {
+            .container {
                 flex-direction: column;
             }
 
             .image-container {
-                width: 100%; /* Full width on mobile */
-                height: 50vh; /* Takes up top half of the screen */
+                width: 100%; /* Full width */
+                height: 50vh; /* Top half */
             }
 
             .text-container {
-                width: 100%; /* Full width for text on mobile */
-                height: 50vh; /* Takes up bottom half */
+                width: 100%; /* Full width */
+                height: 50vh; /* Bottom half */
                 font-size: 1.5rem;
                 text-align: center;
             }
@@ -81,7 +81,7 @@
             <img src="BPhoto.png" alt="Bailee's Photo">
         </div>
 
-        <!-- Text to the right of the image -->
+        <!-- Text on the right of the image on desktop -->
         <div class="text-container">
             <p>This is Bailee</p>
         </div>
@@ -89,3 +89,4 @@
 
 </body>
 </html>
+
