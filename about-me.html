@@ -10,57 +10,58 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            height: 100vh;
+            height: 100%;
+            background-color: white;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.2em;
+            color: white;
+            text-decoration: none;
+            background-color: black;
+            padding: 10px;
+            border-radius: 5px;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            background-color: black; /* Dark background */
+        }
+
+        .back-button::before {
+            content: '<';
+            margin-right: 5px;
         }
 
         .content {
-            position: relative;
-            width: 90%; /* Wider box */
-            max-width: 800px; /* Increase max-width */
-            height: 350px;
-            background-color: yellow;
-            border-radius: 10px;
-            padding: 20px;
-            box-sizing: border-box;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            font-size: 1.2em;
-            color: black;
-        }
-
-        .title {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .text {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            margin: 0;
-            width: 100%; /* Adjust text width */
-            box-sizing: border-box;
-            padding: 0 20px; /* Add padding to avoid overlap with arrows */
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: yellow;
+            border: 1px solid black;
+            position: relative;
+            text-align: center;
+        }
+
+        .box-title {
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
         .arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2em;
+            font-size: 1.5em;
             cursor: pointer;
             color: black;
-            user-select: none;
         }
 
         .arrow.left {
@@ -71,54 +72,31 @@
             right: 10px;
         }
 
-        .back-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: white;
-            font-size: 1.2em;
-            text-decoration: none;
-            border: 2px solid white;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .back-button:hover {
-            background-color: white;
-            color: black;
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-button">
-        &#8592; Back
-    </a>
+    <a href="index.html" class="back-button">Back</a>
     <div class="content">
-        <div class="text" id="boxText">I went to high school at Nevada High School and had an average G.P.A of a 3.5.</div>
-        <div class="arrow left" onclick="prevText()">&#9664;</div>
-        <div class="arrow right" onclick="nextText()">&#9654;</div>
+        <div class="box">
+            <div id="text1">
+                <div class="box-title">Education</div>
+                I went to high school at Nevada High School and had an average G.P.A of a 3.5.
+            </div>
+            <div id="text2" class="hidden">
+                Hello world
+            </div>
+            <span class="arrow left" onclick="showText('text1')">&#9664;</span>
+            <span class="arrow right" onclick="showText('text2')">&#9654;</span>
+        </div>
     </div>
-
     <script>
-        const texts = [
-            'I went to high school at Nevada High School and had an average G.P.A of a 3.5.',
-            'Hello world'
-        ];
-        let currentIndex = 0;
-
-        function updateText() {
-            document.getElementById('boxText').textContent = texts[currentIndex];
-        }
-
-        function prevText() {
-            currentIndex = (currentIndex - 1 + texts.length) % texts.length;
-            updateText();
-        }
-
-        function nextText() {
-            currentIndex = (currentIndex + 1) % texts.length;
-            updateText();
+        function showText(id) {
+            document.getElementById('text1').classList.add('hidden');
+            document.getElementById('text2').classList.add('hidden');
+            document.getElementById(id).classList.remove('hidden');
         }
     </script>
 </body>
