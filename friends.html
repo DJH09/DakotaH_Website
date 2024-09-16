@@ -25,13 +25,13 @@
             height: 100%;
         }
 
-        /* Image container */
+        /* Image container for desktop */
         .image-container {
             position: absolute;
             top: 0;
             left: 0;
-            width: 40vmin; /* Square size based on viewport */
-            height: 40vmin; /* Keeps the image square */
+            width: 40vmin; /* Square image */
+            height: 50vh;  /* Image takes up half the screen vertically */
             border: 5px solid white;
         }
 
@@ -41,11 +41,11 @@
             object-fit: cover;
         }
 
-        /* Text styling */
+        /* Text container below the image */
         .text-container {
             position: absolute;
             left: 0;
-            top: 40vmin; /* Places the text just below the image */
+            top: 50vh; /* Text starts halfway down the screen under the image */
             width: 40vmin;
             font-size: 1.5rem;
             color: #333;
@@ -57,16 +57,20 @@
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .image-container {
-                width: 80vmin; /* Makes the image larger but still square */
-                height: 80vmin;
+                width: 100%; /* Full width on mobile */
+                height: 50vh; /* Takes up top half of the screen */
             }
 
             .text-container {
-                top: 80vmin; /* Adjusts the text position below the image */
-                width: 80vmin;
+                top: 50vh; /* Takes up bottom half */
+                width: 100%;
                 font-size: 1.2rem;
                 padding-left: 10px;
                 padding-top: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
             }
         }
     </style>
@@ -77,7 +81,7 @@
     <div class="container">
         <!-- Square Image Container -->
         <div class="image-container">
-            <img src="BaileePhoto.png" alt="Bailee's Photo">
+            <img src="BPhoto.png" alt="Bailee's Photo">
         </div>
 
         <!-- Text below the image -->
