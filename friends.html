@@ -16,22 +16,23 @@
             font-family: Arial, sans-serif;
             background-color: #f0f8ff;
             height: 100vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
         }
 
         /* Container for the image and text */
         .container {
-            position: relative;
+            display: flex;
             width: 100%;
             height: 100%;
         }
 
         /* Image container for desktop */
         .image-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 40vmin; /* Square image */
-            height: 50vh;  /* Image takes up half the screen vertically */
+            width: 50%; /* Takes up the left half of the screen */
+            height: 100vh; /* Full vertical height of the screen */
             border: 5px solid white;
         }
 
@@ -41,35 +42,31 @@
             object-fit: cover;
         }
 
-        /* Text container below the image */
+        /* Text container on the right of the image */
         .text-container {
-            position: absolute;
-            left: 0;
-            top: 50vh; /* Text starts halfway down the screen under the image */
-            width: 40vmin;
-            font-size: 1.5rem;
+            width: 50%; /* Takes up the right half of the screen */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
             color: #333;
-            text-align: left;
-            padding-left: 20px;
-            padding-top: 10px;
         }
 
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
             .image-container {
                 width: 100%; /* Full width on mobile */
                 height: 50vh; /* Takes up top half of the screen */
             }
 
             .text-container {
-                top: 50vh; /* Takes up bottom half */
-                width: 100%;
-                font-size: 1.2rem;
-                padding-left: 10px;
-                padding-top: 5px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                width: 100%; /* Full width for text on mobile */
+                height: 50vh; /* Takes up bottom half */
+                font-size: 1.5rem;
                 text-align: center;
             }
         }
@@ -79,12 +76,12 @@
 
     <!-- Container for the image and text -->
     <div class="container">
-        <!-- Square Image Container -->
+        <!-- Image taking up the left half on desktop -->
         <div class="image-container">
             <img src="BPhoto.png" alt="Bailee's Photo">
         </div>
 
-        <!-- Text below the image -->
+        <!-- Text to the right of the image -->
         <div class="text-container">
             <p>This is Bailee</p>
         </div>
