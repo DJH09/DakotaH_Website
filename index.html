@@ -12,23 +12,20 @@
             font-family: Arial, sans-serif;
         }
 
-        .container {
-            position: relative;
-            text-align: center;
-        }
-
         .myphoto-wrapper {
             position: relative;
             width: 100%;
-            height: auto;
+            height: 400px; /* Adjust height as needed */
             background-color: black; /* Black background to create the border effect */
         }
 
         .myphoto {
-            width: calc(100% - 300px); /* Adjust to account for the black borders */
-            margin: 0 auto;
-            display: block;
-            height: auto;
+            position: absolute;
+            top: 0;
+            left: 150px; /* Width of left border */
+            width: calc(100% - 300px); /* Total width minus both borders */
+            height: 100%;
+            object-fit: cover; /* Ensure the image covers the entire area */
             border-left: 150px solid black;
             border-right: 150px solid black;
             box-sizing: border-box;
@@ -44,6 +41,7 @@
             background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
             padding: 10px;
             border-radius: 5px;
+            text-align: center;
         }
 
         .links {
@@ -65,8 +63,20 @@
         }
 
         @media (max-width: 768px) {
+            .myphoto-wrapper {
+                height: 250px; /* Adjust height for mobile */
+            }
+
+            .myphoto {
+                left: 0; /* Remove left border on mobile */
+                width: 100%; /* Full width on mobile */
+                border-left: 0; /* Remove left border */
+                border-right: 0; /* Remove right border */
+            }
+
             .title {
                 font-size: 1.5em;
+                padding: 5px;
             }
 
             .links a {
@@ -76,11 +86,9 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="myphoto-wrapper">
-            <img src="MyPhoto.png" alt="My Photo" class="myphoto">
-            <h1 class="title">Dakota's Digital Adventure</h1>
-        </div>
+    <div class="myphoto-wrapper">
+        <img src="MyPhoto.png" alt="My Photo" class="myphoto">
+        <h1 class="title">Dakota's Digital Adventure</h1>
     </div>
     <div class="links">
         <a href="computer-science.html">Computer Science</a>
