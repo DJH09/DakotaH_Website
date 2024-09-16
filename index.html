@@ -46,67 +46,31 @@
             border-radius: 5px;
         }
 
-        .scroll-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 0; /* Ensure no gap between squares */
-            margin-top: 0; /* No margin at the top */
-            height: 200vh; /* Ensure enough space to scroll */
+        .links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px; /* Space from the image */
         }
 
-        .section {
+        .links a {
+            text-decoration: none;
+            color: black;
+            background-color: white;
+            padding: 15px;
+            margin: 10px;
             border: 1px solid black;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .top-left, .top-right, .bottom-left, .bottom-right {
-            height: 50vh; /* Each section takes up half the viewport height */
-        }
-
-        .top-left {
-            grid-row: 1 / 2;
-            grid-column: 1 / 2;
-        }
-
-        .top-right {
-            grid-row: 1 / 2;
-            grid-column: 2 / 3;
-        }
-
-        .bottom-left {
-            grid-row: 2 / 3;
-            grid-column: 1 / 2;
-        }
-
-        .bottom-right {
-            grid-row: 2 / 3;
-            grid-column: 2 / 3;
-        }
-
-        .cs-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .link {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: white;
-            background-color: black;
-            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.2em;
         }
 
         @media (max-width: 768px) {
-            .scroll-content {
-                height: 400vh; /* Adjust height for mobile layout */
+            .title {
+                font-size: 1.5em;
             }
 
-            .top-left, .top-right, .bottom-left, .bottom-right {
-                height: 50vh; /* Ensure proper mobile layout */
+            .links a {
+                font-size: 1em;
             }
         }
     </style>
@@ -118,20 +82,9 @@
             <h1 class="title">Dakota's Digital Adventure</h1>
         </div>
     </div>
-    <div class="scroll-content">
-        <div class="section top-left">
-            <a href="computer-science.html" class="link">Computer Science</a>
-            <img src="CSPhoto.png" alt="Computer Science Photo" class="cs-photo">
-        </div>
-        <div class="section top-right">
-            <!-- Add any additional content here if needed -->
-        </div>
-        <div class="section bottom-left">
-            <a href="friends.html" class="link">Friends</a>
-        </div>
-        <div class="section bottom-right">
-            <!-- Add any additional content here if needed -->
-        </div>
+    <div class="links">
+        <a href="computer-science.html">Computer Science</a>
+        <a href="friends.html">Friends</a>
     </div>
 </body>
 </html>
