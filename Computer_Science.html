@@ -26,6 +26,30 @@
             margin-bottom: 30px;
         }
 
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-button span {
+            margin-left: 10px;
+            font-size: 1em;
+        }
+
+        .arrow {
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 5px;
+            transform: rotate(135deg);
+        }
+
         .projects-section, .knowledge-section {
             margin-bottom: 50px;
         }
@@ -72,11 +96,25 @@
                 font-size: 1em;
                 padding: 10px;
             }
+
+            .back-button {
+                font-size: 1.2em;
+            }
+
+            .back-button span {
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="overlay">
+        <!-- Back Button -->
+        <a href="javascript:history.back()" class="back-button">
+            <i class="arrow"></i> 
+            <span>Back</span>
+        </a>
+
         <div class="projects-section">
             <h1>Projects</h1>
             <div class="squares-container">
