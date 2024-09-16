@@ -5,124 +5,176 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dakota's Digital Adventure</title>
     <style>
-        body {
+        body, html {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
-        #main-image {
-            width: 100vw;
-            height: 100vh;
-            background: url('MyPhoto.png') no-repeat center center/cover;
+
+        .myphoto-wrapper {
             position: relative;
+            width: 100vw; /* Full viewport width */
+            height: 100vh; /* Full viewport height */
+            background-color: black; /* Black background to create the border effect */
+            overflow: hidden; /* Ensure no overflow */
+        }
+
+        .myphoto {
+            position: absolute;
+            top: 0;
+            left: 150px; /* Width of left border */
+            width: calc(100% - 300px); /* Total width minus both borders */
+            height: 100%;
+            object-fit: cover; /* Ensure the image covers the entire area */
+            border-left: 150px solid black;
+            border-right: 150px solid black;
             box-sizing: border-box;
         }
-        #main-image:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 150px;
-            height: 100%;
-            background: black;
-            z-index: -1;
-        }
-        #main-image:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 100%;
-            background: black;
-            z-index: -1;
-        }
-        #title {
+
+        .title {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             color: white;
-            font-size: 2rem;
+            font-size: 2em;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            padding: 10px;
+            border-radius: 5px;
             text-align: center;
-            z-index: 1;
         }
-        #content {
-            padding: 20px;
-        }
-        #top-left, #bottom-left, #top-right, #bottom-right {
-            border: 5px solid black;
-            box-sizing: border-box;
-            position: absolute;
-            width: 50vw;
-            height: 50vh;
-        }
-        #top-left {
-            top: 0;
-            left: 0;
-        }
-        #top-right {
-            top: 0;
-            left: 50vw;
-        }
-        #bottom-left {
-            top: 50vh;
-            left: 0;
-        }
-        #bottom-right {
-            top: 50vh;
-            left: 50vw;
-        }
-        #cs-link, #friends-link {
+
+        .links {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100%;
-            color: white;
+            margin-top: 50px; /* Space from the image */
+        }
+
+        .links a {
             text-decoration: none;
-            background: black;
-            font-size: 1.5rem;
+            color: black;
+            background-color: white;
+            padding: 15px;
+            margin: 10px;
+            border: 1px solid black;
+            border-radius: 5px;
+            font-size: 1.2em;
         }
-        #cs-link img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: none; /* Ensure image is not faded */
-        }
+
         @media (max-width: 768px) {
-            #main-image:before, #main-image:after {
-                width: 75px; /* Black borders half as wide on mobile */
+            .myphoto-wrapper {
+                height: 100vh; /* Full viewport height for mobile */
             }
-            #top-left, #bottom-left, #top-right, #bottom-right {
-                width: 100vw;
+
+            .myphoto {
+                left: 0; /* Remove left border on mobile */
+                width: 100%; /* Full width on mobile */
+                border-left: 75px solid black; /* Slightly larger border */
+                border-right: 75px solid black; /* Slightly larger border */
+            }
+
+            .title {
+                font-size: 1.5em;
+                padding: 5px;
+            }
+
+            .links a {
+                font-size: 1em;
+            }
+        }
+
+        .squares-container {
+            display: grid;
+            grid-template-areas: 
+                "top-left top-right"
+                "bottom-left bottom-right";
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .square {
+            border: 1px solid black;
+            background-color: white;
+            box-sizing: border-box;
+        }
+
+        .top-left {
+            grid-area: top-left;
+            background-image: url('CSPhoto.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .top-left .text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            color: black;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .bottom-left {
+            grid-area: bottom-left;
+        }
+
+        .bottom-right {
+            grid-area: bottom-right;
+        }
+
+        .top-right {
+            grid-area: top-right;
+        }
+
+        @media (max-width: 768px) {
+            .squares-container {
+                display: block;
+            }
+
+            .square {
+                height: 50vh;
+                margin-bottom: 10px;
+            }
+
+            .top-left, .bottom-left, .top-right, .bottom-right {
+                width: 100%;
                 height: 50vh;
             }
-            #top-right, #bottom-right {
-                display: none; /* Hide right squares on mobile */
-            }
-            #content {
-                display: block;
-                text-align: center;
+
+            .top-right {
+                margin-bottom: 0;
             }
         }
     </style>
 </head>
 <body>
-    <div id="main-image">
-        <div id="title">Dakota's Digital Adventure</div>
+    <div class="myphoto-wrapper">
+        <img src="MyPhoto.png" alt="My Photo" class="myphoto">
+        <h1 class="title">Dakota's Digital Adventure</h1>
     </div>
-    <div id="content">
-        <div id="top-left">
-            <a id="cs-link" href="computer-science.html">
-                <img src="CSPhoto.png" alt="Computer Science">
-                <div>Computer Science</div>
-            </a>
+    <div class="squares-container">
+        <div class="square top-left">
+            <div class="text">Computer Science Link</div>
         </div>
-        <div id="top-right"></div>
-        <div id="bottom-left">
-            <a id="friends-link" href="friends.html">Friends</a>
+        <div class="square top-right">
+            <!-- Content for top-right -->
         </div>
-        <div id="bottom-right"></div>
+        <div class="square bottom-left">
+            <a href="friends.html">Friends</a>
+        </div>
+        <div class="square bottom-right">
+            <!-- Content for bottom-right -->
+        </div>
     </div>
 </body>
 </html>
