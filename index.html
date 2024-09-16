@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dakota's Digital Adventure</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         /* Basic Reset */
         * {
@@ -53,8 +54,10 @@
             grid-template-columns: repeat(2, 1fr);
             width: 100vw;
             height: 200vh; /* Ensure all sections are visible on scroll */
-            gap: 0; /* No gap between sections */
+            gap: 50px; /* 50px gap between rows */
             position: relative;
+            padding: 50px 0; /* Add padding to adjust for gaps */
+            box-sizing: border-box;
         }
 
         .section {
@@ -95,20 +98,11 @@
                 grid-template-rows: repeat(2, 1fr);
                 grid-template-columns: 1fr;
                 height: 200vh; /* Ensure all sections are visible on scroll */
+                gap: 0; /* Remove gap for mobile */
             }
 
             .section {
                 height: 50vh; /* Half of the viewport height */
-            }
-
-            .section:nth-child(1),
-            .section:nth-child(2) {
-                margin-bottom: 0;
-            }
-
-            .section:nth-child(3),
-            .section:nth-child(4) {
-                margin-top: 0;
             }
         }
 
@@ -121,6 +115,7 @@
             .scroll-content {
                 grid-template-rows: repeat(2, 1fr);
                 grid-template-columns: repeat(2, 1fr);
+                gap: 50px; /* 50px gap between rows */
             }
 
             .section:nth-child(1) {
@@ -136,45 +131,46 @@
             .section:nth-child(3) {
                 grid-row: 2 / 3;
                 grid-column: 1 / 2;
+                margin-top: 50px; /* Adjust gap between top and bottom rows */
             }
 
             .section:nth-child(4) {
                 grid-row: 2 / 3;
                 grid-column: 2 / 3;
+                margin-top: 50px; /* Adjust gap between top and bottom rows */
             }
         }
     </style>
 </head>
 <body>
-
     <!-- Main Content -->
     <div class="main-content">
-        <div class="title">Dakota's Digital Adventure</div>
         <img src="MyPhoto.png" alt="Dakota's Photo">
+        <div class="title">Dakota's Digital Adventure</div>
     </div>
 
     <!-- Scrollable Content -->
     <div class="scroll-content">
-        <!-- Top Left: Computer Science Page -->
+        <!-- Top Left Square: Computer Science Page Link -->
         <div class="section">
-            <a href="computer_science.html">
-                Computer Science Page
-            </a>
+            <a href="cs.html">Computer Science</a>
             <img src="CSPhoto.png" alt="Computer Science Photo">
         </div>
-        <!-- Top Right: Empty for Future Content -->
+
+        <!-- Top Right Square: Empty for now -->
         <div class="section">
-            <!-- Future content can be added here -->
+            <!-- Content for top right section if needed -->
         </div>
-        <!-- Bottom Left: Friends Page -->
+
+        <!-- Bottom Left Square: Friends Page Link -->
         <div class="section">
             <a href="friends.html">Friends</a>
         </div>
-        <!-- Bottom Right: Empty for Future Content -->
+
+        <!-- Bottom Right Square: Empty for now -->
         <div class="section">
-            <!-- Future content can be added here -->
+            <!-- Content for bottom right section if needed -->
         </div>
     </div>
-
 </body>
 </html>
