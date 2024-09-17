@@ -15,17 +15,20 @@
             align-items: center;
             justify-content: center;
             background-color: white;
+            position: relative; /* Make the body relative to position the arrows */
         }
 
         .container {
             display: flex;
             align-items: center;
+            position: relative; /* Ensure container is relative for correct arrow positioning */
+            padding: 0 60px; /* Space for arrows */
         }
 
         .content {
             font-size: 2em;
             color: black;
-            margin: 0 20px;
+            margin: 0;
         }
 
         .arrow {
@@ -36,19 +39,30 @@
             font-size: 1.5em;
             cursor: pointer;
             border-radius: 5px;
+            position: absolute; /* Position arrows absolutely */
+            top: 50%; /* Center vertically */
+            transform: translateY(-50%); /* Center vertically */
         }
 
         .arrow:hover {
             background-color: #0056b3;
         }
+
+        .arrow.left {
+            left: 20px; /* Position arrow on the left */
+        }
+
+        .arrow.right {
+            right: 20px; /* Position arrow on the right */
+        }
     </style>
 </head>
 <body>
+    <button class="arrow left" onclick="changeText(-1)">&#9664;</button>
     <div class="container">
-        <button class="arrow" onclick="changeText(-1)">&#9664;</button>
         <div class="content" id="text-display">Hello World</div>
-        <button class="arrow" onclick="changeText(1)">&#9654;</button>
     </div>
+    <button class="arrow right" onclick="changeText(1)">&#9654;</button>
 
     <script>
         const texts = ["Hello World", "Hello People", "This is Me"];
@@ -59,9 +73,5 @@
             document.getElementById('text-display').textContent = texts[currentIndex];
         }
     </script>
-</body>
-</html>
-
-    </div>
 </body>
 </html>
