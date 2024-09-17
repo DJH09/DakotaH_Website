@@ -17,15 +17,51 @@
             background-color: white;
         }
 
+        .container {
+            display: flex;
+            align-items: center;
+        }
+
         .content {
             font-size: 2em;
             color: black;
+            margin: 0 20px;
+        }
+
+        .arrow {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .arrow:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="content">
-        Hello world
+    <div class="container">
+        <button class="arrow" onclick="changeText(-1)">&#9664;</button>
+        <div class="content" id="text-display">Hello World</div>
+        <button class="arrow" onclick="changeText(1)">&#9654;</button>
+    </div>
+
+    <script>
+        const texts = ["Hello World", "Hello People", "This is Me"];
+        let currentIndex = 0;
+
+        function changeText(direction) {
+            currentIndex = (currentIndex + direction + texts.length) % texts.length;
+            document.getElementById('text-display').textContent = texts[currentIndex];
+        }
+    </script>
+</body>
+</html>
+
     </div>
 </body>
 </html>
