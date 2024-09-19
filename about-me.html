@@ -10,68 +10,132 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: white;
-            position: relative; /* Make the body relative to position the arrows */
+            height: 100%;
         }
 
         .container {
             display: flex;
-            align-items: center;
-            position: relative; /* Ensure container is relative for correct arrow positioning */
-            padding: 0 60px; /* Space for arrows */
+            height: 100vh; /* Full viewport height */
         }
 
-        .content {
-            font-size: 2em;
-            color: black;
-            margin: 0;
-        }
-
-        .arrow {
-            background-color: #007bff;
+        .grey-section {
+            background-color: grey;
+            width: 75%; /* 3/4 grey section */
+            position: relative;
+            padding: 20px;
             color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .white-section {
+            background-color: white;
+            width: 25%; /* 1/4 white section */
+        }
+
+        .title {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .text-content {
+            font-size: 1.2em;
+        }
+
+        .arrows {
+            position: absolute;
+            top: 50%;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            transform: translateY(-50%);
+        }
+
+        .arrow-left, .arrow-right {
+            font-size: 2em;
+            background: none;
             border: none;
-            padding: 10px;
-            font-size: 1.5em;
+            color: white;
             cursor: pointer;
-            border-radius: 5px;
-            position: absolute; /* Position arrows absolutely */
-            top: 50%; /* Center vertically */
-            transform: translateY(-50%); /* Center vertically */
+            outline: none;
         }
 
-        .arrow:hover {
-            background-color: #0056b3;
+        .arrow-left {
+            position: absolute;
+            left: 10px; /* Left side of screen */
         }
 
-        .arrow.left {
-            left: 20px; /* Position arrow on the left */
+        .arrow-right {
+            position: absolute;
+            right: 0; /* Near the grey/white border */
         }
 
-        .arrow.right {
-            right: 20px; /* Position arrow on the right */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: black;
+            font-size: 1.5em;
+        }
+
+        .back-button span {
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
-    <button class="arrow left" onclick="changeText(-1)">&#9664;</button>
     <div class="container">
-        <div class="content" id="text-display">Hello World</div>
+        <!-- Grey section with title, text, and arrows -->
+        <div class="grey-section">
+            <div class="title" id="title">Title 1</div>
+            <div class="text-content" id="text-content">I went to high school at Nevada High School and had an average G.P.A of a 3.5.</div>
+            
+            <div class="arrows">
+                <button class="arrow-left" id="left-arrow">&lt;</button>
+                <button class="arrow-right" id="right-arrow">&gt;</button>
+            </div>
+        </div>
+
+        <!-- White section -->
+        <div class="white-section"></div>
+
+        <!-- Back button -->
+        <a href="index.html" class="back-button">
+            <span>&lt; Back</span>
+        </a>
     </div>
-    <button class="arrow right" onclick="changeText(1)">&#9654;</button>
 
     <script>
-        const texts = ["Hello World", "Hello People", "This is Me"];
+        const leftArrow = document.getElementById('left-arrow');
+        const rightArrow = document.getElementById('right-arrow');
+        const title = document.getElementById('title');
+        const textContent = document.getElementById('text-content');
+
+        const texts = [
+            { title: 'Title 1', text: 'I went to high school at Nevada High School and had an average G.P.A of a 3.5.' },
+            { title: 'Title 2', text: 'Hello world' },
+            { title: 'Title 3', text: 'Another piece of content' }
+        ];
+
         let currentIndex = 0;
 
-        function changeText(direction) {
-            currentIndex = (currentIndex + direction + texts.length) % texts.length;
-            document.getElementById('text-display').textContent = texts[currentIndex];
+        function updateContent() {
+            title.textContent = texts[currentIndex].title;
+            textContent.textContent = texts[currentIndex].text;
         }
+
+        leftArrow.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + texts.length) % texts.length;
+            updateContent();
+        });
+
+        rightArrow.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % texts.length;
+            updateContent();
+        });
     </script>
 </body>
 </html>
