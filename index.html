@@ -112,7 +112,9 @@
 
         .bottom-left {
             grid-area: bottom-left;
-            background-color: darkgray; /* Dark gray background */
+            background-image: url('FriendPic.jpg'); /* Add background image */
+            background-size: cover;
+            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -123,10 +125,11 @@
             display: block;
             width: 100%;
             height: 100%;
-            color: black;
+            color: white;
             text-decoration: none;
             line-height: 50vh; /* Center text vertically */
             font-size: 1.5em; /* Adjust font size */
+            background-color: rgba(0, 0, 0, 0.5); /* Optional: Add background overlay for better contrast */
         }
 
         .bottom-right {
@@ -155,7 +158,6 @@
             }
 
             .bottom-left {
-                background-color: darkgray;
                 height: 50vh; /* Adjust height for mobile */
             }
         }
