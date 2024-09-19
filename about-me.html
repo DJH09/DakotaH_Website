@@ -25,8 +25,7 @@
             padding: 20px;
             color: white;
             display: flex;
-            flex-direction: column;
-            justify-content: flex-start; /* Align content at the top */
+            justify-content: center;
             align-items: center;
         }
 
@@ -36,14 +35,16 @@
         }
 
         .title {
+            position: absolute;
+            top: 20px; /* Distance from the top of the grey section */
+            left: 50%;
+            transform: translateX(-50%); /* Center the title horizontally */
             font-size: 2em;
-            margin-top: 0;
-            margin-bottom: 20px;
-            align-self: flex-start; /* Align the title at the top of the grey section */
         }
 
         .text-content {
             font-size: 1.2em;
+            text-align: center; /* Center the text horizontally */
         }
 
         .arrows {
