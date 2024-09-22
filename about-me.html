@@ -90,44 +90,14 @@
         .back-button span {
             margin-left: 10px;
         }
-
-        /* Mobile Styles */
-        @media (max-width: 768px) {
-            .container {
-                display: block;
-            }
-
-            .grey-section {
-                width: 100%; /* Make the entire section grey */
-                padding: 20px;
-            }
-
-            .white-section {
-                display: none; /* Hide the white section on mobile */
-            }
-
-            .title {
-                font-size: 1.5em; /* Adjust title font size for mobile */
-                left: 50%; /* Recenter the title */
-                transform: translateX(-50%);
-            }
-
-            .arrows {
-                width: 100%; /* Ensure arrows cover full width */
-            }
-
-            .arrow-right {
-                right: 10px; /* Move right arrow to the edge of the screen */
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Grey section with title, text, and arrows -->
         <div class="grey-section" id="grey-section">
-            <div class="title" id="title">Personal Life</div>
-            <div class="text-content" id="text-content">During the first thirteen years of my life, I grew up in California. Some of my favorite memories were hanging out at my great grandmas house to swim, and spend time with family. I also enjoyed watching the fireworks every year there. During my 8th grade year, I moved to Iowa and am currently enrolled at Nevada High School. I currently live with my parents, my two middle school brothers, and five pets.</div>
+                <div class="title" id="title">Personal Life</div>
+            <div class="text-content" id="text-content">During the first thirteen years of my life, I grew up in California. Some of my favorite memories were hanging out at my great grandmas house to swi, and spend time with family. I also enjoyed watching the fireworks every year there. During my 8th grade year, I moved to Iowa and am currently enrolled at Nevada High School. I currently live with my parents, my two middle school brothers, and five pets..</div>
             
             <div class="arrows">
                 <button class="arrow-left" id="left-arrow">&lt;</button>
@@ -135,7 +105,7 @@
             </div>
         </div>
 
-        <!-- White section (visible only on desktop) -->
+        <!-- White section -->
         <div class="white-section"></div>
 
         <!-- Back button -->
@@ -152,21 +122,24 @@
         const greySection = document.getElementById('grey-section');
 
         const texts = [
-            { title: 'Personal Life', text: 'During the first thirteen years of my life, I grew up in California. Some of my favorite memories were hanging out at my great grandmas house to swim, and spend time with family. I also enjoyed watching the fireworks every year there. During my 8th grade year, I moved to Iowa and am currently enrolled at Nevada High School. I currently live with my parents, my two middle school brothers, and five pets.' },
-            { title: 'Goals', text: 'In the future, I hope to get a scholarship to go to college for mathematics and computer science. I hope to land a good job in either programming or finance. I also would love to get my private pilot's license and own a Piper Cherokee 6 to fly around the United States with friends and family.' },
-            { title: 'Education', text: 'I went to high school at Nevada High School and had an average G.P.A of 3.5. By my sophomore year, I had completed all my required math and science classes. My freshman year, I was one of three students to receive a math outstanding award. I took both honors biology and honors chemistry. On top of this, I took both Computer Science Essentials and AP Computer Science Principles.' }
+            { title: 'Personal Life', text: 'During the first thirteen years of my life, I grew up in California. Some of my favorite memories were hanging out at my great grandmas house to swi, and spend time with family. I also enjoyed watching the fireworks every year there. During my 8th grade year, I moved to Iowa and am currently enrolled at Nevada High School. I currently live with my parents, my two middle school brothers, and five pets.' },
+            { title: 'Goals', text: 'In the future, I hope to go to get a scholarship to go to college for mathmatics and computer science. I hope to land a good job in either programming or finance. I also would love to get my private pilots license and own a piper cherokee 6 and fly around the United States with friends and family.' },
+            { title: 'Education', text: 'I went to high school at Nevada High School and had an average G.P.A of a 3.5. By my sophmore year, I had completed all my required math and science classes. My freshman year, I was one of three students to recieve a math outstanding award. I took both honors biology and honors chemistry. On top of this, I took both Computer Science Essensials and AP Computer Science Principles' }
         ];
 
         let currentIndex = 0;
 
         function updateContent() {
-            greySection.style.opacity = 0.5; // Fade out the grey section
+            // Fade out the grey section
+            greySection.style.opacity = .5;
 
+            // After the fade-out animation (500ms), update the content and fade back in
             setTimeout(() => {
                 title.textContent = texts[currentIndex].title;
                 textContent.textContent = texts[currentIndex].text;
 
-                greySection.style.opacity = 1; // Fade back in
+                // Fade in the grey section
+                greySection.style.opacity = 1;
             }, 250); // This delay matches the transition duration
         }
 
