@@ -10,18 +10,12 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            overflow-x: hidden;
-        }
-
-        .title-section, .squares-section {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            transition: opacity 0.5s ease;
+            overflow-x: hidden; /* Prevent horizontal overflow */
         }
 
         .title-section {
+            width: 100vw;
+            height: 100vh;
             background: url('DataPhoto.png') no-repeat center center;
             background-size: cover;
             background-color: black;
@@ -29,6 +23,8 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
+            opacity: 1;
+            position: relative;
         }
 
         .title {
@@ -45,7 +41,7 @@
                 -1px -1px 0 #fff,  
                 1px -1px 0 #fff,
                 -1px 1px 0 #fff,
-                1px 1px 0 #fff;
+                1px 1px 0 #fff; /* White outline */
         }
 
         .about-me {
@@ -66,109 +62,57 @@
             color: white;
         }
 
-        .squares-section {
-            background-color: white;
-            display: grid;
-            grid-template-areas: 
-                "top-left top-right"
-                "bottom-left bottom-right";
-            grid-template-rows: 1fr 1fr;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-            padding: 0;
-            box-sizing: border-box;
-            opacity: 0;
-        }
-
-        .square {
-            border: 1px solid black;
-            background-color: white;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .top-left {
-            grid-area: top-left;
-        }
-
-        .bottom-left {
-            grid-area: bottom-left;
-            background-color: darkgray;
-            text-align: center;
-        }
-
-        .bottom-left a {
-            display: block;
+        /* Friends link */
+        .friends-link {
+            margin-top: 10px;
+            font-size: 1.2em;
             color: white;
             text-decoration: none;
-            font-size: 1.2em;
-            padding: 10px;
         }
 
-        .top-right {
-            grid-area: top-right;
-            display: flex;
-            justify-content: flex-end;
-            padding-right: 2%;
+        .friends-link:hover {
+            text-decoration: underline;
         }
 
-        .cs-picture-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 30px;
+        .scroll-section {
+            width: 100vw;
+            height: 200vh;
+            background-color: white;
+            position: relative;
+            padding: 20px;
         }
 
-        .cs-picture {
-            width: 22vw;
+        .cs-image {
+            position: absolute;
+            top: 75%;
+            right: 5%;
+            width: 22vw; /* Slightly less than a quarter of the width */
             height: auto;
-            background: url('CSPhoto.png') no-repeat center center;
-            background-size: cover;
-            border: 4px solid white;
-            padding: 0;
+            border: 10px solid white; /* White border */
+            box-sizing: border-box;
+        }
+
+        .cs-image-container {
+            position: relative;
+            display: inline-block;
         }
 
         .cs-outline {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: calc(100% + 30px); /* Create space for the outline */
+            height: calc(100% + 30px);
             border: 2px solid grey;
-            padding: 10px;
-            margin-top: -10px;
-            width: calc(22vw + 20px);
-            height: calc(auto + 20px);
         }
 
         .cs-text {
-            margin-top: 10px;
+            position: absolute;
+            top: 105%;
+            right: 0;
             font-size: 1.2em;
+            color: black;
             text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .title-section {
-                height: 100vh;
-            }
-
-            .title {
-                font-size: 3em;
-                padding: 0 10px;
-            }
-
-            .squares-section {
-                display: block;
-                height: auto;
-                opacity: 1;
-            }
-
-            .square {
-                width: 100%;
-                height: 50vh;
-            }
-
-            .bottom-left {
-                height: 50vh;
-            }
         }
     </style>
 </head>
@@ -176,39 +120,27 @@
     <div class="title-section">
         <h1 class="title">Dakota's Digital Adventure</h1>
         <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
-        <a href="friends.html" class="about-me" style="font-size: 1em; margin-top: 10px;">Friends</a>
+        <a href="friends.html" class="friends-link">Friends</a> <!-- Friends link -->
     </div>
-    
-    <div class="squares-section">
-        <div class="square top-left">
-            <!-- Left section content -->
-        </div>
-        <div class="square top-right">
-            <div class="cs-picture-container">
-                <a href="Computer_Science.html" class="cs-picture"></a>
-                <div class="cs-outline"></div>
-                <div class="cs-text">Computer Science</div>
-            </div>
-        </div>
-        <div class="square bottom-left">
-            <!-- Bottom left content -->
-        </div>
-        <div class="square bottom-right">
-            <!-- Bottom right content -->
+
+    <div class="scroll-section">
+        <div class="cs-image-container">
+            <a href="Computer_Science.html">
+                <img src="CSPhoto.png" class="cs-image" alt="Computer Science">
+                <div class="cs-outline"></div> <!-- Grey outline -->
+            </a>
+            <div class="cs-text">Computer Science</div> <!-- Text below the image -->
         </div>
     </div>
 
     <script>
         window.addEventListener('scroll', function() {
             const titleSection = document.querySelector('.title-section');
-            const squaresSection = document.querySelector('.squares-section');
             const scrollY = window.scrollY;
 
-            const titleOpacity = Math.max(1 - (scrollY / 500), 0);
-            const squaresOpacity = Math.min(scrollY / 500, 1);
-
+            // Adjust opacity based on scroll position
+            const titleOpacity = Math.max(1 - (scrollY / 500), 0); // Fade out title
             titleSection.style.opacity = titleOpacity;
-            squaresSection.style.opacity = squaresOpacity;
         });
     </script>
 </body>
