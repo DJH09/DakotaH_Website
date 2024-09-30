@@ -10,39 +10,42 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            background-color: #001f3f; /* Dark blue background */
-            color: white; /* Ensure text is white for visibility */
+            overflow-x: hidden; /* Prevent horizontal overflow */
+            background-color: #001f3f; /* Set a dark blue background */
         }
 
         .title-section {
             width: 100vw;
             height: 100vh;
-            background: url('DataPhoto.png') no-repeat center center;
-            background-size: cover;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
+            flex-direction: column; /* Stack elements vertically */
+            background: url('DataPhoto.png') no-repeat center center;
+            background-size: cover;
+            opacity: 1;
         }
 
         .title {
             color: transparent;
-            font-size: 6em;
+            font-size: 6em; /* Bigger bubble letters */
             font-weight: bold;
             text-align: center;
             background: url('DataPhoto.png') no-repeat center center;
             background-size: cover;
             -webkit-background-clip: text;
             background-clip: text;
+            padding: 0 20px; /* Padding for better appearance */
             text-shadow: 
                 -1px -1px 0 #fff,  
                 1px -1px 0 #fff,
                 -1px 1px 0 #fff,
-                1px 1px 0 #fff;
+                1px 1px 0 #fff; /* White outline */
         }
 
         .about-me {
-            margin-top: 20px;
+            margin-top: 20px; /* Space between title and rectangle */
             border: 2px solid white;
             padding: 10px 20px;
             text-align: center;
@@ -51,6 +54,7 @@
             text-decoration: none;
             color: white;
             transition: background-color 0.3s, color 0.3s;
+            background-color: transparent; /* No background color */
         }
 
         .about-me:hover {
@@ -58,58 +62,60 @@
             color: white;
         }
 
-        .friends-link {
-            display: block;
-            margin-top: 10px;
-            font-size: 1em;
-            text-align: center;
-            color: white;
+        .bottom-half {
+            display: flex;
+            height: calc(100vh - 100%); /* Occupy remaining height */
         }
 
-        .cs-section {
-            width: 100vw;
+        .left {
+            flex: 1;
+            background-color: #555; /* Dark gray */
             display: flex;
-            justify-content: right;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column; /* Center text vertically */
+            color: white;
             padding: 20px;
         }
 
-        .cs-container {
-            text-align: center;
-            margin-right: 10%;
+        .right {
+            flex: 1;
+            background-color: #001f3f; /* Dark blue */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column; /* Center text vertically */
+            color: white;
+            padding: 20px;
         }
 
-        .cs-pic {
-            width: 350px; /* Increased width for desktop */
-            height: 350px; /* Increased height for desktop */
-            border: 2px solid transparent;
-            outline: 6px solid gray;
-            object-fit: cover;
+        .computer-science {
+            border: 2px solid white;
+            margin-top: 20px; /* Space above */
+            padding: 10px;
+            text-align: center;
         }
 
-        .cs-text {
-            margin-top: 10px;
-            font-size: 1.2em;
-            text-align: center;
+        .computer-science img {
+            border: 4px solid gray; /* Gray border */
+            margin: 10px; /* Space around image */
+            max-width: 80%; /* Responsive */
+            height: auto; /* Maintain aspect ratio */
         }
 
         @media (max-width: 768px) {
             .title {
-                font-size: 3em; /* Adjust title size for mobile */
-                padding: 0 10px;
+                font-size: 3em; /* Adjust for mobile */
+                padding: 0 10px; /* Adjust padding for mobile */
             }
 
-            .cs-section {
-                justify-content: center;
-                padding: 10px;
+            .bottom-half {
+                flex-direction: column; /* Stack sections on mobile */
+                height: auto; /* Adjust height */
             }
 
-            .cs-container {
-                margin: 0;
-            }
-
-            .cs-pic {
-                width: 250px;
-                height: 250px;
+            .computer-science img {
+                max-width: 90%; /* Responsive for mobile */
             }
         }
     </style>
@@ -118,15 +124,26 @@
     <div class="title-section">
         <h1 class="title">Dakota's Digital Adventure</h1>
         <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
-        <a href="friends.html" class="friends-link">Friends</a>
+        <a href="friends.html" class="about-me">&lt;friends&gt;</a> <!-- Friends link -->
     </div>
-
-    <div class="cs-section">
-        <div class="cs-container">
-            <a href="Computer_Science.html">
-                <img src="CSPhoto.png" alt="Computer Science" class="cs-pic">
-            </a>
-            <div class="cs-text">Computer Science</div>
+    
+    <div class="bottom-half">
+        <div class="left">
+            <div class="text-content">
+                <h2>Welcome!</h2>
+                <p>This section is dark gray.</p>
+            </div>
+        </div>
+        <div class="right">
+            <div class="text-content">
+                <h2>Computer Science</h2>
+                <div class="computer-science">
+                    <a href="Computer_Science.html">
+                        <img src="CSPhoto.png" alt="Computer Science">
+                    </a>
+                    <p>Learn about my projects in Computer Science!</p>
+                </div>
+            </div>
         </div>
     </div>
 </body>
