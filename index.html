@@ -10,7 +10,6 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            overflow-x: hidden; /* Prevent horizontal overflow */
         }
 
         .title-section {
@@ -34,12 +33,11 @@
             background-size: cover;
             -webkit-background-clip: text;
             background-clip: text;
-            padding: 0 20px;
             text-shadow: 
                 -1px -1px 0 #fff,  
                 1px -1px 0 #fff,
                 -1px 1px 0 #fff,
-                1px 1px 0 #fff; /* White outline */
+                1px 1px 0 #fff;
         }
 
         .about-me {
@@ -52,7 +50,6 @@
             text-decoration: none;
             color: white;
             transition: background-color 0.3s, color 0.3s;
-            background-color: transparent;
         }
 
         .about-me:hover {
@@ -63,46 +60,56 @@
         .friends-link {
             display: block;
             margin-top: 10px;
+            font-size: 1em;
             text-align: center;
             color: white;
-            font-size: 1em;
-            text-decoration: none;
-        }
-
-        .content-section {
-            padding: 50px;
-            display: flex;
-            justify-content: flex-end; /* Align content to the right */
         }
 
         .cs-section {
+            width: 100vw;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-            padding-right: 50px;
+            justify-content: right;
+            padding: 20px;
         }
 
-        .cs-section img {
-            width: 450px; /* Increased the size slightly */
-            height: auto;
-            border: 5px solid white;
-            position: relative;
+        .cs-container {
+            text-align: center;
+            margin-right: 10%;
         }
 
-        .cs-border {
-            width: 480px; /* Increased the size of the border */
-            height: auto;
-            border: 2px solid gray;
-            padding: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: center;
+        .cs-pic {
+            width: 300px;
+            height: 300px;
+            border: 2px solid transparent;
+            outline: 6px solid gray;
+            object-fit: cover;
         }
 
         .cs-text {
+            margin-top: 10px;
+            font-size: 1.2em;
             text-align: center;
-            font-size: 1.5em;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3em; /* Adjust title size for mobile */
+                padding: 0 10px;
+            }
+
+            .cs-section {
+                justify-content: center;
+                padding: 10px;
+            }
+
+            .cs-container {
+                margin: 0;
+            }
+
+            .cs-pic {
+                width: 250px;
+                height: 250px;
+            }
         }
     </style>
 </head>
@@ -112,14 +119,12 @@
         <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
         <a href="friends.html" class="friends-link">Friends</a>
     </div>
-    
-    <div class="content-section">
-        <div class="cs-section">
-            <div class="cs-border">
-                <a href="Computer_Science.html">
-                    <img src="CSPhoto.png" alt="Computer Science">
-                </a>
-            </div>
+
+    <div class="cs-section">
+        <div class="cs-container">
+            <a href="Computer_Science.html">
+                <img src="CSPhoto.png" alt="Computer Science" class="cs-pic">
+            </a>
             <div class="cs-text">Computer Science</div>
         </div>
     </div>
