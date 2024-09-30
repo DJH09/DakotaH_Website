@@ -69,13 +69,19 @@
 
         .left {
             flex: 1;
-            background-color: #555; /* Dark gray */
+            background-color: #333; /* Darker gray */
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-direction: column; /* Center text vertically */
+            justify-content: flex-start;
+            flex-direction: column; /* Stack content vertically */
             color: white;
             padding: 20px;
+        }
+
+        .my-photo {
+            width: 80%; /* Adjust width as necessary */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 20px; /* Space below the photo */
         }
 
         .right {
@@ -135,9 +141,10 @@
     
     <div class="bottom-half">
         <div class="left">
+            <img src="MyPhoto.png" alt="My Photo" class="my-photo"> <!-- Add your photo -->
             <div class="text-content">
                 <h2>Welcome!</h2>
-                <p>This section is dark gray.</p>
+                <p>This section is darker gray.</p>
             </div>
         </div>
         <div class="right">
