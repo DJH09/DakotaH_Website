@@ -94,6 +94,7 @@
             margin-top: 20px; /* Space above */
             padding: 10px;
             text-align: center;
+            transition: transform 0.2s; /* Transition for scaling effect */
         }
 
         .computer-science img {
@@ -101,6 +102,11 @@
             margin: 10px; /* Space around image */
             max-width: 80%; /* Responsive */
             height: auto; /* Maintain aspect ratio */
+            transition: transform 0.2s; /* Transition for scaling effect */
+        }
+
+        .computer-science img:active {
+            transform: scale(0.95); /* Scale down on click */
         }
 
         @media (max-width: 768px) {
@@ -138,13 +144,25 @@
             <div class="text-content">
                 <h2>Computer Science</h2>
                 <div class="computer-science">
-                    <a href="Computer_Science.html">
-                        <img src="CSPhoto.png" alt="Computer Science">
+                    <a href="Computer_Science.html" class="cs-link">
+                        <img src="CSPhoto.png" alt="Computer Science" id="cs-image">
                     </a>
                     <p>Learn about my projects in Computer Science!</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Click animation for computer science image
+        const csImage = document.getElementById('cs-image');
+
+        csImage.addEventListener('click', function() {
+            csImage.style.transform = 'scale(0.95)'; // Scale down
+            setTimeout(() => {
+                csImage.style.transform = 'scale(1)'; // Reset scale after a brief moment
+            }, 200); // 200ms for the scaling effect
+        });
+    </script>
 </body>
 </html>
