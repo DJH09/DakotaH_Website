@@ -13,11 +13,18 @@
             overflow-x: hidden;
         }
 
-        .title-section {
+        .title-section, .squares-section {
             width: 100vw;
             height: 100vh;
+            position: relative;
+            overflow: hidden;
+            transition: opacity 0.5s ease;
+        }
+
+        .title-section {
             background: url('DataPhoto.png') no-repeat center center;
             background-size: cover;
+            background-color: black;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -50,70 +57,117 @@
             cursor: pointer;
             text-decoration: none;
             color: white;
-            background-color: transparent;
             transition: background-color 0.3s, color 0.3s;
+            background-color: transparent;
         }
 
         .about-me:hover {
             background-color: black;
-        }
-
-        .friends-link {
-            margin-top: 10px;
-            font-size: 1em;
             color: white;
-            text-decoration: none;
         }
 
         .squares-section {
-            width: 100%;
-            height: 100%;
+            background-color: white;
+            display: grid;
+            grid-template-areas: 
+                "top-left top-right"
+                "bottom-left bottom-right";
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            padding: 0;
+            box-sizing: border-box;
+            opacity: 0;
+        }
+
+        .square {
+            border: 1px solid black;
+            background-color: white;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .top-left {
+            grid-area: top-left;
+        }
+
+        .bottom-left {
+            grid-area: bottom-left;
+            background-color: darkgray;
+            text-align: center;
+        }
+
+        .bottom-left a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 10px;
+        }
+
+        .top-right {
+            grid-area: top-right;
             display: flex;
             justify-content: flex-end;
-            padding: 50px;
-            box-sizing: border-box;
+            padding-right: 2%;
         }
 
-        .computer-science {
-            position: relative;
-            width: 300px;
-            height: 200px;
+        .cs-picture-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .cs-picture {
+            width: 22vw;
+            height: auto;
             background: url('CSPhoto.png') no-repeat center center;
             background-size: cover;
-            border: 10px solid white;
-            box-sizing: border-box;
+            border: 4px solid white;
+            padding: 0;
         }
 
-        .computer-science-outline {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            bottom: 10px;
-            left: 10px;
+        .cs-outline {
             border: 2px solid grey;
+            padding: 10px;
+            margin-top: -10px;
+            width: calc(22vw + 20px);
+            height: calc(auto + 20px);
         }
 
-        .computer-science-text {
+        .cs-text {
             margin-top: 10px;
-            text-align: center;
             font-size: 1.2em;
-            color: black;
+            text-align: center;
         }
 
         @media (max-width: 768px) {
+            .title-section {
+                height: 100vh;
+            }
+
             .title {
                 font-size: 3em;
                 padding: 0 10px;
             }
 
-            .computer-science {
-                width: 80%;
+            .squares-section {
+                display: block;
                 height: auto;
-                margin: 20px auto;
+                opacity: 1;
             }
 
-            .squares-section {
-                justify-content: center;
+            .square {
+                width: 100%;
+                height: 50vh;
+            }
+
+            .bottom-left {
+                height: 50vh;
             }
         }
     </style>
@@ -122,14 +176,40 @@
     <div class="title-section">
         <h1 class="title">Dakota's Digital Adventure</h1>
         <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
-        <a href="friends.html" class="friends-link">Friends</a>
+        <a href="friends.html" class="about-me" style="font-size: 1em; margin-top: 10px;">Friends</a>
     </div>
     
     <div class="squares-section">
-        <a href="Computer_Science.html" class="computer-science">
-            <div class="computer-science-outline"></div>
-        </a>
-        <div class="computer-science-text">Computer Science</div>
+        <div class="square top-left">
+            <!-- Left section content -->
+        </div>
+        <div class="square top-right">
+            <div class="cs-picture-container">
+                <a href="Computer_Science.html" class="cs-picture"></a>
+                <div class="cs-outline"></div>
+                <div class="cs-text">Computer Science</div>
+            </div>
+        </div>
+        <div class="square bottom-left">
+            <!-- Bottom left content -->
+        </div>
+        <div class="square bottom-right">
+            <!-- Bottom right content -->
+        </div>
     </div>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const titleSection = document.querySelector('.title-section');
+            const squaresSection = document.querySelector('.squares-section');
+            const scrollY = window.scrollY;
+
+            const titleOpacity = Math.max(1 - (scrollY / 500), 0);
+            const squaresOpacity = Math.min(scrollY / 500, 1);
+
+            titleSection.style.opacity = titleOpacity;
+            squaresSection.style.opacity = squaresOpacity;
+        });
+    </script>
 </body>
 </html>
