@@ -10,47 +10,36 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            overflow-x: hidden; /* Prevent horizontal overflow */
-        }
-
-        .title-section, .squares-section {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            transition: opacity 0.5s ease; /* Smooth fade effect */
+            overflow-x: hidden;
         }
 
         .title-section {
+            width: 100vw;
+            height: 100vh;
             background: url('DataPhoto.png') no-repeat center center;
             background-size: cover;
             background-color: black;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column; /* Stack elements vertically */
-            opacity: 1;
+            flex-direction: column;
         }
 
         .title {
             color: transparent;
-            font-size: 6em; /* Bigger bubble letters */
+            font-size: 6em;
             font-weight: bold;
             text-align: center;
             background: url('DataPhoto.png') no-repeat center center;
             background-size: cover;
             -webkit-background-clip: text;
             background-clip: text;
-            padding: 0 20px; /* Padding for better appearance */
-            text-shadow: 
-                -1px -1px 0 #fff,  
-                1px -1px 0 #fff,
-                -1px 1px 0 #fff,
-                1px 1px 0 #fff; /* White outline */
+            padding: 0 20px;
+            text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
         }
 
         .about-me {
-            margin-top: 20px; /* Space between title and rectangle */
+            margin-top: 20px;
             border: 2px solid white;
             padding: 10px 20px;
             text-align: center;
@@ -59,7 +48,6 @@
             text-decoration: none;
             color: white;
             transition: background-color 0.3s, color 0.3s;
-            background-color: transparent; /* No background color */
         }
 
         .about-me:hover {
@@ -67,96 +55,69 @@
             color: white;
         }
 
-        .squares-section {
-            background-color: white;
-            display: grid;
-            grid-template-areas: 
-                "top-left top-right"
-                "bottom-left bottom-right";
-            grid-template-rows: 1fr 1fr;
-            grid-template-columns: 1fr 1fr;
-            gap: 0; /* Remove gap */
-            padding: 0;
-            box-sizing: border-box;
-            opacity: 0; /* Start as hidden */
-        }
-
-        .square {
-            border: 1px solid black;
-            background-color: white;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            opacity: 1;
-            transition: opacity 0.5s ease; /* Smooth fade effect */
-        }
-
-        .top-left {
-            grid-area: top-left;
-            position: relative;
+        .friends-link {
+            margin-top: 10px;
+            font-size: 1.2em;
             text-align: center;
-        }
-
-        .top-left .text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: black;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        .bottom-left {
-            grid-area: bottom-left;
-            background-color: darkgray; /* Dark gray background */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .bottom-left a {
-            display: block;
-            width: 100%;
-            height: 100%;
-            color: black;
+            color: white;
             text-decoration: none;
-            line-height: 50vh; /* Center text vertically */
-            font-size: 1.5em; /* Adjust font size */
         }
 
-        .bottom-right {
-            grid-area: bottom-right;
+        .squares-section {
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .computer-science-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .computer-science-image {
+            width: 300px; /* Shrink the image */
+            height: 300px;
+            border: 5px solid white;
+            position: relative;
+        }
+
+        .computer-science-border {
+            width: 340px; /* Gray border is larger than the image */
+            height: 340px;
+            border: 2px solid gray;
+            margin: 0 auto;
+            position: relative;
+            top: -310px;
+        }
+
+        .computer-science-text {
+            margin-top: -30px;
+            font-size: 1.5em;
+            color: black;
         }
 
         @media (max-width: 768px) {
-            .title-section {
-                height: 100vh;
-            }
-
             .title {
-                font-size: 3em; /* Adjust for mobile */
-                padding: 0 10px; /* Adjust padding for mobile */
+                font-size: 3em;
+                padding: 0 10px;
             }
 
-            .squares-section {
-                display: block;
-                height: auto;
-                opacity: 1; /* Ensure it's visible on mobile */
+            .computer-science-image {
+                width: 200px;
+                height: 200px;
             }
 
-            .square {
-                width: 100%;
-                height: 50vh;
+            .computer-science-border {
+                width: 240px;
+                height: 240px;
+                top: -210px;
             }
 
-            .bottom-left {
-                background-color: darkgray;
-                height: 50vh; /* Adjust height for mobile */
+            .computer-science-text {
+                font-size: 1.2em;
             }
         }
     </style>
@@ -165,37 +126,17 @@
     <div class="title-section">
         <h1 class="title">Dakota's Digital Adventure</h1>
         <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
+        <a href="friends.html" class="friends-link">Friends</a>
     </div>
+
     <div class="squares-section">
-        <div class="square top-left">
-            <a href="Computer_Science.html" style="display: block; width: 100%; height: 100%; background: url('CSPhoto.png') no-repeat center center; background-size: cover;">
-                <div class="text">Computer Science Link</div>
+        <div class="computer-science-section">
+            <a href="Computer_Science.html">
+                <div class="computer-science-image" style="background: url('CSPhoto.png') no-repeat center center; background-size: cover;"></div>
+                <div class="computer-science-border"></div>
             </a>
-        </div>
-        <div class="square top-right">
-            <!-- Content for top-right -->
-        </div>
-        <div class="square bottom-left">
-            <a href="friends.html">Friends</a>
-        </div>
-        <div class="square bottom-right">
-            <!-- Content for bottom-right -->
+            <div class="computer-science-text">Computer Science</div>
         </div>
     </div>
-
-    <script>
-        window.addEventListener('scroll', function() {
-            const titleSection = document.querySelector('.title-section');
-            const squaresSection = document.querySelector('.squares-section');
-            const scrollY = window.scrollY;
-
-            // Adjust opacity based on scroll position
-            const titleOpacity = Math.max(1 - (scrollY / 500), 0); // Fade out title
-            const squaresOpacity = Math.min(scrollY / 500, 1); // Fade in squares
-
-            titleSection.style.opacity = titleOpacity;
-            squaresSection.style.opacity = squaresOpacity;
-        });
-    </script>
 </body>
 </html>
