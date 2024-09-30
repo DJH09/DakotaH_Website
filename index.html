@@ -14,14 +14,13 @@
         }
 
         .title-section {
-            width: 100vw;
-            height: 100vh;
             background: url('DataPhoto.png') no-repeat center center;
             background-size: cover;
             background-color: black;
             display: flex;
             align-items: center;
             justify-content: center;
+            height: 100vh;
             flex-direction: column;
         }
 
@@ -35,7 +34,11 @@
             -webkit-background-clip: text;
             background-clip: text;
             padding: 0 20px;
-            text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+            text-shadow: 
+                -1px -1px 0 #fff,  
+                1px -1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px 1px 0 #fff;
         }
 
         .about-me {
@@ -48,6 +51,7 @@
             text-decoration: none;
             color: white;
             transition: background-color 0.3s, color 0.3s;
+            background-color: transparent;
         }
 
         .about-me:hover {
@@ -58,67 +62,41 @@
         .friends-link {
             margin-top: 10px;
             font-size: 1.2em;
-            text-align: center;
             color: white;
             text-decoration: none;
-        }
-
-        .squares-section {
-            width: 100vw;
-            height: 100vh;
-            background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: block;
         }
 
         .computer-science-section {
-            text-align: center;
-            margin-top: 50px;
+            position: absolute;
+            top: 20%;
+            right: 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .computer-science-image {
-            width: 300px; /* Shrink the image */
-            height: 300px;
-            border: 5px solid white;
+            width: 250px; /* Slightly bigger size */
+            border: 2px solid white; /* White border */
+            padding: 5px;
+            background-color: white;
             position: relative;
         }
 
         .computer-science-border {
-            width: 340px; /* Gray border is larger than the image */
-            height: 340px;
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
             border: 2px solid gray;
-            margin: 0 auto;
-            position: relative;
-            top: -310px;
         }
 
         .computer-science-text {
-            margin-top: -30px;
-            font-size: 1.5em;
+            margin-top: 10px;
+            font-size: 1.2em;
             color: black;
-        }
-
-        @media (max-width: 768px) {
-            .title {
-                font-size: 3em;
-                padding: 0 10px;
-            }
-
-            .computer-science-image {
-                width: 200px;
-                height: 200px;
-            }
-
-            .computer-science-border {
-                width: 240px;
-                height: 240px;
-                top: -210px;
-            }
-
-            .computer-science-text {
-                font-size: 1.2em;
-            }
         }
     </style>
 </head>
@@ -129,14 +107,13 @@
         <a href="friends.html" class="friends-link">Friends</a>
     </div>
 
-    <div class="squares-section">
-        <div class="computer-science-section">
-            <a href="Computer_Science.html">
-                <div class="computer-science-image" style="background: url('CSPhoto.png') no-repeat center center; background-size: cover;"></div>
+    <div class="computer-science-section">
+        <a href="Computer_Science.html">
+            <div class="computer-science-image" style="background: url('CSPhoto.png') no-repeat center center; background-size: cover;">
                 <div class="computer-science-border"></div>
-            </a>
-            <div class="computer-science-text">Computer Science</div>
-        </div>
+            </div>
+        </a>
+        <div class="computer-science-text">Computer Science</div>
     </div>
 </body>
 </html>
