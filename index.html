@@ -66,17 +66,19 @@
             display: flex;
             height: calc(100vh - 100%); /* Occupy remaining height */
             align-items: center; /* Center items vertically */
+            margin: 20px 0; /* Space between title photo and bottom of screen */
         }
 
         .left {
             flex: 1;
             background-color: #001f3f; /* Dark blue */
             display: flex;
-            align-items: center;
-            justify-content: flex-start;
+            align-items: flex-start; /* Align items at the top */
+            justify-content: center; /* Center content horizontally */
             flex-direction: column; /* Stack content vertically */
             color: white;
             padding: 20px;
+            margin-right: 20px; /* Space on the right side for the separator */
         }
 
         .my-photo {
@@ -89,18 +91,18 @@
             width: 2px; /* Width of the separator line */
             background-color: darkgray; /* Color of the separator */
             height: 80%; /* Height of the separator line */
-            margin: 0 20px; /* Space between the separator and the content */
         }
 
         .right {
             flex: 1;
             background-color: #001f3f; /* Dark blue */
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start; /* Align items at the top */
+            justify-content: center; /* Center content horizontally */
             flex-direction: column; /* Center text vertically */
             color: white;
             padding: 20px;
+            margin-left: 20px; /* Space on the left side for the separator */
         }
 
         .computer-science {
