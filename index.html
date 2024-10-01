@@ -10,8 +10,8 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            overflow-x: hidden; /* Prevent horizontal overflow */
-            background-color: #001f3f; /* Set a dark blue background */
+            overflow-x: hidden;
+            background-color: #001f3f;
         }
 
         .title-section {
@@ -21,7 +21,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column; /* Stack elements vertically */
+            flex-direction: column;
             background: url('DataPhoto.png') no-repeat center center;
             background-size: cover;
             opacity: 1;
@@ -29,23 +29,23 @@
 
         .title {
             color: transparent;
-            font-size: 6em; /* Bigger bubble letters */
+            font-size: 6em;
             font-weight: bold;
             text-align: center;
             background: url('DataPhoto.png') no-repeat center center;
             background-size: cover;
             -webkit-background-clip: text;
             background-clip: text;
-            padding: 0 20px; /* Padding for better appearance */
+            padding: 0 20px;
             text-shadow: 
                 -1px -1px 0 #fff,  
                 1px -1px 0 #fff,
                 -1px 1px 0 #fff,
-                1px 1px 0 #fff; /* White outline */
+                1px 1px 0 #fff;
         }
 
         .about-me {
-            margin-top: 20px; /* Space between title and rectangle */
+            margin-top: 20px;
             border: 2px solid white;
             padding: 10px 20px;
             text-align: center;
@@ -54,7 +54,7 @@
             text-decoration: none;
             color: white;
             transition: background-color 0.3s, color 0.3s;
-            background-color: transparent; /* No background color */
+            background-color: transparent;
         }
 
         .about-me:hover {
@@ -69,44 +69,46 @@
 
         .left {
             flex: 1;
-            background-color: #001f3f; /* Dark blue */
+            background-color: #001f3f;
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            flex-direction: column; /* Stack content vertically */
+            flex-direction: column;
             color: white;
             padding: 20px;
         }
 
         .my-photo {
-            width: 80%; /* Adjust width as necessary */
-            height: auto; /* Maintain aspect ratio */
-            margin-bottom: 20px; /* Space below the photo */
+            width: 80%;
+            height: auto;
+            margin-bottom: 20px;
         }
 
         .separator {
             width: 2px; /* Width of the separator line */
             background-color: darkgray; /* Color of the separator */
-            margin: 0 20px; /* Spacing left and right */
+            height: 80%; /* Height of the separator line */
+            align-self: center; /* Center the separator vertically */
+            margin: 0 20px; /* Space between the separator and the content */
         }
 
         .right {
             flex: 1;
-            background-color: #001f3f; /* Dark blue */
+            background-color: #001f3f;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column; /* Center text vertically */
+            flex-direction: column;
             color: white;
             padding: 20px;
         }
 
         .computer-science {
             border: 2px solid white;
-            margin-top: 20px; /* Space above */
+            margin-top: 20px;
             padding: 10px;
             text-align: center;
-            transition: transform 0.2s; /* Transition for scaling effect */
+            transition: transform 0.2s;
         }
 
         .computer-science img {
@@ -142,18 +144,20 @@
     <div class="title-section">
         <h1 class="title">Dakota's Digital Adventure</h1>
         <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
-        <a href="friends.html" class="about-me">&lt;friends&gt;</a> <!-- Friends link -->
+        <a href="friends.html" class="about-me">&lt;friends&gt;</a>
     </div>
     
     <div class="bottom-half">
         <div class="left">
-            <img src="MyPhoto.png" alt="My Photo" class="my-photo"> <!-- Add your photo -->
+            <img src="MyPhoto.png" alt="My Photo" class="my-photo">
             <div class="text-content">
                 <h2>Hey!</h2>
-                <p>My name is Dakota Higdon and I am a high school student. My passions include music, art, mathematics, and computer science. This is my portfolio that has information about me and my way to display all of my digital work.</p>
+                <p>My name is Dakota Higdon and I am a high school student. My passions include music, art, math, and computer science. This is my portfolio that has information about me and my way to display all of my digital work.</p>
             </div>
         </div>
-        <div class="separator"></div> <!-- Vertical Separator Line -->
+        
+        <div class="separator"></div> <!-- Separator div -->
+
         <div class="right">
             <div class="text-content">
                 <h2>Computer Science</h2>
