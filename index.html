@@ -11,7 +11,7 @@
             box-sizing: border-box;
             font-family: Arial, sans-serif;
             overflow-x: hidden; /* Prevent horizontal overflow */
-            background-color: #001f3f; /* Set a dark blue background */
+            background-color: darkblue; /* Set background to dark blue */
         }
 
         .title-section {
@@ -22,9 +22,6 @@
             align-items: center;
             justify-content: center;
             flex-direction: column; /* Stack elements vertically */
-            background: url('DataPhoto.png') no-repeat center center;
-            background-size: cover;
-            opacity: 1;
         }
 
         .title {
@@ -62,73 +59,65 @@
             color: white;
         }
 
-        .bottom-half {
-            display: flex;
-            height: calc(100vh - 100%); /* Occupy remaining height */
+        .content-section {
+            display: flex; /* Use flexbox for layout */
+            height: calc(100vh - 100px); /* Adjust height */
+            position: relative; /* Allow positioning for the separator line */
         }
 
-        .left {
-            flex: 1;
-            background-color: #333; /* Darker gray */
+        .left-half {
+            background-color: darkgray; /* Dark gray background */
+            color: white; /* Text color */
+            padding: 20px; /* Padding */
+            flex: 1; /* Take half space */
             display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            flex-direction: column; /* Stack content vertically */
-            color: white;
-            padding: 20px;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
         }
 
-        .my-photo {
-            width: 80%; /* Adjust width as necessary */
+        .right-half {
+            background-color: darkblue; /* Dark blue background */
+            flex: 1; /* Take half space */
+            display: flex;
+            justify-content: flex-end; /* Align right */
+            align-items: flex-start; /* Align top */
+            position: relative;
+        }
+
+        .cs-image-container {
+            margin-right: 20px; /* Space from the right */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center image and text */
+        }
+
+        .cs-image {
+            width: 200px; /* Adjust image width */
             height: auto; /* Maintain aspect ratio */
-            margin-bottom: 20px; /* Space below the photo */
+            border: 2px solid white; /* White border */
+            box-shadow: 0 0 5px gray; /* Shadow for effect */
+            transition: transform 0.2s ease; /* Smooth click animation */
         }
 
-        .right {
-            flex: 1;
-            background-color: #001f3f; /* Dark blue */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column; /* Center text vertically */
-            color: white;
-            padding: 20px;
+        .cs-image:hover {
+            transform: scale(1.05); /* Slightly grow image on hover */
         }
 
-        .computer-science {
-            border: 2px solid white;
-            margin-top: 20px; /* Space above */
-            padding: 10px;
-            text-align: center;
-            transition: transform 0.2s; /* Transition for scaling effect */
+        .cs-text {
+            margin-top: 10px; /* Space between image and text */
+            text-align: center; /* Center text */
+            color: white; /* Text color */
+            font-size: 1.5em; /* Font size */
         }
 
-        .computer-science img {
-            border: 4px solid gray; /* Gray border */
-            margin: 10px; /* Space around image */
-            max-width: 80%; /* Responsive */
-            height: auto; /* Maintain aspect ratio */
-            transition: transform 0.2s; /* Transition for scaling effect */
-        }
-
-        .computer-science img:active {
-            transform: scale(0.95); /* Scale down on click */
-        }
-
-        @media (max-width: 768px) {
-            .title {
-                font-size: 3em; /* Adjust for mobile */
-                padding: 0 10px; /* Adjust padding for mobile */
-            }
-
-            .bottom-half {
-                flex-direction: column; /* Stack sections on mobile */
-                height: auto; /* Adjust height */
-            }
-
-            .computer-science img {
-                max-width: 90%; /* Responsive for mobile */
-            }
+        .separator {
+            position: absolute;
+            top: 100%; /* Position below the title section */
+            left: 0;
+            right: 0;
+            height: 1px; /* Height of the line */
+            background-color: rgba(128, 128, 128, 0.5); /* Faint dark gray line */
+            margin-top: -1px; /* Ensure it sits right below the title section */
         }
     </style>
 </head>
@@ -136,40 +125,22 @@
     <div class="title-section">
         <h1 class="title">Dakota's Digital Adventure</h1>
         <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
-        <a href="friends.html" class="about-me">&lt;friends&gt;</a> <!-- Friends link -->
+        <a href="friends.html" class="about-me">&lt;friends&gt;</a>
     </div>
-    
-    <div class="bottom-half">
-        <div class="left">
-            <img src="MyPhoto.png" alt="My Photo" class="my-photo"> <!-- Add your photo -->
-            <div class="text-content">
-                <h2>Hey!</h2>
-                <p>My name is Dakota Higdon and I am a high school student. My passions include music, art, mathmatics, and computer science. This is my portfolio to display my digital work and all about me.</p>
-            </div>
+    <div class="separator"></div> <!-- Separator line -->
+    <div class="content-section">
+        <div class="left-half">
+            <h2>Hey! My name is Dakota Higdon and I am a high school student. My passions include music, art, computer science, and math. This is my first portfolio where you can find things about me and I can show off my work including my blogs!</h2>
+            <img src="MyPhoto.png" alt="My Photo" style="width: 100%; border-radius: 10px;"> <!-- Replace with your actual photo -->
         </div>
-        <div class="right">
-            <div class="text-content">
-                <h2>Computer Science</h2>
-                <div class="computer-science">
-                    <a href="Computer_Science.html" class="cs-link">
-                        <img src="CSPhoto.png" alt="Computer Science" id="cs-image">
-                    </a>
-                    <p>Learn about my projects in Computer Science!</p>
-                </div>
+        <div class="right-half">
+            <div class="cs-image-container">
+                <a href="Computer_Science.html">
+                    <img src="CSPhoto.png" alt="Computer Science" class="cs-image">
+                </a>
+                <div class="cs-text">Computer Science</div>
             </div>
         </div>
     </div>
-
-    <script>
-        // Click animation for computer science image
-        const csImage = document.getElementById('cs-image');
-
-        csImage.addEventListener('click', function() {
-            csImage.style.transform = 'scale(0.95)'; // Scale down
-            setTimeout(() => {
-                csImage.style.transform = 'scale(1)'; // Reset scale after a brief moment
-            }, 200); // 200ms for the scaling effect
-        });
-    </script>
 </body>
 </html>
