@@ -10,7 +10,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Prevent horizontal overflow */
             background-color: #001f3f; /* Set a dark blue background */
         }
 
@@ -65,20 +65,17 @@
         .bottom-half {
             display: flex;
             height: calc(100vh - 100%); /* Occupy remaining height */
-            align-items: center; /* Center items vertically */
-            margin: 20px 0; /* Space between title photo and bottom of screen */
         }
 
         .left {
             flex: 1;
             background-color: #001f3f; /* Dark blue */
             display: flex;
-            align-items: flex-start; /* Align items at the top */
-            justify-content: center; /* Center content horizontally */
+            align-items: center;
+            justify-content: flex-start;
             flex-direction: column; /* Stack content vertically */
             color: white;
             padding: 20px;
-            margin-right: 20px; /* Space on the right side for the separator */
         }
 
         .my-photo {
@@ -90,19 +87,18 @@
         .separator {
             width: 2px; /* Width of the separator line */
             background-color: darkgray; /* Color of the separator */
-            height: 80%; /* Height of the separator line */
+            margin: 0 20px; /* Spacing left and right */
         }
 
         .right {
             flex: 1;
             background-color: #001f3f; /* Dark blue */
             display: flex;
-            align-items: flex-start; /* Align items at the top */
-            justify-content: center; /* Center content horizontally */
+            align-items: center;
+            justify-content: center;
             flex-direction: column; /* Center text vertically */
             color: white;
             padding: 20px;
-            margin-left: 20px; /* Space on the left side for the separator */
         }
 
         .computer-science {
@@ -154,12 +150,10 @@
             <img src="MyPhoto.png" alt="My Photo" class="my-photo"> <!-- Add your photo -->
             <div class="text-content">
                 <h2>Hey!</h2>
-                <p>My name is Dakota Higdon and I am a high school student. My passions include music, art, math, and computer science. This is my portfolio that has information about me and my way to display all of my digital work.</p>
+                <p>My name is Dakota Higdon and I am a high school student. My passions include music, art, mathematics, and computer science. This is my portfolio that has information about me and my way to display all of my digital work.</p>
             </div>
         </div>
-        
-        <div class="separator"></div> <!-- Separator div added here -->
-
+        <div class="separator"></div> <!-- Vertical Separator Line -->
         <div class="right">
             <div class="text-content">
                 <h2>Computer Science</h2>
