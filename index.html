@@ -61,8 +61,7 @@
 
         .content-section {
             display: flex; /* Use flexbox for layout */
-            height: calc(100vh - 100px); /* Adjust height */
-            position: relative; /* Allow positioning for the separator line */
+            height: 50vh; /* Adjust height */
         }
 
         .left-half {
@@ -109,16 +108,6 @@
             color: white; /* Text color */
             font-size: 1.5em; /* Font size */
         }
-
-        .separator {
-            position: absolute;
-            top: 100%; /* Position below the title section */
-            left: 0;
-            right: 0;
-            height: 1px; /* Height of the line */
-            background-color: rgba(128, 128, 128, 0.5); /* Faint dark gray line */
-            margin-top: -1px; /* Ensure it sits right below the title section */
-        }
     </style>
 </head>
 <body>
@@ -127,7 +116,6 @@
         <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
         <a href="friends.html" class="about-me">&lt;friends&gt;</a>
     </div>
-    <div class="separator"></div> <!-- Separator line -->
     <div class="content-section">
         <div class="left-half">
             <h2>Hey! My name is Dakota Higdon and I am a high school student. My passions include music, art, computer science, and math. This is my first portfolio where you can find things about me and I can show off my work including my blogs!</h2>
