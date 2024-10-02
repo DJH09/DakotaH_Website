@@ -67,6 +67,7 @@
             padding-bottom: 22%; /* Square dimensions */
             background-color: white;
             border: 1px solid black;
+            cursor: pointer; /* Make squares clickable */
         }
 
         .knowledge-section {
@@ -118,13 +119,11 @@
         <div class="projects-section">
             <h1>Projects</h1>
             <div class="squares-container">
-                <!-- Make the first square clickable and link to "MarchingGame.html" -->
-                <a href="MarchingGame.html">
-                    <div class="square"></div>
-                </a>
+                <!-- Clickable First Square -->
+                <div class="square" onclick="window.location.href='MarchingGame.html';"></div> <!-- First box links to Marching Game -->
                 <div class="square"></div>
                 <div class="square"></div>
-                <div class="square"></div>
+                <div class="square"></div> <!-- Fourth box added back -->
             </div>
         </div>
 
