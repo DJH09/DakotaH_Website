@@ -106,16 +106,15 @@
                 }, 1500); // Remove after 1.5 seconds
             }
 
+            // Hide the card pack immediately after the click
+            document.getElementById('card-pack').style.display = 'none'; // Hide the card pack immediately
+            
             // If it's the user's first time, handle the card pack click
             if (progress.firstTime) {
                 const receivedCards = getRandomCards(); // Get random cards
                 document.getElementById('result').innerText = "You have received: " + receivedCards.join(", ");
                 
-                // Hide the card pack after the animation is completed
-                setTimeout(() => {
-                    document.getElementById('card-pack').style.display = 'none'; // Hide the card pack after animation
-                }, 2000); // Wait for 1.5 seconds for the animation and an additional 0.5 seconds before hiding
-
+                // Update progress for first-time visit
                 progress.firstTime = false; // Set to false after first click
                 localStorage.setItem(progressKey, JSON.stringify(progress)); // Save progress
             } else {
