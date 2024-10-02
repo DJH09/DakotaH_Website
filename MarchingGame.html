@@ -10,194 +10,117 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            background-color: #282c34;
-            color: white;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            position: relative; /* For positioning the exploding boxes */
-            overflow: hidden;
+            background: black; /* Set a background color for visibility */
+            color: white; /* Text color */
+            position: relative; /* For absolute positioning of boxes */
+            overflow: hidden; /* Prevent scrollbars from appearing */
         }
-
-        #pack-image {
-            cursor: pointer;
-            max-width: 500px;
-            max-height: 500px;
-            width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-            transition: opacity 0.3s ease-out;
+        #card-pack {
+            background-image: url('CardPack.png');
+            background-size: cover;
+            width: 200px; /* Adjust size as needed */
+            height: 200px; /* Adjust size as needed */
+            margin: 50px auto; /* Center the image */
+            cursor: pointer; /* Show pointer cursor */
         }
-
-        #result-box {
-            background-color: #333;
-            display: none;
-            padding: 20px;
-            border: 2px solid white;
-            text-align: center;
-        }
-
-        #reset-button {
-            background-color: #555;
-            padding: 20px;
-            border: 2px solid white;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        #reset-button:hover {
-            background-color: #666;
-        }
-
-        /* Small boxes for the explosion */
         .small-box {
             position: absolute;
-            background-color: white; /* Changed to white */
+            background-color: white; /* Box color */
+            pointer-events: none; /* Prevent interaction with boxes */
             opacity: 1;
-            animation: fall 1.5s forwards ease-out;
+            transition: transform 1.5s ease, opacity 1.5s ease; /* Smooth transition */
         }
-
-        /* Keyframes for the falling animation */
-        @keyframes fall {
-            0% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(300px);
-                opacity: 0;
-            }
+        #reset-progress {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: red; /* Red button for reset */
+            color: white;
+            text-align: center;
+            cursor: pointer; /* Show pointer cursor */
         }
     </style>
 </head>
 <body>
-    <!-- Image for card pack -->
-    <img id="pack-image" src="CardPack.png" alt="Card Pack">
-
-    <!-- Box that will show the received cards -->
-    <div id="result-box"></div>
-
-    <!-- Button to reset progress -->
-    <div id="reset-button" onclick="resetProgress()">
-        <p>Click here to erase your progress</p>
-    </div>
+    <div id="card-pack"></div>
+    <div id="reset-progress">Reset Progress</div>
 
     <script>
-        const cards = ["Katie", "Dakota", "Bailee", "Sami", "Samantha", "Barker", "Grace", "Kambry", "Ellie", "Addison", "Jacob Condon", "Jacobn"];
-        
-        // Function to save player progress to localStorage
-        function saveProgress(data) {
-            localStorage.setItem('marchingBandGameProgress', JSON.stringify(data));
-        }
+        // Progress storage
+        const progressKey = 'marchingGameProgress';
+        const defaultProgress = { firstTime: true, cards: [] };
 
-        // Function to load player progress from localStorage
-        function loadProgress() {
-            const savedData = localStorage.getItem('marchingBandGameProgress');
-            return savedData ? JSON.parse(savedData) : null; // No saved progress
-        }
+        // Load progress from local storage
+        let progress = JSON.parse(localStorage.getItem(progressKey)) || defaultProgress;
 
-        // Function to check if it's the player's first time
-        function checkFirstTime() {
-            return !localStorage.getItem('hasVisited');
-        }
+        // Function to create explosion effect
+        function createExplosion(event) {
+            // Get click position
+            const rect = event.target.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const clickY = event.clientY - rect.top;
 
-        // Function to show the card pack image
-        function showCardPack() {
-            const packImage = document.getElementById('pack-image');
-            packImage.style.display = 'block'; // Show the card pack image
-        }
-
-        // Function to create exploding boxes at click point
-        function createExplosion(x, y) {
-            const numBoxes = 20; // Number of small boxes
-            for (let i = 0; i < numBoxes; i++) {
+            for (let i = 0; i < 20; i++) {
                 const box = document.createElement('div');
-                box.classList.add('small-box');
+                box.className = 'small-box';
 
-                // Set the initial position of the boxes
-                box.style.left = `${x - 7.5}px`; // Centering the box on the click
-                box.style.top = `${y - 7.5}px`; // Centering the box on the click
-
-                // Set random size and fall distance
-                const size = Math.random() * 10 + 5; // Size between 5px and 15px
+                // Randomize size and position
+                const size = Math.random() * 20 + 10; // Size between 10px and 30px
                 box.style.width = `${size}px`;
                 box.style.height = `${size}px`;
 
-                // Set random x and y distances for explosion
-                const randomX = (Math.random() - 0.5) * 100; // Random distance between -50px and 50px
-                const randomY = Math.random() * 150; // Random fall distance between 0px and 150px
+                // Set random angle and distance for explosion effect
+                const angle = Math.random() * 2 * Math.PI; // Random angle in radians
+                const distance = Math.random() * 100 + 50; // Random distance from click
+                const randomX = Math.cos(angle) * distance;
+                const randomY = Math.sin(angle) * distance;
 
-                box.style.transform = `translate(${randomX}px, 0)`;
+                // Set initial position at click location
+                box.style.left = `${clickX}px`;
+                box.style.top = `${clickY}px`;
+
+                // Add to body
                 document.body.appendChild(box);
 
-                // Remove the boxes after the animation completes
+                // Trigger explosion animation
+                setTimeout(() => {
+                    box.style.transform = `translate(${randomX}px, ${randomY}px) translateY(100px)`; // Move and fall
+                    box.style.opacity = '0'; // Fade out
+                }, 50); // Small delay before animation starts
+
+                // Remove box after animation
                 setTimeout(() => {
                     box.remove();
-                }, 1500); // Remove after the fall animation duration
+                }, 1500); // Remove after 1.5 seconds
+            }
+
+            // Existing card pack click functionality
+            if (progress.firstTime) {
+                progress.firstTime = false;
+                localStorage.setItem(progressKey, JSON.stringify(progress));
+                alert("You have received: " + getRandomCards().join(", "));
             }
         }
 
-        // Function to open the card pack and show the received cards
-        function openCardPack(event) {
-            const packImage = document.getElementById('pack-image');
-            const resultBox = document.getElementById('result-box');
-
-            // Hide the card pack image and trigger the explosion animation
-            packImage.style.opacity = 0;
-            createExplosion(event.clientX || event.touches[0].clientX, event.clientY || event.touches[0].clientY); // Pass click/touch coordinates
-
-            // Randomly select 3 cards
-            const selectedCards = [];
-            while (selectedCards.length < 3) {
-                const randomIndex = Math.floor(Math.random() * cards.length);
-                const card = cards[randomIndex];
-                if (!selectedCards.includes(card)) {
-                    selectedCards.push(card);
+        // Function to get 3 random cards
+        function getRandomCards() {
+            const cards = ["Katie", "Dakota", "Bailee", "Sami", "Samantha", "Barker", "Grace", "Kambry", "Ellie", "Addison", "Jacob Condon", "Jacobn"];
+            const randomCards = [];
+            while (randomCards.length < 3) {
+                const card = cards[Math.floor(Math.random() * cards.length)];
+                if (!randomCards.includes(card)) {
+                    randomCards.push(card);
                 }
             }
-
-            // Save the received cards to progress
-            saveProgress({ cards: selectedCards });
-
-            // Show the result after a slight delay for the explosion
-            setTimeout(() => {
-                packImage.style.display = 'none'; // Fully hide the image
-                resultBox.innerHTML = `You have received: ${selectedCards.join(', ')}`;
-                resultBox.style.display = 'block';
-            }, 400); // Delay matching explosion timing
-
-            // Mark that the player has visited
-            localStorage.setItem('hasVisited', 'true');
+            return randomCards;
         }
 
-        // Function to reset progress
-        function resetProgress() {
-            localStorage.removeItem('marchingBandGameProgress');
-            localStorage.removeItem('hasVisited');
-            location.reload(); // Reload the page to reset the state
-        }
-
-        // On page load, check if the player has visited before
-        window.onload = function() {
-            const packImage = document.getElementById('pack-image');
-
-            // Add event listener for click on the card pack image
-            packImage.addEventListener('click', openCardPack);
-            packImage.addEventListener('touchstart', openCardPack); // Handle touch events
-
-            if (checkFirstTime()) {
-                showCardPack(); // Show the card pack image if it's the first visit
-            } else {
-                const progress = loadProgress();
-                if (progress) {
-                    const resultBox = document.getElementById('result-box');
-                    resultBox.innerHTML = `You have previously received: ${progress.cards.join(', ')}`;
-                    resultBox.style.display = 'block';
-                }
-            }
-        };
+        // Event listeners
+        document.getElementById('card-pack').addEventListener('click', createExplosion);
+        document.getElementById('reset-progress').addEventListener('click', () => {
+            localStorage.removeItem(progressKey);
+            alert('Progress has been reset!');
+        });
     </script>
 </body>
 </html>
