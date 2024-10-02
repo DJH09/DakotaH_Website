@@ -114,7 +114,7 @@
                 // Hide the card pack after the animation is completed
                 setTimeout(() => {
                     document.getElementById('card-pack').style.display = 'none'; // Hide the card pack after animation
-                }, 1500); // Wait for animation duration before hiding
+                }, 2000); // Wait for 1.5 seconds for the animation and an additional 0.5 seconds before hiding
 
                 progress.firstTime = false; // Set to false after first click
                 localStorage.setItem(progressKey, JSON.stringify(progress)); // Save progress
