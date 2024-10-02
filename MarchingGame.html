@@ -14,13 +14,18 @@
             color: white; /* Text color */
             position: relative; /* For absolute positioning of boxes */
             overflow: hidden; /* Prevent scrollbars from appearing */
+            height: 100vh; /* Full height to center content */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center align content */
+            justify-content: center; /* Center vertically */
         }
         #card-pack {
             background-image: url('CardPack.png');
             background-size: cover;
             width: 200px; /* Adjust size as needed */
             height: 200px; /* Adjust size as needed */
-            margin: 50px auto; /* Center the image */
+            margin-bottom: 20px; /* Space below the card pack */
             cursor: pointer; /* Show pointer cursor */
             display: block; /* Show initially */
         }
@@ -32,31 +37,26 @@
             transition: transform 1.5s ease, opacity 1.5s ease; /* Smooth transition */
         }
         #reset-progress {
-            display: block;
-            margin: 20px auto;
             padding: 10px 20px;
             background-color: red; /* Red button for reset */
             color: white;
             text-align: center;
             cursor: pointer; /* Show pointer cursor */
+            margin-top: 20px; /* Space above the reset button */
+            position: relative; /* Relative position for stacking context */
         }
         #result {
             text-align: center;
-            margin-top: 20px;
             font-size: 1.5em;
             color: yellow; /* Color for visibility */
-        }
-        #card-pack-placeholder {
-            width: 200px; /* Same size as card pack */
-            height: 200px; /* Same size as card pack */
-            margin: 50px auto; /* Center the placeholder */
-            visibility: hidden; /* Hide the placeholder */
+            position: absolute; /* Absolute position to overlay */
+            top: calc(50% + 20px); /* Adjust position based on layout */
+            display: none; /* Hide result initially */
         }
     </style>
 </head>
 <body>
     <div id="card-pack"></div>
-    <div id="card-pack-placeholder"></div> <!-- Placeholder for maintaining space -->
     <div id="reset-progress">Reset Progress</div>
     <div id="result"></div> <!-- Container for results -->
 
@@ -115,12 +115,12 @@
 
             // Hide the card pack immediately after the click
             document.getElementById('card-pack').style.display = 'none'; // Hide the card pack immediately
-            document.getElementById('card-pack-placeholder').style.visibility = 'visible'; // Keep the placeholder visible
             
             // If it's the user's first time, handle the card pack click
             if (progress.firstTime) {
                 const receivedCards = getRandomCards(); // Get random cards
                 document.getElementById('result').innerText = "You have received: " + receivedCards.join(", ");
+                document.getElementById('result').style.display = 'block'; // Show result
                 
                 // Update progress for first-time visit
                 progress.firstTime = false; // Set to false after first click
@@ -129,6 +129,7 @@
                 // If the progress has been reset, allow to get new cards with the same animation
                 const receivedCards = getRandomCards(); // Get random cards
                 document.getElementById('result').innerText = "You have received: " + receivedCards.join(", ");
+                document.getElementById('result').style.display = 'block'; // Show result
             }
         }
 
@@ -151,7 +152,6 @@
             localStorage.removeItem(progressKey);
             document.getElementById('result').innerText = 'Progress has been reset! Click the card pack again.'; // Show reset message
             document.getElementById('card-pack').style.display = 'block'; // Show card pack again after reset
-            document.getElementById('card-pack-placeholder').style.visibility = 'hidden'; // Hide placeholder again
             progress.firstTime = true; // Set back to first time for next click
         });
     </script>
