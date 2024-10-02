@@ -54,8 +54,6 @@
         /* Small boxes for the explosion */
         .small-box {
             position: absolute;
-            width: 15px; /* Increased size for visibility */
-            height: 15px; /* Increased size for visibility */
             background-color: white; /* Changed to white */
             opacity: 1;
             animation: fall 1.5s forwards ease-out;
@@ -88,7 +86,7 @@
 
     <script>
         const cards = ["Katie", "Dakota", "Bailee", "Sami", "Samantha", "Barker", "Grace", "Kambry", "Ellie", "Addison", "Jacob Condon", "Jacobn"];
-
+        
         // Function to save player progress to localStorage
         function saveProgress(data) {
             localStorage.setItem('marchingBandGameProgress', JSON.stringify(data));
@@ -121,6 +119,17 @@
                 // Set the initial position of the boxes
                 box.style.left = `${x - 7.5}px`; // Centering the box on the click
                 box.style.top = `${y - 7.5}px`; // Centering the box on the click
+
+                // Set random size and fall distance
+                const size = Math.random() * 10 + 5; // Size between 5px and 15px
+                box.style.width = `${size}px`;
+                box.style.height = `${size}px`;
+
+                // Set random x and y distances for explosion
+                const randomX = (Math.random() - 0.5) * 100; // Random distance between -50px and 50px
+                const randomY = Math.random() * 150; // Random fall distance between 0px and 150px
+
+                box.style.transform = `translate(${randomX}px, 0)`;
                 document.body.appendChild(box);
 
                 // Remove the boxes after the animation completes
@@ -137,7 +146,7 @@
 
             // Hide the card pack image and trigger the explosion animation
             packImage.style.opacity = 0;
-            createExplosion(event.clientX, event.clientY); // Pass click coordinates
+            createExplosion(event.clientX || event.touches[0].clientX, event.clientY || event.touches[0].clientY); // Pass click/touch coordinates
 
             // Randomly select 3 cards
             const selectedCards = [];
@@ -176,6 +185,7 @@
 
             // Add event listener for click on the card pack image
             packImage.addEventListener('click', openCardPack);
+            packImage.addEventListener('touchstart', openCardPack); // Handle touch events
 
             if (checkFirstTime()) {
                 showCardPack(); // Show the card pack image if it's the first visit
