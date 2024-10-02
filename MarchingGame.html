@@ -54,26 +54,14 @@
         /* Small boxes for the explosion */
         .small-box {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 15px; /* Increased size for visibility */
+            height: 15px; /* Increased size for visibility */
             background-color: white; /* Changed to white */
             opacity: 1;
             animation: fall 1.5s forwards ease-out;
         }
 
-        /* Keyframes for exploding the small boxes outward */
-        @keyframes explode {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(2); /* Increased scale for explosion effect */
-                opacity: 0; /* Fade out */
-            }
-        }
-
-        /* Keyframes for falling animation */
+        /* Keyframes for the falling animation */
         @keyframes fall {
             0% {
                 transform: translateY(0);
@@ -109,10 +97,7 @@
         // Function to load player progress from localStorage
         function loadProgress() {
             const savedData = localStorage.getItem('marchingBandGameProgress');
-            if (savedData) {
-                return JSON.parse(savedData);
-            }
-            return null; // No saved progress
+            return savedData ? JSON.parse(savedData) : null; // No saved progress
         }
 
         // Function to check if it's the player's first time
@@ -134,9 +119,9 @@
                 box.classList.add('small-box');
 
                 // Set the initial position of the boxes
-                box.style.left = `${x - 5}px`; // Centering the box on the click
-                box.style.top = `${y - 5}px`; // Centering the box on the click
-                box.style.animation = `explode 0.4s ease-out forwards, fall 1.5s forwards ease-out 0.4s`;
+                box.style.left = `${x - 7.5}px`; // Centering the box on the click
+                box.style.top = `${y - 7.5}px`; // Centering the box on the click
+                box.style.animation = `fall 1.5s forwards ease-out`;
 
                 // Add the box to the body
                 document.body.appendChild(box);
@@ -144,7 +129,7 @@
                 // Remove the boxes after the animation completes
                 setTimeout(() => {
                     box.remove();
-                }, 1900); // Adjusted to match the animation timing
+                }, 1500); // Remove after the fall animation duration
             }
         }
 
