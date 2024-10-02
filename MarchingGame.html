@@ -76,7 +76,7 @@
 </head>
 <body>
     <!-- Image for card pack -->
-    <img id="pack-image" src="CardPack.png" alt="Card Pack" onclick="openCardPack(event)">
+    <img id="pack-image" src="CardPack.png" alt="Card Pack">
 
     <!-- Box that will show the received cards -->
     <div id="result-box"></div>
@@ -121,9 +121,6 @@
                 // Set the initial position of the boxes
                 box.style.left = `${x - 7.5}px`; // Centering the box on the click
                 box.style.top = `${y - 7.5}px`; // Centering the box on the click
-                box.style.animation = `fall 1.5s forwards ease-out`;
-
-                // Add the box to the body
                 document.body.appendChild(box);
 
                 // Remove the boxes after the animation completes
@@ -175,6 +172,11 @@
 
         // On page load, check if the player has visited before
         window.onload = function() {
+            const packImage = document.getElementById('pack-image');
+
+            // Add event listener for click on the card pack image
+            packImage.addEventListener('click', openCardPack);
+
             if (checkFirstTime()) {
                 showCardPack(); // Show the card pack image if it's the first visit
             } else {
