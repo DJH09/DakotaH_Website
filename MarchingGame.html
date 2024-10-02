@@ -17,21 +17,23 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            position: relative; /* For positioning the exploding boxes */
+            overflow: hidden;
         }
 
         #pack-image {
-            display: none; /* Hidden until first visit is detected */
             cursor: pointer;
-            max-width: 500px; /* Increased the size */
+            max-width: 500px;
             max-height: 500px;
-            width: 100%; /* Ensures it remains responsive */
-            height: auto; /* Keeps the aspect ratio */
+            width: 100%;
+            height: auto;
             margin-bottom: 20px;
+            transition: opacity 0.3s ease-out;
         }
 
         #result-box {
             background-color: #333;
-            display: none; /* Hidden until cards are received */
+            display: none;
             padding: 20px;
             border: 2px solid white;
             text-align: center;
@@ -48,11 +50,45 @@
         #reset-button:hover {
             background-color: #666;
         }
+
+        /* Small boxes for the explosion */
+        .small-box {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            opacity: 1;
+            animation: fall 1.5s forwards ease-out;
+        }
+
+        /* Keyframes for exploding the small boxes outward */
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--xPos), var(--yPos)) scale(1.5);
+                opacity: 1;
+            }
+        }
+
+        /* Keyframes for falling animation */
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(300px);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Image for card pack -->
-    <img id="pack-image" src="CardPack.png" alt="Card Pack" onclick="openCardPack()">
+    <img id="pack-image" src="CardPack.png" alt="Card Pack" onclick="openCardPack(event)">
 
     <!-- Box that will show the received cards -->
     <div id="result-box"></div>
@@ -90,10 +126,42 @@
             packImage.style.display = 'block'; // Show the card pack image
         }
 
+        // Function to create exploding boxes at click point
+        function createExplosion(x, y) {
+            const numBoxes = 20; // Number of small boxes
+            for (let i = 0; i < numBoxes; i++) {
+                const box = document.createElement('div');
+                box.classList.add('small-box');
+
+                // Random directions for the explosion
+                const xPos = (Math.random() - 0.5) * 400 + 'px';
+                const yPos = (Math.random() - 0.5) * 400 + 'px';
+
+                // Set the initial position and movement
+                box.style.setProperty('--xPos', xPos);
+                box.style.setProperty('--yPos', yPos);
+                box.style.left = x + 'px';
+                box.style.top = y + 'px';
+                box.style.animation = `explode 0.4s ease-out, fall 1.5s forwards ease-out 0.4s`;
+
+                // Add the box to the body
+                document.body.appendChild(box);
+
+                // Remove the boxes after the animation completes
+                setTimeout(() => {
+                    box.remove();
+                }, 1500);
+            }
+        }
+
         // Function to open the card pack and show the received cards
-        function openCardPack() {
+        function openCardPack(event) {
             const packImage = document.getElementById('pack-image');
             const resultBox = document.getElementById('result-box');
+
+            // Hide the card pack image and trigger the explosion animation
+            packImage.style.opacity = 0;
+            createExplosion(event.clientX, event.clientY); // Pass click coordinates
 
             // Randomly select 3 cards
             const selectedCards = [];
@@ -108,10 +176,12 @@
             // Save the received cards to progress
             saveProgress({ cards: selectedCards });
 
-            // Hide the card pack image and show the result
-            packImage.style.display = 'none';
-            resultBox.innerHTML = `You have received: ${selectedCards.join(', ')}`;
-            resultBox.style.display = 'block';
+            // Show the result after a slight delay for the explosion
+            setTimeout(() => {
+                packImage.style.display = 'none'; // Fully hide the image
+                resultBox.innerHTML = `You have received: ${selectedCards.join(', ')}`;
+                resultBox.style.display = 'block';
+            }, 400); // Delay matching explosion timing
 
             // Mark that the player has visited
             localStorage.setItem('hasVisited', 'true');
