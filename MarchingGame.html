@@ -19,37 +19,37 @@
             flex-direction: column;
         }
 
-        #pack-box, #result-box, #reset-button {
-            padding: 20px;
-            border: 2px solid white;
-            text-align: center;
+        #pack-image {
+            display: none; /* Hidden until first visit is detected */
             cursor: pointer;
+            max-width: 300px; /* Adjust the size as necessary */
             margin-bottom: 20px;
-        }
-
-        #pack-box {
-            background-color: #444;
         }
 
         #result-box {
             background-color: #333;
             display: none; /* Hidden until cards are received */
+            padding: 20px;
+            border: 2px solid white;
+            text-align: center;
         }
 
         #reset-button {
             background-color: #555;
+            padding: 20px;
+            border: 2px solid white;
+            text-align: center;
+            cursor: pointer;
         }
 
-        #pack-box:hover, #reset-button:hover {
+        #reset-button:hover {
             background-color: #666;
         }
     </style>
 </head>
 <body>
-    <!-- Box that prompts the user to open the card pack -->
-    <div id="pack-box" style="display:none;" onclick="openCardPack()">
-        <p>Click the box to open your card pack!</p>
-    </div>
+    <!-- Image for card pack -->
+    <img id="pack-image" src="CardPack.png" alt="Card Pack" onclick="openCardPack()">
 
     <!-- Box that will show the received cards -->
     <div id="result-box"></div>
@@ -81,15 +81,15 @@
             return !localStorage.getItem('hasVisited');
         }
 
-        // Function to show the card pack opening box
+        // Function to show the card pack image
         function showCardPack() {
-            const packBox = document.getElementById('pack-box');
-            packBox.style.display = 'block'; // Show the box
+            const packImage = document.getElementById('pack-image');
+            packImage.style.display = 'block'; // Show the card pack image
         }
 
         // Function to open the card pack and show the received cards
         function openCardPack() {
-            const packBox = document.getElementById('pack-box');
+            const packImage = document.getElementById('pack-image');
             const resultBox = document.getElementById('result-box');
 
             // Randomly select 3 cards
@@ -105,8 +105,8 @@
             // Save the received cards to progress
             saveProgress({ cards: selectedCards });
 
-            // Hide the card pack box and show the result
-            packBox.style.display = 'none';
+            // Hide the card pack image and show the result
+            packImage.style.display = 'none';
             resultBox.innerHTML = `You have received: ${selectedCards.join(', ')}`;
             resultBox.style.display = 'block';
 
@@ -124,7 +124,7 @@
         // On page load, check if the player has visited before
         window.onload = function() {
             if (checkFirstTime()) {
-                showCardPack(); // Show the card pack box if it's the first visit
+                showCardPack(); // Show the card pack image if it's the first visit
             } else {
                 const progress = loadProgress();
                 if (progress) {
