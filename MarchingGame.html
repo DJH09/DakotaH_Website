@@ -68,8 +68,8 @@
                 opacity: 1;
             }
             100% {
-                transform: scale(1.5); /* Increase scale for explosion effect */
-                opacity: 0.7; /* Slight transparency for effect */
+                transform: scale(2); /* Increased scale for explosion effect */
+                opacity: 0; /* Fade out */
             }
         }
 
@@ -133,13 +133,9 @@
                 const box = document.createElement('div');
                 box.classList.add('small-box');
 
-                // Random directions for the explosion
-                const xPos = (Math.random() - 0.5) * 200 + 'px'; // Adjusted range
-                const yPos = (Math.random() - 0.5) * 200 + 'px'; // Adjusted range
-
-                // Set the initial position and movement
-                box.style.left = x + 'px';
-                box.style.top = y + 'px';
+                // Set the initial position of the boxes
+                box.style.left = `${x - 5}px`; // Centering the box on the click
+                box.style.top = `${y - 5}px`; // Centering the box on the click
                 box.style.animation = `explode 0.4s ease-out forwards, fall 1.5s forwards ease-out 0.4s`;
 
                 // Add the box to the body
