@@ -108,10 +108,15 @@
 
             // If it's the user's first time, handle the card pack click
             if (progress.firstTime) {
-                progress.firstTime = false; // Set to false after first click
                 const receivedCards = getRandomCards(); // Get random cards
                 document.getElementById('result').innerText = "You have received: " + receivedCards.join(", ");
-                document.getElementById('card-pack').style.display = 'none'; // Hide the card pack after first click
+                
+                // Hide the card pack after the animation is completed
+                setTimeout(() => {
+                    document.getElementById('card-pack').style.display = 'none'; // Hide the card pack after animation
+                }, 1500); // Wait for animation duration before hiding
+
+                progress.firstTime = false; // Set to false after first click
                 localStorage.setItem(progressKey, JSON.stringify(progress)); // Save progress
             } else {
                 // If the progress has been reset, allow to get new cards with the same animation
