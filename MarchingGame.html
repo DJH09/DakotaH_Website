@@ -19,7 +19,7 @@
             flex-direction: column;
         }
 
-        #pack-box, #result-box {
+        #pack-box, #result-box, #reset-button {
             padding: 20px;
             border: 2px solid white;
             text-align: center;
@@ -36,8 +36,12 @@
             display: none; /* Hidden until cards are received */
         }
 
-        #pack-box:hover {
+        #reset-button {
             background-color: #555;
+        }
+
+        #pack-box:hover, #reset-button:hover {
+            background-color: #666;
         }
     </style>
 </head>
@@ -49,6 +53,11 @@
 
     <!-- Box that will show the received cards -->
     <div id="result-box"></div>
+
+    <!-- Button to reset progress -->
+    <div id="reset-button" onclick="resetProgress()">
+        <p>Click here to erase your progress</p>
+    </div>
 
     <script>
         const cards = ["Katie", "Dakota", "Bailee", "Sami", "Samantha", "Barker", "Grace", "Kambry", "Ellie", "Addison", "Jacob Condon", "Jacobn"];
@@ -103,6 +112,13 @@
 
             // Mark that the player has visited
             localStorage.setItem('hasVisited', 'true');
+        }
+
+        // Function to reset progress
+        function resetProgress() {
+            localStorage.removeItem('marchingBandGameProgress');
+            localStorage.removeItem('hasVisited');
+            location.reload(); // Reload the page to reset the state
         }
 
         // On page load, check if the player has visited before
