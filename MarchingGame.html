@@ -40,11 +40,18 @@
             text-align: center;
             cursor: pointer; /* Show pointer cursor */
         }
+        #result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: yellow; /* Color for visibility */
+        }
     </style>
 </head>
 <body>
     <div id="card-pack"></div>
     <div id="reset-progress">Reset Progress</div>
+    <div id="result"></div> <!-- Container for results -->
 
     <script>
         // Progress storage
@@ -62,9 +69,8 @@
         // Function to create explosion effect
         function createExplosion(event) {
             // Get click position
-            const rect = event.target.getBoundingClientRect();
-            const clickX = event.clientX - rect.left;
-            const clickY = event.clientY - rect.top;
+            const clickX = event.clientX;
+            const clickY = event.clientY;
 
             for (let i = 0; i < 20; i++) {
                 const box = document.createElement('div');
@@ -104,7 +110,8 @@
             if (progress.firstTime) {
                 progress.firstTime = false;
                 localStorage.setItem(progressKey, JSON.stringify(progress));
-                alert("You have received: " + getRandomCards().join(", "));
+                const receivedCards = getRandomCards(); // Get random cards
+                document.getElementById('result').innerText = "You have received: " + receivedCards.join(", ");
                 document.getElementById('card-pack').style.display = 'none'; // Hide the card pack after first click
             }
         }
@@ -126,7 +133,7 @@
         document.getElementById('card-pack').addEventListener('click', createExplosion);
         document.getElementById('reset-progress').addEventListener('click', () => {
             localStorage.removeItem(progressKey);
-            alert('Progress has been reset!');
+            document.getElementById('result').innerText = 'Progress has been reset!'; // Show reset message
             document.getElementById('card-pack').style.display = 'block'; // Show card pack again after reset
         });
     </script>
