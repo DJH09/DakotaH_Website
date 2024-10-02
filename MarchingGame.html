@@ -106,13 +106,17 @@
                 }, 1500); // Remove after 1.5 seconds
             }
 
-            // Existing card pack click functionality
+            // If it's the user's first time, handle the card pack click
             if (progress.firstTime) {
-                progress.firstTime = false;
-                localStorage.setItem(progressKey, JSON.stringify(progress));
+                progress.firstTime = false; // Set to false after first click
                 const receivedCards = getRandomCards(); // Get random cards
                 document.getElementById('result').innerText = "You have received: " + receivedCards.join(", ");
                 document.getElementById('card-pack').style.display = 'none'; // Hide the card pack after first click
+                localStorage.setItem(progressKey, JSON.stringify(progress)); // Save progress
+            } else {
+                // If the progress has been reset, allow to get new cards with the same animation
+                const receivedCards = getRandomCards(); // Get random cards
+                document.getElementById('result').innerText = "You have received: " + receivedCards.join(", ");
             }
         }
 
@@ -133,8 +137,9 @@
         document.getElementById('card-pack').addEventListener('click', createExplosion);
         document.getElementById('reset-progress').addEventListener('click', () => {
             localStorage.removeItem(progressKey);
-            document.getElementById('result').innerText = 'Progress has been reset!'; // Show reset message
+            document.getElementById('result').innerText = 'Progress has been reset! Click the card pack again.'; // Show reset message
             document.getElementById('card-pack').style.display = 'block'; // Show card pack again after reset
+            progress.firstTime = true; // Set back to first time for next click
         });
     </script>
 </body>
