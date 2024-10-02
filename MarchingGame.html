@@ -22,7 +22,7 @@
             height: 200px; /* Adjust size as needed */
             margin: 50px auto; /* Center the image */
             cursor: pointer; /* Show pointer cursor */
-            display: none; /* Hide initially */
+            display: block; /* Show initially */
         }
         .small-box {
             position: absolute;
@@ -46,10 +46,17 @@
             font-size: 1.5em;
             color: yellow; /* Color for visibility */
         }
+        #card-pack-placeholder {
+            width: 200px; /* Same size as card pack */
+            height: 200px; /* Same size as card pack */
+            margin: 50px auto; /* Center the placeholder */
+            visibility: hidden; /* Hide the placeholder */
+        }
     </style>
 </head>
 <body>
     <div id="card-pack"></div>
+    <div id="card-pack-placeholder"></div> <!-- Placeholder for maintaining space -->
     <div id="reset-progress">Reset Progress</div>
     <div id="result"></div> <!-- Container for results -->
 
@@ -108,6 +115,7 @@
 
             // Hide the card pack immediately after the click
             document.getElementById('card-pack').style.display = 'none'; // Hide the card pack immediately
+            document.getElementById('card-pack-placeholder').style.visibility = 'visible'; // Keep the placeholder visible
             
             // If it's the user's first time, handle the card pack click
             if (progress.firstTime) {
@@ -143,6 +151,7 @@
             localStorage.removeItem(progressKey);
             document.getElementById('result').innerText = 'Progress has been reset! Click the card pack again.'; // Show reset message
             document.getElementById('card-pack').style.display = 'block'; // Show card pack again after reset
+            document.getElementById('card-pack-placeholder').style.visibility = 'hidden'; // Hide placeholder again
             progress.firstTime = true; // Set back to first time for next click
         });
     </script>
