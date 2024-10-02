@@ -10,56 +10,114 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            background-color: #001f3f;
+            background-color: #282c34;
             color: white;
-        }
-
-        .container {
+            height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 20px;
+            align-items: center;
+            flex-direction: column;
         }
 
-        h1 {
-            font-size: 3em;
+        #pack-box, #result-box {
+            padding: 20px;
+            border: 2px solid white;
+            text-align: center;
+            cursor: pointer;
             margin-bottom: 20px;
         }
 
-        p {
-            font-size: 1.5em;
-            line-height: 1.6;
-            max-width: 800px;
+        #pack-box {
+            background-color: #444;
         }
 
-        a {
-            text-decoration: none;
-            color: #00aced;
-            font-size: 1.5em;
-            margin-top: 20px;
-            display: inline-block;
-            border: 2px solid #00aced;
-            padding: 10px 20px;
-            transition: background-color 0.3s, color 0.3s;
+        #result-box {
+            background-color: #333;
+            display: none; /* Hidden until cards are received */
         }
 
-        a:hover {
-            background-color: #00aced;
-            color: white;
+        #pack-box:hover {
+            background-color: #555;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Marching Band Game</h1>
-        <p>
-            Welcome to the Marching Band Game! In this game, you will experience the world of marching band as you lead your group, keep time, and perform incredible music on the field. Stay tuned for more updates and details about this exciting game.
-        </p>
-        <a href="index.html">&lt; Back to Home</a>
+    <!-- Box that prompts the user to open the card pack -->
+    <div id="pack-box" style="display:none;" onclick="openCardPack()">
+        <p>Click the box to open your card pack!</p>
     </div>
+
+    <!-- Box that will show the received cards -->
+    <div id="result-box"></div>
+
+    <script>
+        const cards = ["Katie", "Dakota", "Bailee", "Sami", "Samantha", "Barker", "Grace", "Kambry", "Ellie", "Addison", "Jacob Condon", "Jacobn"];
+
+        // Function to save player progress to localStorage
+        function saveProgress(data) {
+            localStorage.setItem('marchingBandGameProgress', JSON.stringify(data));
+        }
+
+        // Function to load player progress from localStorage
+        function loadProgress() {
+            const savedData = localStorage.getItem('marchingBandGameProgress');
+            if (savedData) {
+                return JSON.parse(savedData);
+            }
+            return null; // No saved progress
+        }
+
+        // Function to check if it's the player's first time
+        function checkFirstTime() {
+            return !localStorage.getItem('hasVisited');
+        }
+
+        // Function to show the card pack opening box
+        function showCardPack() {
+            const packBox = document.getElementById('pack-box');
+            packBox.style.display = 'block'; // Show the box
+        }
+
+        // Function to open the card pack and show the received cards
+        function openCardPack() {
+            const packBox = document.getElementById('pack-box');
+            const resultBox = document.getElementById('result-box');
+
+            // Randomly select 3 cards
+            const selectedCards = [];
+            while (selectedCards.length < 3) {
+                const randomIndex = Math.floor(Math.random() * cards.length);
+                const card = cards[randomIndex];
+                if (!selectedCards.includes(card)) {
+                    selectedCards.push(card);
+                }
+            }
+
+            // Save the received cards to progress
+            saveProgress({ cards: selectedCards });
+
+            // Hide the card pack box and show the result
+            packBox.style.display = 'none';
+            resultBox.innerHTML = `You have received: ${selectedCards.join(', ')}`;
+            resultBox.style.display = 'block';
+
+            // Mark that the player has visited
+            localStorage.setItem('hasVisited', 'true');
+        }
+
+        // On page load, check if the player has visited before
+        window.onload = function() {
+            if (checkFirstTime()) {
+                showCardPack(); // Show the card pack box if it's the first visit
+            } else {
+                const progress = loadProgress();
+                if (progress) {
+                    const resultBox = document.getElementById('result-box');
+                    resultBox.innerHTML = `You have previously received: ${progress.cards.join(', ')}`;
+                    resultBox.style.display = 'block';
+                }
+            }
+        };
+    </script>
 </body>
 </html>
-
