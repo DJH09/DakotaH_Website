@@ -143,7 +143,13 @@
         ];
 
         let hasOpenedPack = false;
-        let receivedCards = [];
+        let receivedCards = JSON.parse(localStorage.getItem('receivedCards')) || [];
+
+        // Check if cards are already received
+        if (receivedCards.length > 0) {
+            document.getElementById('cardsReceived').innerText = "You have received: " + receivedCards.join(", ");
+            document.getElementById('cardPack').style.display = 'none'; // Hide card pack if cards are received
+        }
 
         function openCardPack() {
             if (!hasOpenedPack) {
@@ -162,6 +168,9 @@
                     document.getElementById('cardsReceived').innerText = "You have received: " + receivedCards.join(", ");
                     // Hide the card pack after the animation
                     document.getElementById('cardPack').style.display = 'none';
+                    
+                    // Save received cards to local storage
+                    localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
                 }, 500); // Show results after 0.5 seconds
             }
         }
@@ -193,7 +202,8 @@
             hasOpenedPack = false;
             document.getElementById('cardsReceived').innerText = '';
             receivedCards = []; // Clear received cards
-            document.getElementById('cardPack').style.display = 'block';
+            localStorage.removeItem('receivedCards'); // Remove from local storage
+            document.getElementById('cardPack').style.display = 'block'; // Show card pack again
         }
 
         function goToDeck() {
