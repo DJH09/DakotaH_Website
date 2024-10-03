@@ -5,146 +5,176 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marching Band Game</title>
     <style>
-        body, html {
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* Light background color */
-            overflow: hidden; /* Prevent scrolling */
-            position: relative; /* Position for the reset button */
+            background-color: #f0f0f0;
         }
 
-        .overlay {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh; /* Full viewport height */
-            position: relative;
+        #cardPack {
+            width: 200px; /* Adjust size as needed */
+            cursor: pointer;
         }
 
         .reset-button {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 10px;
+            right: 10px;
             padding: 10px 20px;
             background-color: red;
             color: white;
             border: none;
             cursor: pointer;
-            z-index: 10; /* Above all other elements */
         }
 
-        .card-pack {
-            width: 200px; /* Set width of the card pack image */
-            cursor: pointer;
-            z-index: 1; /* Below the reset button */
-        }
-
-        .results {
+        .card-list {
             margin-top: 20px;
             text-align: center;
-            font-size: 1.2em;
         }
 
-        .squares-container {
+        .box {
             position: absolute;
-            display: flex;
-            flex-wrap: wrap;
-            pointer-events: none; /* Prevent interaction */
-            z-index: 2; /* Above the card pack image */
-        }
-
-        .square {
-            width: 20px;
-            height: 20px;
-            background-color: white; /* Square color */
-            position: absolute;
-            pointer-events: none; /* Prevent interaction */
-            opacity: 1;
-            transition: opacity 1.5s ease;
+            background-color: white;
+            opacity: 0.9;
+            transition: transform 0.5s, opacity 0.5s;
         }
     </style>
 </head>
 <body>
-    <div class="overlay">
-        <button class="reset-button">Reset Progress</button>
-        <img src="CardPack.png" alt="Card Pack" class="card-pack" onclick="openCardPack()">
-        <div class="results"></div>
-    </div>
+
+    <button class="reset-button" onclick="resetProgress()">Reset Progress</button>
+    <img id="cardPack" src="CardPack.png" alt="Card Pack" onclick="openCardPack()">
+    <div id="cardsReceived" class="card-list"></div>
 
     <script>
-        let isFirstVisit = true;
-        let receivedCards = [];
-        const allCards = ["Keygan Angus", "Gregory Arends", "Jackson Baker", "Hunter Barfels", "Drew Barker", "Ella Barker", "Caleb Biensen", "Hayden Black", "Olivia Brown-Gonnerman", "Rizzy Carsrud", "Jacob Condon", "Izzy Coolley", "Alexander Dodd", "Claudia Edmonds", "Reece Elliott", "Natalie Emery", "Miles Engstrom", "Morgan Erickson", "Silvana Espa", "Alyosha Evans", "Cael Ferguson", "Nicholas Fischels", "Ella Ganzer", "Eduardo Garcia", "Samantha Garcia", "Jaden Grimm", "Allison Gruhn", "Winter Gruver", "Elle Hadaway", "Cameron Haddock", "Luke Hambly", "Natalee Harnage", "Samuel Harrington", "Grace Heginger", "Grace Hensley", "Dakota Higdon", "Wrigley Isleb", "Delaney Jones", "Kambry Katzer", "Bailee Knott", "Gabriel Kramer", "Brennyn Laffoon", "Emma Lamberson", "Addison Lawler", "Jameson Lawler", "Dawson Lemke", "Henry Little", "Simon Mills", "Freedom Modrow", "Chloe Moffitt", "Alexis Muschick", "Nicholas Muschick", "Ethan Neus", "Andrew Ohm", "Linkoln Ose", "Trevor Ott", "Samantha Perez", "Samantha Phillips", "Eayon Phipps", "Katherine Poock", "Levi Poock", "Lillian Sadler", "Naomi Schuster", "Emilia Stage", "Peter Thomas", "Brady Tscherter", "Miles Unruh", "Dexter Walker", "Amelia Wendeln", "Ryan Wessels", "Henry Widner", "Thatcher Woodhouse"];
-        
-        // Check for saved progress
-        const savedProgress = localStorage.getItem("cardProgress");
-        if (savedProgress) {
-            isFirstVisit = false;
-            receivedCards = JSON.parse(savedProgress);
-            document.querySelector('.results').innerHTML = "You have received: " + receivedCards.join(", ");
-        }
+        const cards = [
+            "Keygan Angus",
+            "Gregory Arends",
+            "Jackson Baker",
+            "Hunter Barfels",
+            "Drew Barker",
+            "Ella Barker",
+            "Caleb Biensen",
+            "Hayden Black",
+            "Olivia Brown-Gonnerman",
+            "Rizzy Carsrud",
+            "Jacob Condon",
+            "Izzy Coolley",
+            "Alexander Dodd",
+            "Claudia Edmonds",
+            "Reece Elliott",
+            "Natalie Emery",
+            "Miles Engstrom",
+            "Morgan Erickson",
+            "Silvana Espa",
+            "Alyosha Evans",
+            "Cael Ferguson",
+            "Nicholas Fischels",
+            "Ella Ganzer",
+            "Eduardo Garcia",
+            "Samantha Garcia",
+            "Jaden Grimm",
+            "Allison Gruhn",
+            "Winter Gruver",
+            "Elle Hadaway",
+            "Cameron Haddock",
+            "Luke Hambly",
+            "Natalee Harnage",
+            "Samuel Harrington",
+            "Grace Heginger",
+            "Grace Hensley",
+            "Dakota Higdon",
+            "Wrigley Isleb",
+            "Delaney Jones",
+            "Kambry Katzer",
+            "Bailee Knott",
+            "Gabriel Kramer",
+            "Brennyn Laffoon",
+            "Emma Lamberson",
+            "Addison Lawler",
+            "Jameson Lawler",
+            "Dawson Lemke",
+            "Henry Little",
+            "Simon Mills",
+            "Freedom Modrow",
+            "Chloe Moffitt",
+            "Alexis Muschick",
+            "Nicholas Muschick",
+            "Ethan Neus",
+            "Andrew Ohm",
+            "Linkoln Ose",
+            "Trevor Ott",
+            "Samantha Perez",
+            "Samantha Phillips",
+            "Eayon Phipps",
+            "Katherine Poock",
+            "Levi Poock",
+            "Lillian Sadler",
+            "Naomi Schuster",
+            "Emilia Stage",
+            "Peter Thomas",
+            "Brady Tscherter",
+            "Miles Unruh",
+            "Dexter Walker",
+            "Amelia Wendeln",
+            "Ryan Wessels",
+            "Henry Widner",
+            "Thatcher Woodhouse"
+        ];
+
+        let hasOpenedPack = false;
 
         function openCardPack() {
-            if (isFirstVisit) {
-                receivedCards = getRandomCards();
-                localStorage.setItem("cardProgress", JSON.stringify(receivedCards));
-                document.querySelector('.results').innerHTML = "You have received: " + receivedCards.join(", ");
-                animateSquares(event);
-                isFirstVisit = false;
-            }
-        }
+            if (!hasOpenedPack) {
+                hasOpenedPack = true;
+                const cardsReceived = document.getElementById('cardsReceived');
+                const receivedCards = [];
 
-        function getRandomCards() {
-            const shuffled = allCards.sort(() => 0.5 - Math.random());
-            return shuffled.slice(0, 3);
-        }
+                for (let i = 0; i < 3; i++) {
+                    const randomIndex = Math.floor(Math.random() * cards.length);
+                    receivedCards.push(cards[randomIndex]);
+                }
 
-        function animateSquares(event) {
-            const squaresContainer = document.createElement('div');
-            squaresContainer.className = 'squares-container';
-            document.body.appendChild(squaresContainer);
-
-            for (let i = 0; i < 20; i++) {
-                const square = document.createElement('div');
-                square.className = 'square';
-
-                // Randomize position and size
-                const size = Math.random() * 15 + 5; // Size between 5 and 20px
-                square.style.width = `${size}px`;
-                square.style.height = `${size}px`;
-
-                // Positioning based on click
-                const x = event.clientX + (Math.random() - 0.5) * 100; // Scatter around click
-                const y = event.clientY + (Math.random() - 0.5) * 100; // Scatter around click
-                square.style.left = `${x}px`;
-                square.style.top = `${y}px`;
-
-                squaresContainer.appendChild(square);
-
-                // Animate falling down
+                createExplosion(event.clientX, event.clientY);
                 setTimeout(() => {
-                    square.style.transition = "transform 1s ease, opacity 1.5s ease";
-                    square.style.transform = `translateY(200px)`;
-                    square.style.opacity = 0;
-
-                    // Remove square after animation
-                    setTimeout(() => {
-                        squaresContainer.removeChild(square);
-                    }, 1500);
-                }, 100);
+                    cardsReceived.innerText = "You have received: " + receivedCards.join(", ");
+                    document.getElementById('cardPack').style.display = 'none';
+                }, 500);
             }
         }
 
-        // Reset Progress
-        document.querySelector('.reset-button').addEventListener('click', () => {
-            localStorage.removeItem("cardProgress");
-            receivedCards = [];
-            document.querySelector('.results').innerHTML = "";
-            isFirstVisit = true;
-        });
+        function createExplosion(x, y) {
+            for (let i = 0; i < 20; i++) {
+                const box = document.createElement('div');
+                box.className = 'box';
+                const size = Math.random() * 20 + 5; // Random size between 5px and 25px
+                box.style.width = size + 'px';
+                box.style.height = size + 'px';
+                box.style.left = (x - size / 2) + 'px';
+                box.style.top = (y - size / 2) + 'px';
+                box.style.transform = `translate(${(Math.random() - 0.5) * 100}px, ${Math.random() * -100}px)`;
+                document.body.appendChild(box);
+
+                // Animation and removal
+                setTimeout(() => {
+                    box.style.opacity = '0';
+                }, 0);
+
+                setTimeout(() => {
+                    box.remove();
+                }, 1500);
+            }
+        }
+
+        function resetProgress() {
+            hasOpenedPack = false;
+            document.getElementById('cardsReceived').innerText = '';
+            document.getElementById('cardPack').style.display = 'block';
+        }
     </script>
 </body>
 </html>
