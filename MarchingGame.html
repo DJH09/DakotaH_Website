@@ -18,7 +18,6 @@
             display: flex;
             flex-direction: column;
             align-items: center; /* Center align content */
-            justify-content: center; /* Center vertically */
         }
         #card-pack {
             background-image: url('CardPack.png');
@@ -44,8 +43,9 @@
             color: white;
             text-align: center;
             cursor: pointer; /* Show pointer cursor */
-            margin-top: 40px; /* Move the button further down */
-            position: relative; /* Relative position for stacking context */
+            position: absolute; /* Absolute position for bottom alignment */
+            bottom: 20px; /* Position it 20px from the bottom */
+            width: 200px; /* Width of the button */
             z-index: 1; /* Ensure it is above other elements */
         }
         #result {
@@ -53,16 +53,16 @@
             font-size: 1.5em;
             color: yellow; /* Color for visibility */
             position: absolute; /* Absolute position to overlay */
-            top: calc(50% + 200px); /* Adjust position based on layout */
+            bottom: 80px; /* Position above the reset button */
             display: none; /* Hide result initially */
             z-index: 1; /* Ensure it appears above other elements */
         }
     </style>
 </head>
 <body>
+    <div id="result"></div> <!-- Container for results -->
     <div id="card-pack"></div>
     <div id="reset-progress">Reset Progress</div>
-    <div id="result"></div> <!-- Container for results -->
 
     <script>
         // Progress storage
