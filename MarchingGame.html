@@ -119,7 +119,7 @@
 
             // Hide the card pack immediately after the click
             document.getElementById('card-pack').style.display = 'none'; // Hide the card pack immediately
-            
+
             // If it's the user's first time, handle the card pack click
             if (progress.firstTime) {
                 const receivedCards = getRandomCards(); // Get random cards
@@ -155,6 +155,7 @@
         document.getElementById('reset-progress').addEventListener('click', () => {
             localStorage.removeItem(progressKey);
             document.getElementById('result').innerText = 'Progress has been reset! Click the card pack again.'; // Show reset message
+            document.getElementById('result').style.display = 'block'; // Show reset message
             document.getElementById('card-pack').style.display = 'block'; // Show card pack again after reset
             progress.firstTime = true; // Set back to first time for next click
         });
