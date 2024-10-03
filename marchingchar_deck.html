@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Deck</title>
+    <style>
+        body {
+            background-color: #d3d3d3; /* Light gray background */
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .card-list {
+            word-wrap: break-word; /* Ensures long text wraps */
+            max-width: 80%; /* Prevents overflow on small screens */
+            margin: auto; /* Centering */
+        }
+    </style>
+</head>
+<body>
+
+    <button class="back-button" onclick="goBack()">Back</button>
+    <h1>My Deck</h1>
+    <div id="deck" class="card-list"></div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function displayDeck() {
+            const deck = document.getElementById('deck');
+            const receivedCards = JSON.parse(localStorage.getItem('receivedCards')) || [];
+
+            if (receivedCards.length === 0) {
+                deck.innerText = "You have no cards in your deck.";
+            } else {
+                deck.innerText = "You have received: " + receivedCards.join(", ");
+            }
+        }
+
+        displayDeck(); // Display the deck on page load
+    </script>
+</body>
+</html>
