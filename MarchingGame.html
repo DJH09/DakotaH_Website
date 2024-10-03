@@ -10,156 +10,140 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            background: black; /* Set a background color for visibility */
-            color: white; /* Text color */
-            position: relative; /* For absolute positioning of boxes */
-            overflow: hidden; /* Prevent scrollbars from appearing */
-            height: 100vh; /* Full height to center content */
+            background-color: #f0f0f0; /* Light background color */
+            overflow: hidden; /* Prevent scrolling */
+            position: relative; /* Position for the reset button */
+        }
+
+        .overlay {
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center align content */
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Full viewport height */
+            position: relative;
         }
-        #card-pack {
-            background-image: url('CardPack.png');
-            background-size: cover;
-            width: 200px; /* Adjust size as needed */
-            height: 200px; /* Adjust size as needed */
-            margin-bottom: 20px; /* Space below the card pack */
-            cursor: pointer; /* Show pointer cursor */
-            position: absolute; /* Position absolute for centering */
-            top: 50%; /* Center vertically */
-            transform: translateY(-50%); /* Adjust to actual center */
-        }
-        .small-box {
+
+        .reset-button {
             position: absolute;
-            background-color: white; /* Box color */
-            pointer-events: none; /* Prevent interaction with boxes */
-            opacity: 1;
-            transition: transform 1.5s ease, opacity 1.5s ease; /* Smooth transition */
-        }
-        #reset-progress {
+            top: 20px;
+            right: 20px;
             padding: 10px 20px;
-            background-color: red; /* Red button for reset */
+            background-color: red;
             color: white;
-            text-align: center;
-            cursor: pointer; /* Show pointer cursor */
-            position: absolute; /* Absolute position for bottom alignment */
-            bottom: 5%; /* Position it 5% from the bottom */
-            width: 200px; /* Width of the button */
-            z-index: 1; /* Ensure it is above other elements */
+            border: none;
+            cursor: pointer;
+            z-index: 10; /* Above all other elements */
         }
-        #result {
+
+        .card-pack {
+            width: 200px; /* Set width of the card pack image */
+            cursor: pointer;
+            z-index: 1; /* Below the reset button */
+        }
+
+        .results {
+            margin-top: 20px;
             text-align: center;
-            font-size: 1.5em;
-            color: yellow; /* Color for visibility */
-            position: absolute; /* Absolute position to overlay */
-            bottom: 80px; /* Position above the reset button */
-            display: none; /* Hide result initially */
-            z-index: 1; /* Ensure it appears above other elements */
+            font-size: 1.2em;
+        }
+
+        .squares-container {
+            position: absolute;
+            display: flex;
+            flex-wrap: wrap;
+            pointer-events: none; /* Prevent interaction */
+            z-index: 2; /* Above the card pack image */
+        }
+
+        .square {
+            width: 20px;
+            height: 20px;
+            background-color: white; /* Square color */
+            position: absolute;
+            pointer-events: none; /* Prevent interaction */
+            opacity: 1;
+            transition: opacity 1.5s ease;
         }
     </style>
 </head>
 <body>
-    <div id="result"></div> <!-- Container for results -->
-    <div id="card-pack"></div>
-    <div id="reset-progress">Reset Progress</div>
+    <div class="overlay">
+        <button class="reset-button">Reset Progress</button>
+        <img src="CardPack.png" alt="Card Pack" class="card-pack" onclick="openCardPack()">
+        <div class="results"></div>
+    </div>
 
     <script>
-        // Progress storage
-        const progressKey = 'marchingGameProgress';
-        const defaultProgress = { firstTime: true, cards: [] };
-
-        // Load progress from local storage
-        let progress = JSON.parse(localStorage.getItem(progressKey)) || defaultProgress;
-
-        // Show card pack if it's the user's first time
-        if (progress.firstTime) {
-            document.getElementById('card-pack').style.display = 'block';
+        let isFirstVisit = true;
+        let receivedCards = [];
+        const allCards = ["Katie", "Dakota", "Bailee", "Sami", "Samantha", "Barker", "Grace", "Kambry", "Ellie", "Addison", "Jacob Condon", "Jacobn"];
+        
+        // Check for saved progress
+        const savedProgress = localStorage.getItem("cardProgress");
+        if (savedProgress) {
+            isFirstVisit = false;
+            receivedCards = JSON.parse(savedProgress);
+            document.querySelector('.results').innerHTML = "You have received: " + receivedCards.join(", ");
         }
 
-        // Function to create explosion effect
-        function createExplosion(event) {
-            // Get click position
-            const clickX = event.clientX;
-            const clickY = event.clientY;
+        function openCardPack() {
+            if (isFirstVisit) {
+                receivedCards = getRandomCards();
+                localStorage.setItem("cardProgress", JSON.stringify(receivedCards));
+                document.querySelector('.results').innerHTML = "You have received: " + receivedCards.join(", ");
+                animateSquares(event);
+                isFirstVisit = false;
+            }
+        }
+
+        function getRandomCards() {
+            const shuffled = allCards.sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, 3);
+        }
+
+        function animateSquares(event) {
+            const squaresContainer = document.createElement('div');
+            squaresContainer.className = 'squares-container';
+            document.body.appendChild(squaresContainer);
 
             for (let i = 0; i < 20; i++) {
-                const box = document.createElement('div');
-                box.className = 'small-box';
+                const square = document.createElement('div');
+                square.className = 'square';
 
-                // Randomize size and position
-                const size = Math.random() * 20 + 10; // Size between 10px and 30px
-                box.style.width = `${size}px`;
-                box.style.height = `${size}px`;
+                // Randomize position and size
+                const size = Math.random() * 15 + 5; // Size between 5 and 20px
+                square.style.width = `${size}px`;
+                square.style.height = `${size}px`;
 
-                // Set random angle and distance for explosion effect
-                const angle = Math.random() * 2 * Math.PI; // Random angle in radians
-                const distance = Math.random() * 100 + 50; // Random distance from click
-                const randomX = Math.cos(angle) * distance;
-                const randomY = Math.sin(angle) * distance;
+                // Positioning based on click
+                const x = event.clientX + (Math.random() - 0.5) * 100; // Scatter around click
+                const y = event.clientY + (Math.random() - 0.5) * 100; // Scatter around click
+                square.style.left = `${x}px`;
+                square.style.top = `${y}px`;
 
-                // Set initial position at click location
-                box.style.left = `${clickX}px`;
-                box.style.top = `${clickY}px`;
+                squaresContainer.appendChild(square);
 
-                // Add to body
-                document.body.appendChild(box);
-
-                // Trigger explosion animation
+                // Animate falling down
                 setTimeout(() => {
-                    box.style.transform = `translate(${randomX}px, ${randomY}px) translateY(100px)`; // Move and fall
-                    box.style.opacity = '0'; // Fade out
-                }, 50); // Small delay before animation starts
+                    square.style.transition = "transform 1s ease, opacity 1.5s ease";
+                    square.style.transform = `translateY(200px)`;
+                    square.style.opacity = 0;
 
-                // Remove box after animation
-                setTimeout(() => {
-                    box.remove();
-                }, 1500); // Remove after 1.5 seconds
+                    // Remove square after animation
+                    setTimeout(() => {
+                        squaresContainer.removeChild(square);
+                    }, 1500);
+                }, 100);
             }
-
-            // If it's the user's first time, handle the card pack click
-            if (progress.firstTime) {
-                const receivedCards = getRandomCards(); // Get random cards
-                document.getElementById('result').innerText = "You have received: " + receivedCards.join(", ");
-                document.getElementById('result').style.display = 'block'; // Show result
-
-                // Update progress for first-time visit
-                progress.firstTime = false; // Set to false after first click
-                localStorage.setItem(progressKey, JSON.stringify(progress)); // Save progress
-            } else {
-                // If the progress has been reset, allow to get new cards with the same animation
-                const receivedCards = getRandomCards(); // Get random cards
-                document.getElementById('result').innerText = "You have received: " + receivedCards.join(", ");
-                document.getElementById('result').style.display = 'block'; // Show result
-            }
-
-            // Hide the card pack after a slight delay to allow for the animation to play
-            setTimeout(() => {
-                document.getElementById('card-pack').style.display = 'none'; // Hide the card pack after 0.5 seconds
-            }, 500); // Keep the card pack visible for 0.5 seconds after click
         }
 
-        // Function to get 3 random cards
-        function getRandomCards() {
-            const cards = ["Katie", "Dakota", "Bailee", "Sami", "Samantha", "Barker", "Grace", "Kambry", "Ellie", "Addison", "Jacob Condon", "Jacobn"];
-            const randomCards = [];
-            while (randomCards.length < 3) {
-                const card = cards[Math.floor(Math.random() * cards.length)];
-                if (!randomCards.includes(card)) {
-                    randomCards.push(card);
-                }
-            }
-            return randomCards;
-        }
-
-        // Event listeners
-        document.getElementById('card-pack').addEventListener('click', createExplosion);
-        document.getElementById('reset-progress').addEventListener('click', () => {
-            localStorage.removeItem(progressKey);
-            document.getElementById('result').innerText = 'Progress has been reset! Click the card pack again.'; // Show reset message
-            document.getElementById('result').style.display = 'block'; // Show reset message
-            document.getElementById('card-pack').style.display = 'block'; // Show card pack again after reset
-            progress.firstTime = true; // Set back to first time for next click
+        // Reset Progress
+        document.querySelector('.reset-button').addEventListener('click', () => {
+            localStorage.removeItem("cardProgress");
+            receivedCards = [];
+            document.querySelector('.results').innerHTML = "";
+            isFirstVisit = true;
         });
     </script>
 </body>
