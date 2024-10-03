@@ -13,6 +13,7 @@
             flex-direction: column;
             margin: 0;
             background-color: #d3d3d3; /* Light gray background */
+            position: relative; /* For absolute positioning of buttons */
         }
 
         #cardPack {
@@ -27,6 +28,17 @@
             right: 10px;
             padding: 10px 20px;
             background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .deck-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: blue;
             color: white;
             border: none;
             cursor: pointer;
@@ -50,6 +62,7 @@
 <body>
 
     <button class="reset-button" onclick="resetProgress()">Reset Progress</button>
+    <button class="deck-button" onclick="goToDeck()">My Deck</button>
     <img id="cardPack" src="CardPack.png" alt="Card Pack" onclick="openCardPack()">
     <div id="cardsReceived" class="card-list"></div>
 
@@ -130,12 +143,11 @@
         ];
 
         let hasOpenedPack = false;
+        let receivedCards = [];
 
         function openCardPack() {
             if (!hasOpenedPack) {
                 hasOpenedPack = true;
-                const cardsReceived = document.getElementById('cardsReceived');
-                const receivedCards = [];
 
                 for (let i = 0; i < 3; i++) {
                     const randomIndex = Math.floor(Math.random() * cards.length);
@@ -147,7 +159,7 @@
                 
                 // Set timeout for displaying received cards
                 setTimeout(() => {
-                    cardsReceived.innerText = "You have received: " + receivedCards.join(", ");
+                    document.getElementById('cardsReceived').innerText = "You have received: " + receivedCards.join(", ");
                     // Hide the card pack after the animation
                     document.getElementById('cardPack').style.display = 'none';
                 }, 500); // Show results after 0.5 seconds
@@ -180,8 +192,21 @@
         function resetProgress() {
             hasOpenedPack = false;
             document.getElementById('cardsReceived').innerText = '';
+            receivedCards = []; // Clear received cards
             document.getElementById('cardPack').style.display = 'block';
         }
+
+        function goToDeck() {
+            localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
+            window.location.href = 'marchingchar_deck.html';
+        }
+
+        // Clear received text on clicking anywhere
+        document.body.addEventListener('click', function (e) {
+            if (e.target.id !== 'cardPack') { // Prevent clearing if clicking on the card pack
+                document.getElementById('cardsReceived').innerText = '';
+            }
+        });
     </script>
 </body>
 </html>
