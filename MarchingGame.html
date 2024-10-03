@@ -18,6 +18,7 @@
         #cardPack {
             width: 200px; /* Adjust size as needed */
             cursor: pointer;
+            position: relative; /* Set relative positioning for the animation */
         }
 
         .reset-button {
@@ -141,11 +142,15 @@
                     receivedCards.push(cards[randomIndex]);
                 }
 
-                createExplosion(event.clientX, event.clientY);
+                // Create explosion effect at the mouse position
+                createExplosion(event.clientX || event.touches[0].clientX, event.clientY || event.touches[0].clientY);
+                
+                // Set timeout for displaying received cards
                 setTimeout(() => {
                     cardsReceived.innerText = "You have received: " + receivedCards.join(", ");
+                    // Hide the card pack after the animation
                     document.getElementById('cardPack').style.display = 'none';
-                }, 500);
+                }, 500); // Show results after 0.5 seconds
             }
         }
 
