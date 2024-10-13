@@ -57,6 +57,16 @@
             opacity: 0.9;
             transition: transform 0.5s, opacity 0.5s;
         }
+
+        #baileeCard {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: pink; /* Bailee card style */
+            color: black;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -65,6 +75,7 @@
     <button class="deck-button" onclick="goToDeck()">My Deck</button>
     <img id="cardPack" src="CardPack.png" alt="Card Pack" onclick="openCardPack()">
     <div id="cardsReceived" class="card-list"></div>
+    <div id="baileeCard" onclick="revealOtherCards()">Bailee's Card - Click to see the other cards</div>
 
     <script>
         const cards = [
@@ -91,6 +102,7 @@
 
         let hasOpenedPack = false;
         let receivedCards = JSON.parse(localStorage.getItem('receivedCards')) || [];
+        let otherCards = [];
 
         // Check if cards are already received
         if (receivedCards.length > 0) {
@@ -101,52 +113,44 @@
             if (!hasOpenedPack) {
                 hasOpenedPack = true;
 
+                let cardPool = [...cards];
+                receivedCards = [];
+
                 for (let i = 0; i < 3; i++) {
-                    const randomIndex = Math.floor(Math.random() * cards.length);
-                    receivedCards.push(cards[randomIndex]);
+                    const randomIndex = Math.floor(Math.random() * cardPool.length);
+                    const card = cardPool[randomIndex];
+                    cardPool.splice(randomIndex, 1); // Remove selected card from the pool
+                    receivedCards.push(card);
                 }
 
-                // Create explosion effect at the mouse position
-                createExplosion(event.clientX || event.touches[0].clientX, event.clientY || event.touches[0].clientY);
-                
-                // Set timeout for displaying received cards
-                setTimeout(() => {
+                // Check if Bailee is in the received cards
+                if (receivedCards.includes("Bailee Knott")) {
+                    document.getElementById('baileeCard').style.display = 'block'; // Show Bailee card
+                    otherCards = receivedCards.filter(card => card !== "Bailee Knott"); // Get the other two cards
+                    document.getElementById('cardsReceived').innerText = ""; // Hide other cards until Bailee is clicked
+                } else {
+                    // Show all received cards at once if Bailee is not received
                     document.getElementById('cardsReceived').innerText = "You have received: " + receivedCards.join(", ");
-                    // Hide the card pack after the animation
-                    document.getElementById('cardPack').style.display = 'none';
-                    
-                    // Save received cards to local storage
-                    localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
-                }, 500); // Show results after 0.5 seconds
+                }
+
+                // Hide the card pack after the selection
+                document.getElementById('cardPack').style.display = 'none';
+
+                // Save received cards to local storage
+                localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
             }
         }
 
-        function createExplosion(x, y) {
-            for (let i = 0; i < 20; i++) {
-                const box = document.createElement('div');
-                box.className = 'box';
-                const size = Math.random() * 20 + 5; // Random size between 5px and 25px
-                box.style.width = size + 'px';
-                box.style.height = size + 'px';
-                box.style.left = (x - size / 2) + 'px';
-                box.style.top = (y - size / 2) + 'px';
-                box.style.transform = `translate(${(Math.random() - 0.5) * 100}px, ${Math.random() * -100}px)`;
-                document.body.appendChild(box);
-
-                // Animation and removal
-                setTimeout(() => {
-                    box.style.opacity = '0';
-                }, 0);
-
-                setTimeout(() => {
-                    box.remove();
-                }, 1500);
-            }
+        function revealOtherCards() {
+            // Show the other two cards after Bailee is clicked
+            document.getElementById('cardsReceived').innerText = "You have received: " + otherCards.join(", ");
+            document.getElementById('baileeCard').style.display = 'none'; // Hide Bailee card after clicking
         }
 
         function resetProgress() {
             hasOpenedPack = false;
             document.getElementById('cardsReceived').innerText = '';
+            document.getElementById('baileeCard').style.display = 'none'; // Hide Bailee card
             receivedCards = []; // Clear received cards
             localStorage.removeItem('receivedCards'); // Remove from local storage
             document.getElementById('cardPack').style.display = 'block'; // Show card pack again
@@ -156,13 +160,6 @@
             localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
             window.location.href = 'marchingchar_deck.html';
         }
-
-        // Clear received text on clicking anywhere
-        document.body.addEventListener('click', function (e) {
-            if (e.target.id !== 'cardPack') { // Prevent clearing if clicking on the card pack
-                document.getElementById('cardsReceived').innerText = '';
-            }
-        });
     </script>
 </body>
 </html>
