@@ -6,39 +6,61 @@
     <title>Marching Band Game</title>
     <style>
         body {
-            background-color: lightgray;
-            text-align: center;
+            background-color: #d3d3d3; /* Light gray background */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
         }
-        #card-pack {
-            margin: 20px;
+
+        #cardPack {
+            width: 200px;
+            cursor: pointer;
+            display: block;
         }
-        #reset {
-            position: fixed;
+
+        .bailee-card, .katie-card {
+            width: 200px;
+            display: none;
+            cursor: pointer;
+        }
+
+        .reset-button {
+            position: absolute;
             top: 10px;
             right: 10px;
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
-        .card {
-            display: none;
-            margin: 20px;
-        }
-        img {
-            width: 150px; /* Adjust size as needed */
+
+        .my-deck-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <h1>Marching Band Game</h1>
-    <div id="card-pack" onclick="openCardPack()">
-        <img src="card_pack_image.jpg" alt="Card Pack">
-    </div>
+    <button class="reset-button" onclick="resetProgress()">Reset Progress</button>
+    <button class="my-deck-button" onclick="goToDeck()">My Deck</button>
 
-    <button id="reset" onclick="resetProgress()">Reset Progress</button>
+    <img id="cardPack" src="cardpack.png" alt="Card Pack" onclick="openCardPack()">
+
+    <img id="baileeCard" class="bailee-card" src="BaileeCard.png" alt="Bailee's Card" onclick="revealNextCard('bailee')">
+    <img id="katieCard" class="katie-card" src="KatieCard.png" alt="Katie's Card" onclick="revealNextCard('katie')">
     
-    <div id="you-received" style="display: none;">
-        <p>You received:</p>
-        <div id="card-container"></div>
-    </div>
+    <div id="textDisplay"></div>
 
     <script>
         const cards = [
@@ -63,63 +85,81 @@
             "Thatcher Woodhouse"
         ];
 
-        let receivedCards = [];
-        const baileeCardImg = '<img src="BaileeCard.jpg" class="card" id="BaileeCard" onclick="nextCard(this)">';
-        const katieCardImg = '<img src="KatieCard.jpg" class="card" id="KatieCard" onclick="nextCard(this)">';
-
-        // Load received cards from local storage
-        window.onload = function() {
-            const storedCards = JSON.parse(localStorage.getItem('receivedCards'));
-            if (storedCards) {
-                receivedCards = storedCards;
-                if (receivedCards.length > 0) {
-                    displayReceivedCards();
-                }
-            }
-        };
+        let cardsRevealed = 0;
+        const receivedCards = [];
+        let displayQueue = [];
 
         function openCardPack() {
-            if (receivedCards.length === 0) {
-                const randomCards = [];
-                for (let i = 0; i < 3; i++) {
-                    const randomIndex = Math.floor(Math.random() * cards.length);
-                    randomCards.push(cards[randomIndex]);
+            document.getElementById('cardPack').style.display = 'none'; // Hide card pack once clicked
+
+            // Randomly generate 3 cards
+            while (receivedCards.length < 3) {
+                let randomCard = cards[Math.floor(Math.random() * cards.length)];
+                if (!receivedCards.includes(randomCard)) {
+                    receivedCards.push(randomCard);
                 }
-                receivedCards.push(...randomCards);
-                localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
-                displayReceivedCards();
+            }
+
+            localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
+            displayQueue = [...receivedCards]; // Copy of received cards
+
+            if (displayQueue.includes("Bailee Knott")) {
+                document.getElementById('baileeCard').style.display = 'block';
+                displayQueue.splice(displayQueue.indexOf("Bailee Knott"), 1); // Remove Bailee from queue
+            } else if (displayQueue.includes("Katie Card")) {
+                document.getElementById('katieCard').style.display = 'block';
+                displayQueue.splice(displayQueue.indexOf("Katie Card"), 1); // Remove Katie from queue
+            } else {
+                revealTextCards(); // Reveal non-image cards
             }
         }
 
-        function displayReceivedCards() {
-            document.getElementById("you-received").style.display = "block";
-            document.getElementById("card-container").innerHTML = ""; // Clear previous cards
-
-            receivedCards.forEach(card => {
-                if (card === "Bailee Knott") {
-                    document.getElementById("card-container").innerHTML += baileeCardImg;
-                } else if (card === "Katherine Poock") {
-                    document.getElementById("card-container").innerHTML += katieCardImg;
+        function revealNextCard(cardClicked) {
+            if (cardClicked === 'bailee') {
+                document.getElementById('baileeCard').style.display = 'none';
+                if (displayQueue.includes("Katie Card")) {
+                    document.getElementById('katieCard').style.display = 'block';
+                    displayQueue.splice(displayQueue.indexOf("Katie Card"), 1);
                 } else {
-                    document.getElementById("card-container").innerHTML += `<p class="card">${card}</p>`;
+                    revealTextCards();
                 }
-            });
+            } else if (cardClicked === 'katie') {
+                document.getElementById('katieCard').style.display = 'none';
+                revealTextCards();
+            }
         }
 
-        function nextCard(card) {
-            const nextSibling = card.nextElementSibling;
-            if (nextSibling) {
-                nextSibling.style.display = "block";
+        function revealTextCards() {
+            if (displayQueue.length > 0) {
+                document.getElementById('textDisplay').innerHTML = "You have received: " + displayQueue.join(", ");
+                displayQueue = []; // Empty queue after displaying all cards
+            } else {
+                document.getElementById('textDisplay').innerHTML = ""; // Hide text after clicking through all cards
             }
-            card.style.display = "none";
         }
 
         function resetProgress() {
             localStorage.removeItem('receivedCards');
-            receivedCards = [];
-            document.getElementById("you-received").style.display = "none";
-            document.getElementById("card-container").innerHTML = ""; // Clear received cards
-            document.getElementById("card-pack").style.display = "block"; // Show card pack
+            window.location.reload();
+        }
+
+        function goToDeck() {
+            window.location.href = 'marchingchar_deck.html';
+        }
+
+        // Load saved deck on page load
+        window.onload = function () {
+            const savedCards = JSON.parse(localStorage.getItem('receivedCards')) || [];
+            if (savedCards.length > 0) {
+                document.getElementById('cardPack').style.display = 'none'; // Hide the card pack on reload
+                if (savedCards.includes("Bailee Knott")) {
+                    document.getElementById('baileeCard').style.display = 'block';
+                } else if (savedCards.includes("Katie Card")) {
+                    document.getElementById('katieCard').style.display = 'block';
+                } else {
+                    document.getElementById('textDisplay').innerHTML = "You have received: " + savedCards.join(", ");
+                }
+            }
         }
     </script>
 
