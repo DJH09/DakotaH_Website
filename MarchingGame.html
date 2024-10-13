@@ -6,20 +6,24 @@
     <title>Marching Band Game</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-            margin: 0;
             background-color: #d3d3d3; /* Light gray background */
-            position: relative; /* For absolute positioning of buttons */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
         }
 
         #cardPack {
-            width: 200px; /* Adjust size as needed */
+            width: 200px;
             cursor: pointer;
-            position: relative; /* Set relative positioning for the animation */
+        }
+
+        .bailee-card, .katie-card {
+            width: 200px;
+            display: none;
+            cursor: pointer;
         }
 
         .reset-button {
@@ -33,7 +37,7 @@
             cursor: pointer;
         }
 
-        .deck-button {
+        .my-deck-button {
             position: absolute;
             bottom: 10px;
             right: 10px;
@@ -43,114 +47,79 @@
             border: none;
             cursor: pointer;
         }
-
-        .card-list {
-            margin-top: 20px;
-            text-align: center;
-            word-wrap: break-word; /* Ensures long text wraps */
-            max-width: 80%; /* Prevents overflow on small screens */
-        }
-
-        #baileeCardImage {
-            display: none;
-            margin-top: 20px;
-            width: 200px; /* Adjust size as needed */
-            cursor: pointer;
-        }
-
     </style>
 </head>
 <body>
 
     <button class="reset-button" onclick="resetProgress()">Reset Progress</button>
-    <button class="deck-button" onclick="goToDeck()">My Deck</button>
-    <img id="cardPack" src="CardPack.png" alt="Card Pack" onclick="openCardPack()">
-    <div id="cardsReceived" class="card-list"></div>
-    <img id="baileeCardImage" src="BaileeCard.png" alt="Bailee's Card" onclick="revealOtherCards()">
+    <button class="my-deck-button" onclick="goToDeck()">My Deck</button>
+
+    <img id="cardPack" src="cardpack.png" alt="Card Pack" onclick="openCardPack()">
+
+    <img id="baileeCard" class="bailee-card" src="BaileeCard.png" alt="Bailee's Card" onclick="revealNextCard('bailee')">
+    <img id="katieCard" class="katie-card" src="KatieCard.png" alt="Katie's Card" onclick="revealNextCard('katie')">
+    
+    <div id="textDisplay"></div>
 
     <script>
-        const cards = [
-            "Keygan Angus", "Gregory Arends", "Jackson Baker", "Hunter Barfels",
-            "Drew Barker", "Ella Barker", "Caleb Biensen", "Hayden Black",
-            "Olivia Brown-Gonnerman", "Rizzy Carsrud", "Jacob Condon",
-            "Izzy Coolley", "Alexander Dodd", "Claudia Edmonds", "Reece Elliott",
-            "Natalie Emery", "Miles Engstrom", "Morgan Erickson", "Silvana Espa",
-            "Alyosha Evans", "Cael Ferguson", "Nicholas Fischels", "Ella Ganzer",
-            "Eduardo Garcia", "Samantha Garcia", "Jaden Grimm", "Allison Gruhn",
-            "Winter Gruver", "Elle Hadaway", "Cameron Haddock", "Luke Hambly",
-            "Natalee Harnage", "Samuel Harrington", "Grace Heginger", "Grace Hensley",
-            "Dakota Higdon", "Wrigley Isleb", "Delaney Jones", "Kambry Katzer",
-            "Bailee Knott", "Gabriel Kramer", "Brennyn Laffoon", "Emma Lamberson",
-            "Addison Lawler", "Jameson Lawler", "Dawson Lemke", "Henry Little",
-            "Simon Mills", "Freedom Modrow", "Chloe Moffitt", "Alexis Muschick",
-            "Nicholas Muschick", "Ethan Neus", "Andrew Ohm", "Linkoln Ose",
-            "Trevor Ott", "Samantha Perez", "Samantha Phillips", "Eayon Phipps",
-            "Katherine Poock", "Levi Poock", "Lillian Sadler", "Naomi Schuster",
-            "Emilia Stage", "Peter Thomas", "Brady Tscherter", "Miles Unruh",
-            "Dexter Walker", "Amelia Wendeln", "Ryan Wessels", "Henry Widner",
-            "Thatcher Woodhouse"
-        ];
-
-        let hasOpenedPack = false;
-        let receivedCards = JSON.parse(localStorage.getItem('receivedCards')) || [];
-        let otherCards = [];
-
-        // Check if cards are already received
-        if (receivedCards.length > 0) {
-            document.getElementById('cardPack').style.display = 'none'; // Hide card pack if cards are received
-        }
+        let cardsRevealed = 0;
+        const receivedCards = [];
 
         function openCardPack() {
-            if (!hasOpenedPack) {
-                hasOpenedPack = true;
+            const cardPack = document.getElementById('cardPack');
+            cardPack.style.display = 'none'; // Hide card pack once clicked
 
-                let cardPool = [...cards];
-                receivedCards = [];
+            // Randomly generate cards
+            receivedCards.push("Bailee Knott", "Katie Card", "Another Character");
+            localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
 
-                for (let i = 0; i < 3; i++) {
-                    const randomIndex = Math.floor(Math.random() * cardPool.length);
-                    const card = cardPool[randomIndex];
-                    cardPool.splice(randomIndex, 1); // Remove selected card from the pool
-                    receivedCards.push(card);
-                }
-
-                // Check if Bailee is in the received cards
-                if (receivedCards.includes("Bailee Knott")) {
-                    document.getElementById('baileeCardImage').style.display = 'block'; // Show Bailee card image
-                    otherCards = receivedCards.filter(card => card !== "Bailee Knott"); // Get the other two cards
-                    document.getElementById('cardsReceived').innerText = ""; // Hide other cards until Bailee is clicked
-                } else {
-                    // Show all received cards at once if Bailee is not received
-                    document.getElementById('cardsReceived').innerText = "You have received: " + receivedCards.join(", ");
-                }
-
-                // Hide the card pack after the selection
-                document.getElementById('cardPack').style.display = 'none';
-
-                // Save received cards to local storage
-                localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
+            if (receivedCards.includes("Bailee Knott")) {
+                document.getElementById('baileeCard').style.display = 'block';
+            } else if (receivedCards.includes("Katie Card")) {
+                document.getElementById('katieCard').style.display = 'block';
+            } else {
+                document.getElementById('textDisplay').innerHTML = "You have received: " + receivedCards.join(", ");
             }
         }
 
-        function revealOtherCards() {
-            // Show the other two cards after Bailee is clicked
-            document.getElementById('cardsReceived').innerText = "You have received: " + otherCards.join(", ");
-            document.getElementById('baileeCardImage').style.display = 'none'; // Hide Bailee card image after clicking
+        function revealNextCard(cardClicked) {
+            if (cardClicked === 'bailee') {
+                document.getElementById('baileeCard').style.display = 'none';
+                if (receivedCards.includes("Katie Card")) {
+                    document.getElementById('katieCard').style.display = 'block';
+                } else {
+                    document.getElementById('textDisplay').innerHTML = "You have received: " + receivedCards.join(", ");
+                }
+            } else if (cardClicked === 'katie') {
+                document.getElementById('katieCard').style.display = 'none';
+                document.getElementById('textDisplay').innerHTML = "You have received: " + receivedCards.join(", ");
+            }
         }
 
         function resetProgress() {
-            hasOpenedPack = false;
-            document.getElementById('cardsReceived').innerText = '';
-            document.getElementById('baileeCardImage').style.display = 'none'; // Hide Bailee card
-            receivedCards = []; // Clear received cards
-            localStorage.removeItem('receivedCards'); // Remove from local storage
-            document.getElementById('cardPack').style.display = 'block'; // Show card pack again
+            localStorage.removeItem('receivedCards');
+            window.location.reload();
         }
 
         function goToDeck() {
-            localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
             window.location.href = 'marchingchar_deck.html';
         }
+
+        // Load saved deck on page load
+        window.onload = function () {
+            const savedCards = JSON.parse(localStorage.getItem('receivedCards')) || [];
+            if (savedCards.length > 0) {
+                document.getElementById('cardPack').style.display = 'none';
+                if (savedCards.includes("Bailee Knott")) {
+                    document.getElementById('baileeCard').style.display = 'block';
+                } else if (savedCards.includes("Katie Card")) {
+                    document.getElementById('katieCard').style.display = 'block';
+                } else {
+                    document.getElementById('textDisplay').innerHTML = "You have received: " + savedCards.join(", ");
+                }
+            }
+        }
     </script>
+
 </body>
 </html>
