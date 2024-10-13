@@ -18,6 +18,7 @@
         #cardPack {
             width: 200px;
             cursor: pointer;
+            display: block;
         }
 
         .bailee-card, .katie-card {
@@ -62,37 +63,78 @@
     <div id="textDisplay"></div>
 
     <script>
+        const cards = [
+            "Keygan Angus", "Gregory Arends", "Jackson Baker", "Hunter Barfels",
+            "Drew Barker", "Ella Barker", "Caleb Biensen", "Hayden Black",
+            "Olivia Brown-Gonnerman", "Rizzy Carsrud", "Jacob Condon",
+            "Izzy Coolley", "Alexander Dodd", "Claudia Edmonds", "Reece Elliott",
+            "Natalie Emery", "Miles Engstrom", "Morgan Erickson", "Silvana Espa",
+            "Alyosha Evans", "Cael Ferguson", "Nicholas Fischels", "Ella Ganzer",
+            "Eduardo Garcia", "Samantha Garcia", "Jaden Grimm", "Allison Gruhn",
+            "Winter Gruver", "Elle Hadaway", "Cameron Haddock", "Luke Hambly",
+            "Natalee Harnage", "Samuel Harrington", "Grace Heginger", "Grace Hensley",
+            "Dakota Higdon", "Wrigley Isleb", "Delaney Jones", "Kambry Katzer",
+            "Bailee Knott", "Gabriel Kramer", "Brennyn Laffoon", "Emma Lamberson",
+            "Addison Lawler", "Jameson Lawler", "Dawson Lemke", "Henry Little",
+            "Simon Mills", "Freedom Modrow", "Chloe Moffitt", "Alexis Muschick",
+            "Nicholas Muschick", "Ethan Neus", "Andrew Ohm", "Linkoln Ose",
+            "Trevor Ott", "Samantha Perez", "Samantha Phillips", "Eayon Phipps",
+            "Katherine Poock", "Levi Poock", "Lillian Sadler", "Naomi Schuster",
+            "Emilia Stage", "Peter Thomas", "Brady Tscherter", "Miles Unruh",
+            "Dexter Walker", "Amelia Wendeln", "Ryan Wessels", "Henry Widner",
+            "Thatcher Woodhouse"
+        ];
+
         let cardsRevealed = 0;
         const receivedCards = [];
+        let displayQueue = [];
 
         function openCardPack() {
-            const cardPack = document.getElementById('cardPack');
-            cardPack.style.display = 'none'; // Hide card pack once clicked
+            document.getElementById('cardPack').style.display = 'none'; // Hide card pack once clicked
 
-            // Randomly generate cards
-            receivedCards.push("Bailee Knott", "Katie Card", "Another Character");
+            // Randomly generate 3 cards
+            while (receivedCards.length < 3) {
+                let randomCard = cards[Math.floor(Math.random() * cards.length)];
+                if (!receivedCards.includes(randomCard)) {
+                    receivedCards.push(randomCard);
+                }
+            }
+
             localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
+            displayQueue = [...receivedCards]; // Copy of received cards
 
-            if (receivedCards.includes("Bailee Knott")) {
+            if (displayQueue.includes("Bailee Knott")) {
                 document.getElementById('baileeCard').style.display = 'block';
-            } else if (receivedCards.includes("Katie Card")) {
+                displayQueue.splice(displayQueue.indexOf("Bailee Knott"), 1); // Remove Bailee from queue
+            } else if (displayQueue.includes("Katie Card")) {
                 document.getElementById('katieCard').style.display = 'block';
+                displayQueue.splice(displayQueue.indexOf("Katie Card"), 1); // Remove Katie from queue
             } else {
-                document.getElementById('textDisplay').innerHTML = "You have received: " + receivedCards.join(", ");
+                revealTextCards(); // Reveal non-image cards
             }
         }
 
         function revealNextCard(cardClicked) {
             if (cardClicked === 'bailee') {
                 document.getElementById('baileeCard').style.display = 'none';
-                if (receivedCards.includes("Katie Card")) {
+                if (displayQueue.includes("Katie Card")) {
                     document.getElementById('katieCard').style.display = 'block';
+                    displayQueue.splice(displayQueue.indexOf("Katie Card"), 1);
                 } else {
-                    document.getElementById('textDisplay').innerHTML = "You have received: " + receivedCards.join(", ");
+                    revealTextCards();
                 }
             } else if (cardClicked === 'katie') {
                 document.getElementById('katieCard').style.display = 'none';
-                document.getElementById('textDisplay').innerHTML = "You have received: " + receivedCards.join(", ");
+                revealTextCards();
+            }
+        }
+
+        function revealTextCards() {
+            if (displayQueue.length > 0) {
+                document.getElementById('textDisplay').innerHTML = "You have received: " + displayQueue.join(", ");
+                displayQueue = []; // Empty queue after displaying all cards
+            } else {
+                document.getElementById('textDisplay').innerHTML = ""; // Hide text after clicking through all cards
             }
         }
 
@@ -109,7 +151,7 @@
         window.onload = function () {
             const savedCards = JSON.parse(localStorage.getItem('receivedCards')) || [];
             if (savedCards.length > 0) {
-                document.getElementById('cardPack').style.display = 'none';
+                document.getElementById('cardPack').style.display = 'none'; // Hide the card pack on reload
                 if (savedCards.includes("Bailee Knott")) {
                     document.getElementById('baileeCard').style.display = 'block';
                 } else if (savedCards.includes("Katie Card")) {
