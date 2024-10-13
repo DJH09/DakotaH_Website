@@ -51,22 +51,13 @@
             max-width: 80%; /* Prevents overflow on small screens */
         }
 
-        .box {
-            position: absolute;
-            background-color: white;
-            opacity: 0.9;
-            transition: transform 0.5s, opacity 0.5s;
-        }
-
-        #baileeCard {
+        #baileeCardImage {
             display: none;
             margin-top: 20px;
-            padding: 20px;
-            background-color: pink; /* Bailee card style */
-            color: black;
-            border: 1px solid #000;
+            width: 200px; /* Adjust size as needed */
             cursor: pointer;
         }
+
     </style>
 </head>
 <body>
@@ -75,7 +66,7 @@
     <button class="deck-button" onclick="goToDeck()">My Deck</button>
     <img id="cardPack" src="CardPack.png" alt="Card Pack" onclick="openCardPack()">
     <div id="cardsReceived" class="card-list"></div>
-    <div id="baileeCard" onclick="revealOtherCards()">Bailee's Card - Click to see the other cards</div>
+    <img id="baileeCardImage" src="BaileeCard.png" alt="Bailee's Card" onclick="revealOtherCards()">
 
     <script>
         const cards = [
@@ -125,7 +116,7 @@
 
                 // Check if Bailee is in the received cards
                 if (receivedCards.includes("Bailee Knott")) {
-                    document.getElementById('baileeCard').style.display = 'block'; // Show Bailee card
+                    document.getElementById('baileeCardImage').style.display = 'block'; // Show Bailee card image
                     otherCards = receivedCards.filter(card => card !== "Bailee Knott"); // Get the other two cards
                     document.getElementById('cardsReceived').innerText = ""; // Hide other cards until Bailee is clicked
                 } else {
@@ -144,13 +135,13 @@
         function revealOtherCards() {
             // Show the other two cards after Bailee is clicked
             document.getElementById('cardsReceived').innerText = "You have received: " + otherCards.join(", ");
-            document.getElementById('baileeCard').style.display = 'none'; // Hide Bailee card after clicking
+            document.getElementById('baileeCardImage').style.display = 'none'; // Hide Bailee card image after clicking
         }
 
         function resetProgress() {
             hasOpenedPack = false;
             document.getElementById('cardsReceived').innerText = '';
-            document.getElementById('baileeCard').style.display = 'none'; // Hide Bailee card
+            document.getElementById('baileeCardImage').style.display = 'none'; // Hide Bailee card
             receivedCards = []; // Clear received cards
             localStorage.removeItem('receivedCards'); // Remove from local storage
             document.getElementById('cardPack').style.display = 'block'; // Show card pack again
