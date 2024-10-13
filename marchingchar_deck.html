@@ -3,54 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Deck</title>
+    <title>Your Deck</title>
     <style>
         body {
             background-color: #d3d3d3; /* Light gray background */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
             margin: 0;
-            padding: 20px;
-            font-family: Arial, sans-serif;
         }
 
         .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
             padding: 10px 20px;
-            background-color: red;
+            background-color: green;
             color: white;
             border: none;
             cursor: pointer;
+        }
+
+        .deck-container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 90%; /* Keeps content from overflowing on small screens */
+            margin: 0 auto;
+        }
+
+        .deck-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .bailee-card {
+            width: 200px; /* Adjust size as needed */
             margin-bottom: 20px;
         }
 
         .card-list {
-            word-wrap: break-word; /* Ensures long text wraps */
-            max-width: 80%; /* Prevents overflow on small screens */
-            margin: auto; /* Centering */
+            font-size: 18px;
+            line-height: 1.6;
         }
     </style>
 </head>
 <body>
 
     <button class="back-button" onclick="goBack()">Back</button>
-    <h1>My Deck</h1>
-    <div id="deck" class="card-list"></div>
+
+    <div class="deck-container">
+        <div class="deck-title">Your Deck</div>
+        <div id="deckContent" class="card-list"></div>
+    </div>
 
     <script>
         function goBack() {
-            window.history.back();
+            window.location.href = 'marchinggame.html';
         }
 
-        function displayDeck() {
-            const deck = document.getElementById('deck');
+        function loadDeck() {
+            const deckContent = document.getElementById('deckContent');
             const receivedCards = JSON.parse(localStorage.getItem('receivedCards')) || [];
 
             if (receivedCards.length === 0) {
-                deck.innerText = "You have no cards in your deck.";
-            } else {
-                deck.innerText = "You have received: " + receivedCards.join(", ");
+                deckContent.innerHTML = "Your deck is empty.";
+                return;
+            }
+
+            // Check if Bailee is in the deck and display her card as an image
+            if (receivedCards.includes("Bailee Knott")) {
+                deckContent.innerHTML += `<img src="BaileeCard.png" alt="Bailee's Card" class="bailee-card">`;
+            }
+
+            // Display the other cards as text, excluding Bailee if already shown
+            const otherCards = receivedCards.filter(card => card !== "Bailee Knott");
+            if (otherCards.length > 0) {
+                deckContent.innerHTML += "You have received: " + otherCards.join(", ");
             }
         }
 
-        displayDeck(); // Display the deck on page load
+        loadDeck();
     </script>
+
 </body>
 </html>
