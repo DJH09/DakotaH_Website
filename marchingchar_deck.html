@@ -41,7 +41,7 @@
             margin-bottom: 20px;
         }
 
-        .bailee-card {
+        .bailee-card, .katie-card {
             width: 200px; /* Adjust size as needed */
             margin-bottom: 20px;
         }
@@ -80,8 +80,13 @@
                 deckContent.innerHTML += `<img src="BaileeCard.png" alt="Bailee's Card" class="bailee-card">`;
             }
 
-            // Display the other cards as text, excluding Bailee if already shown
-            const otherCards = receivedCards.filter(card => card !== "Bailee Knott");
+            // Check if Katie is in the deck and display her card as an image
+            if (receivedCards.includes("Katie Card")) {
+                deckContent.innerHTML += `<img src="KatieCard.png" alt="Katie's Card" class="katie-card">`;
+            }
+
+            // Display the other cards as text, excluding Bailee and Katie if already shown
+            const otherCards = receivedCards.filter(card => card !== "Bailee Knott" && card !== "Katie Card");
             if (otherCards.length > 0) {
                 deckContent.innerHTML += "You have received: " + otherCards.join(", ");
             }
