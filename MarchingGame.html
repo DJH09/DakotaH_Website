@@ -38,6 +38,10 @@
             display: none;
             margin-top: 20px;
         }
+        p.card-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -123,27 +127,35 @@
                 } else if (card === "Katherine Poock") {
                     document.getElementById("card-container").innerHTML += katieCardImg;
                 } else {
-                    document.getElementById("card-container").innerHTML += `<p class="card">${card}</p>`;
+                    document.getElementById("card-container").innerHTML += `<p class="card-name">${card}</p>`;
                 }
             });
 
-            // Show the first card or name
-            showNextCard();
-        }
-
-        function showNextCard() {
-            const cardsToShow = document.querySelectorAll(".card");
-            if (cardsToShow.length > 0) {
-                cardsToShow[0].style.display = "block"; // Show the first card
+            // Show the first card (image or name) only if an image exists
+            if (document.querySelector(".card")) {
+                showNextCard();
+            } else {
+                showAllNames();
             }
         }
 
+        // Show next card image in the sequence, or proceed to list names
         function nextCard(card) {
             const nextSibling = card.nextElementSibling;
-            if (nextSibling) {
+            if (nextSibling && nextSibling.classList.contains("card")) {
                 nextSibling.style.display = "block";
+            } else {
+                showAllNames();
             }
             card.style.display = "none";
+        }
+
+        // Show all names after images are shown or if no images are present
+        function showAllNames() {
+            const names = document.querySelectorAll(".card-name");
+            names.forEach(name => {
+                name.style.display = "block";
+            });
         }
 
         function resetProgress() {
