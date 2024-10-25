@@ -19,11 +19,11 @@
             align-items: center;
         }
 
-        /* Centered white rectangle */
+        /* Centered white rectangle spanning full height */
         .content-box {
             background-color: white;
-            width: 60%;
-            height: 90%;
+            width: 50%; /* Desktop width */
+            height: 100%; /* Full height */
             border-radius: 20px;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -32,8 +32,7 @@
         /* Mobile adjustments */
         @media (max-width: 768px) {
             .content-box {
-                width: 90%;
-                height: 85%;
+                width: 80%; /* Narrower width on mobile */
             }
         }
     </style>
