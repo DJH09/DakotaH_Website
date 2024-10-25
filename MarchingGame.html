@@ -84,8 +84,10 @@
         ];
 
         let receivedCards = [];
-        const baileeCardImg = '<img src="BaileeCard.png" class="card" id="BaileeCard" onclick="nextCard(this)">';
-        const katieCardImg = '<img src="KatieCard.png" class="card" id="KatieCard" onclick="nextCard(this)">';
+        const cardImages = {
+            "Bailee Knott": "BaileeCard.png",
+            "Katherine Poock": "KatieCard.png"
+        };
 
         // Load received cards from local storage
         window.onload = function() {
@@ -93,7 +95,6 @@
             if (storedCards) {
                 receivedCards = storedCards;
             }
-            // Show or hide the card pack based on whether cards were already received
             if (receivedCards.length === 0) {
                 document.getElementById("card-pack").style.display = "block";
             } else {
@@ -112,49 +113,50 @@
                 receivedCards.push(...randomCards);
                 localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
 
-                document.getElementById("card-pack").style.display = "none"; // Hide card pack after opening
+                document.getElementById("card-pack").style.display = "none";
                 displayReceivedCards();
             }
         }
 
         function displayReceivedCards() {
             document.getElementById("you-received").style.display = "block";
-            document.getElementById("card-container").innerHTML = ""; // Clear previous cards
+            document.getElementById("card-container").innerHTML = ""; 
 
+            let imagesDisplayed = false;
+
+            // Display card images first if any are present
             receivedCards.forEach(card => {
-                if (card === "Bailee Knott") {
-                    document.getElementById("card-container").innerHTML += baileeCardImg;
-                } else if (card === "Katherine Poock") {
-                    document.getElementById("card-container").innerHTML += katieCardImg;
-                } else {
-                    document.getElementById("card-container").innerHTML += `<p class="card-name">${card}</p>`;
+                if (cardImages[card]) {
+                    const imgElement = document.createElement("img");
+                    imgElement.src = cardImages[card];
+                    imgElement.classList.add("card");
+                    imgElement.onclick = () => showTextCards();
+                    document.getElementById("card-container").appendChild(imgElement);
+                    imgElement.style.display = "block";
+                    imagesDisplayed = true;
                 }
             });
 
-            // Show the first card (image or name) only if an image exists
-            if (document.querySelector(".card")) {
-                showNextCard();
-            } else {
-                showAllNames();
+            // Show text cards if no images, or wait until image is clicked
+            if (!imagesDisplayed) {
+                showTextCards();
             }
         }
 
-        // Show next card image in the sequence, or proceed to list names
-        function nextCard(card) {
-            const nextSibling = card.nextElementSibling;
-            if (nextSibling && nextSibling.classList.contains("card")) {
-                nextSibling.style.display = "block";
-            } else {
-                showAllNames();
-            }
-            card.style.display = "none";
-        }
+        // Show text cards after images have been shown
+        function showTextCards() {
+            document.querySelectorAll(".card").forEach(card => {
+                card.style.display = "none";
+            });
+            document.getElementById("card-container").innerHTML = "";
 
-        // Show all names after images are shown or if no images are present
-        function showAllNames() {
-            const names = document.querySelectorAll(".card-name");
-            names.forEach(name => {
-                name.style.display = "block";
+            receivedCards.forEach(card => {
+                if (!cardImages[card]) {
+                    const cardText = document.createElement("p");
+                    cardText.classList.add("card-name");
+                    cardText.innerText = card;
+                    document.getElementById("card-container").appendChild(cardText);
+                }
             });
         }
 
@@ -162,12 +164,12 @@
             localStorage.removeItem('receivedCards');
             receivedCards = [];
             document.getElementById("you-received").style.display = "none";
-            document.getElementById("card-container").innerHTML = ""; // Clear received cards
-            document.getElementById("card-pack").style.display = "block"; // Show card pack again
+            document.getElementById("card-container").innerHTML = ""; 
+            document.getElementById("card-pack").style.display = "block"; 
         }
 
         function goToDeck() {
-            window.location.href = "marchingchar_deck.html"; // Redirect to the deck page
+            window.location.href = "marchingchar_deck.html"; 
         }
     </script>
 
