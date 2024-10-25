@@ -17,22 +17,60 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            font-family: Arial, sans-serif;
         }
 
-        /* Centered white rectangle spanning full height */
+        /* Centered white rectangle */
         .content-box {
             background-color: white;
-            width: 50%; /* Desktop width */
-            height: 100%; /* Full height */
+            width: 50%;
+            height: 100%;
             border-radius: 20px;
-            padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Title styling */
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Text styling */
+        .content-text {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        /* Arrow styling */
+        .arrow {
+            position: absolute;
+            font-size: 24px;
+            cursor: pointer;
+            color: gray;
+            user-select: none;
+        }
+
+        .arrow.left {
+            left: -40px;
+        }
+
+        .arrow.right {
+            right: -40px;
         }
 
         /* Mobile adjustments */
         @media (max-width: 768px) {
             .content-box {
-                width: 80%; /* Narrower width on mobile */
+                width: 80%;
             }
         }
     </style>
@@ -40,8 +78,34 @@
 <body>
 
     <div class="content-box">
-        <!-- Any content can go here if needed in the future -->
+        <div id="title" class="title">Background Knowledge</div>
+        <div id="content-text" class="content-text">There is so much background knowledge.</div>
+        <div class="arrow left" onclick="switchContent('previous')">&#9664;</div>
+        <div class="arrow right" onclick="switchContent('next')">&#9654;</div>
     </div>
+
+    <script>
+        // Content data
+        const contentData = [
+            { title: "Background Knowledge", text: "There is so much background knowledge." },
+            { title: "Work Experience", text: "Fareway from Dec 12 to present day" }
+        ];
+        
+        // Current content index
+        let currentIndex = 0;
+
+        function switchContent(direction) {
+            if (direction === 'next') {
+                currentIndex = (currentIndex + 1) % contentData.length;
+            } else if (direction === 'previous') {
+                currentIndex = (currentIndex - 1 + contentData.length) % contentData.length;
+            }
+            
+            // Update the content
+            document.getElementById('title').textContent = contentData[currentIndex].title;
+            document.getElementById('content-text').textContent = contentData[currentIndex].text;
+        }
+    </script>
 
 </body>
 </html>
