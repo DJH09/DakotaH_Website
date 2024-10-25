@@ -5,153 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me</title>
     <style>
+        /* Full-page background */
         body, html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
             height: 100%;
-        }
-
-        .container {
-            display: flex;
-            height: 100vh; /* Full viewport height */
-        }
-
-        .grey-section {
-            background-color: blue;
-            width: 75%; /* 3/4 grey section */
-            position: relative;
-            padding: 20px;
-            color: white;
+            width: 100%;
+            background-image: url('Mountains.png');
+            background-size: cover;
+            background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            opacity: 1;
-            transition: opacity 0.5s ease-in-out; /* Transition for fade effect */
         }
 
-        .white-section {
-            background-color: grey;
-            width: 25%; /* 1/4 white section */
+        /* Centered white rectangle */
+        .content-box {
+            background-color: white;
+            width: 60%;
+            height: 90%;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .title {
-            position: absolute;
-            top: 20px; /* Distance from the top of the grey section */
-            left: 50%;
-            transform: translateX(-50%); /* Center the title horizontally */
-            font-size: 2em;
-        }
-
-        .text-content {
-            font-size: 1.2em;
-            text-align: center; /* Center the text horizontally */
-        }
-
-        .arrows {
-            position: absolute;
-            top: 50%;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            transform: translateY(-50%);
-        }
-
-        .arrow-left, .arrow-right {
-            font-size: 2em;
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            outline: none;
-        }
-
-        .arrow-left {
-            position: absolute;
-            left: 10px; /* Left side of screen */
-        }
-
-        .arrow-right {
-            position: absolute;
-            right: 0; /* Near the grey/white border */
-        }
-
-        .back-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            text-decoration: none;
-            color: black;
-            font-size: 1.5em;
-        }
-
-        .back-button span {
-            margin-left: 10px;
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .content-box {
+                width: 90%;
+                height: 85%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Grey section with title, text, and arrows -->
-        <div class="grey-section" id="grey-section">
-                <div class="title" id="title">Learn more about me</div>
-            <div class="text-content" id="text-content">Click the arrows to go through different things about me!</div>
-            
-            <div class="arrows">
-                <button class="arrow-left" id="left-arrow">&lt;</button>
-                <button class="arrow-right" id="right-arrow">&gt;</button>
-            </div>
-        </div>
 
-        <!-- White section -->
-        <div class="white-section"></div>
-
-        <!-- Back button -->
-        <a href="index.html" class="back-button">
-            <span>&lt; Back</span>
-        </a>
+    <div class="content-box">
+        <!-- Any content can go here if needed in the future -->
     </div>
 
-    <script>
-        const leftArrow = document.getElementById('left-arrow');
-        const rightArrow = document.getElementById('right-arrow');
-        const title = document.getElementById('title');
-        const textContent = document.getElementById('text-content');
-        const greySection = document.getElementById('grey-section');
-
-        const texts = [
-            { title: 'Personal Life', text: 'During the first thirteen years of my life, I grew up in California. Some of my favorite memories were hanging out at my great grandmas house to swi, and spend time with family. I also enjoyed watching the fireworks every year there. During my 8th grade year, I moved to Iowa and am currently enrolled at Nevada High School. I currently live with my parents, my two middle school brothers, and five pets.' },
-            { title: 'Goals', text: 'In the future, I hope to go to get a scholarship to go to college for mathmatics and computer science. I hope to land a good job in either programming or finance. I also would love to get my private pilots license and own a piper cherokee 6 and fly around the United States with friends and family.' },
-            { title: 'Education', text: 'I went to high school at Nevada High School and had an average G.P.A of a 3.5. By my sophmore year, I had completed all my required math and science classes. My freshman year, I was one of three students to recieve a math outstanding award. I took both honors biology and honors chemistry. On top of this, I took both Computer Science Essensials and AP Computer Science Principles' }
-        ];
-
-        let currentIndex = 0;
-
-        function updateContent() {
-            // Fade out the grey section
-            greySection.style.opacity = .5;
-
-            // After the fade-out animation (500ms), update the content and fade back in
-            setTimeout(() => {
-                title.textContent = texts[currentIndex].title;
-                textContent.textContent = texts[currentIndex].text;
-
-                // Fade in the grey section
-                greySection.style.opacity = 1;
-            }, 250); // This delay matches the transition duration
-        }
-
-        leftArrow.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + texts.length) % texts.length;
-            updateContent();
-        });
-
-        rightArrow.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % texts.length;
-            updateContent();
-        });
-    </script>
 </body>
 </html>
