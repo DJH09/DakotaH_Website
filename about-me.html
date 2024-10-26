@@ -8,25 +8,26 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background: url('Mountains.png') no-repeat center center fixed;
+            background-image: url("Mountains.png");
             background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-position: center;
+            font-family: Arial, sans-serif;
         }
         .content-box {
+            width: 60%; /* Adjusted width */
+            max-width: 800px;
             background-color: white;
-            width: 80%;
-            max-width: 400px;
-            height: 90vh;
+            margin: 0 auto;
+            padding: 40px;
             border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            top: 0;
+            bottom: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            height: 100vh;
             text-align: center;
         }
         .title {
@@ -36,64 +37,54 @@
         }
         .content-text {
             font-size: 18px;
-            line-height: 1.6;
         }
         .arrow {
+            position: absolute;
             font-size: 24px;
             cursor: pointer;
-            position: absolute;
             top: 50%;
             transform: translateY(-50%);
         }
         .left-arrow {
-            left: 5%;
+            left: -40px;
         }
         .right-arrow {
-            right: 5%;
+            right: -40px;
         }
     </style>
 </head>
 <body>
     <div class="content-box">
         <div id="title" class="title">Contact</div>
-        <div id="content-text" class="content-text">
-            <p>Email: Djhigs09@gmail.com<br>Phone: 619-249-1643</p>
-        </div>
+        <div id="content-text" class="content-text"><p>Email: Djhigs09@gmail.com</p><p>Phone: 619-249-1643</p></div>
+        <div class="arrow left-arrow" onclick="previousContent()">&#9664;</div>
+        <div class="arrow right-arrow" onclick="nextContent()">&#9654;</div>
     </div>
-    <div class="arrow left-arrow" onclick="prevContent()">&#9664;</div>
-    <div class="arrow right-arrow" onclick="nextContent()">&#9654;</div>
 
     <script>
         const contentData = [
-            { 
-                title: "Contact", 
-                text: "Email: Djhigs09@gmail.com<br>Phone: 619-249-1643" 
-            },
-            { 
-                title: "Work Experience", 
-                text: "Fareway from Dec 12 to present day" 
-            }
+            { title: "Contact", text: "<p>Email: Djhigs09@gmail.com</p><p>Phone: 619-249-1643</p>" },
+            { title: "Background Knowledge", text: "<p>There is so much background knowledge.</p>" },
+            { title: "Work Experience", text: "<p>Fareway from Dec 12 to present day.</p>" },
+            { title: "Education", text: "<p>High School Student</p>" }
         ];
-        
-        let currentIndex = 0;
 
-        function updateContent(index) {
-            document.getElementById("title").innerText = contentData[index].title;
-            document.getElementById("content-text").innerHTML = contentData[index].text;
+        let currentContentIndex = 0;
+
+        function updateContent() {
+            document.getElementById("title").innerHTML = contentData[currentContentIndex].title;
+            document.getElementById("content-text").innerHTML = contentData[currentContentIndex].text;
         }
 
         function nextContent() {
-            currentIndex = (currentIndex + 1) % contentData.length;
-            updateContent(currentIndex);
+            currentContentIndex = (currentContentIndex + 1) % contentData.length;
+            updateContent();
         }
 
-        function prevContent() {
-            currentIndex = (currentIndex - 1 + contentData.length) % contentData.length;
-            updateContent(currentIndex);
+        function previousContent() {
+            currentContentIndex = (currentContentIndex - 1 + contentData.length) % contentData.length;
+            updateContent();
         }
-
-        // Initialize with the first content
-        updateContent(currentIndex);
     </script>
 </body>
 </html>
