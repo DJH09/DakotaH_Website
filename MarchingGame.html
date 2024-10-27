@@ -8,54 +8,54 @@
         body {
             background-color: lightgray;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
         }
         #card-pack {
             margin: 20px;
+            position: relative;
         }
-        #card-pack img {
-            width: 300px; /* Increase size */
-            cursor: pointer;
+        #reset {
+            position: fixed;
+            top: 10px;
+            right: 10px;
         }
-        #reset, #view-deck {
-            margin: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-        .card {
+        .card, .name {
             display: none;
             margin: 20px;
         }
-        img.card {
+        img {
             width: 200px;
+            cursor: pointer;
         }
-        #you-received {
-            display: none;
-            margin-top: 20px;
+        /* Square scatter animation */
+        .square {
+            width: 20px;
+            height: 20px;
+            background-color: #4CAF50;
+            position: absolute;
+            opacity: 0;
+            animation: scatter 1s ease-out forwards;
         }
-        p.card-name {
-            font-size: 18px;
-            font-weight: bold;
+        @keyframes scatter {
+            from {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: translate(var(--dx), var(--dy)) scale(0.5);
+            }
         }
     </style>
 </head>
 <body>
 
     <h1>Marching Band Game</h1>
-    
     <div id="card-pack" onclick="openCardPack()">
         <img src="CardPack.png" alt="Card Pack">
     </div>
-
-    <button id="view-deck" onclick="goToDeck()">View Deck</button>
     <button id="reset" onclick="resetProgress()">Reset Progress</button>
-
-    <div id="you-received">
+    
+    <div id="you-received" style="display: none;">
         <p>You received:</p>
         <div id="card-container"></div>
     </div>
@@ -84,10 +84,10 @@
         ];
 
         let receivedCards = [];
-        const cardImages = {
-            "Bailee Knott": "BaileeCard.png",
-            "Katherine Poock": "KatieCard.png"
-        };
+        const baileeCardImg = '<img src="BaileeCard.png" class="card" id="BaileeCard" onclick="nextCard()">'; 
+        const katieCardImg = '<img src="KatieCard.png" class="card" id="KatieCard" onclick="nextCard()">';
+        
+        let showContent = true; // Flag to control display state
 
         // Load received cards from local storage
         window.onload = function() {
@@ -105,6 +105,9 @@
 
         function openCardPack() {
             if (receivedCards.length === 0) {
+                // Scatter effect
+                scatterEffect();
+
                 const randomCards = [];
                 for (let i = 0; i < 3; i++) {
                     const randomIndex = Math.floor(Math.random() * cards.length);
@@ -120,56 +123,18 @@
 
         function displayReceivedCards() {
             document.getElementById("you-received").style.display = "block";
-            document.getElementById("card-container").innerHTML = ""; 
-
-            let imagesDisplayed = false;
-
-            // Display card images first if any are present
-            receivedCards.forEach(card => {
-                if (cardImages[card]) {
-                    const imgElement = document.createElement("img");
-                    imgElement.src = cardImages[card];
-                    imgElement.classList.add("card");
-                    imgElement.onclick = () => showTextCards();
-                    document.getElementById("card-container").appendChild(imgElement);
-                    imgElement.style.display = "block";
-                    imagesDisplayed = true;
-                }
-            });
-
-            // Show text cards if no images, or wait until image is clicked
-            if (!imagesDisplayed) {
-                showTextCards();
-            }
-        }
-
-        // Show text cards after images have been shown
-        function showTextCards() {
-            document.querySelectorAll(".card").forEach(card => {
-                card.style.display = "none";
-            });
-            document.getElementById("card-container").innerHTML = "";
+            document.getElementById("card-container").innerHTML = ""; // Clear previous cards
 
             receivedCards.forEach(card => {
-                if (!cardImages[card]) {
-                    const cardText = document.createElement("p");
-                    cardText.classList.add("card-name");
-                    cardText.innerText = card;
-                    document.getElementById("card-container").appendChild(cardText);
+                if (card === "Bailee Knott") {
+                    document.getElementById("card-container").innerHTML += baileeCardImg;
+                } else if (card === "Katherine Poock") {
+                    document.getElementById("card-container").innerHTML += katieCardImg;
+                } else {
+                    document.getElementById("card-container").innerHTML += `<p class="name">${card}</p>`;
                 }
             });
-        }
-
-        function resetProgress() {
-            localStorage.removeItem('receivedCards');
-            receivedCards = [];
-            document.getElementById("you-received").style.display = "none";
-            document.getElementById("card-container").innerHTML = ""; 
-            document.getElementById("card-pack").style.display = "block"; 
-        }
-
-        function goToDeck() {
-            window.location.href = "marchingchar_deck.html"; 
+            showContent = true; // Allow content to be displayed
         }
     </script>
 
