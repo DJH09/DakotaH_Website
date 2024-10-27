@@ -39,6 +39,7 @@
         #you-received {
             display: none;
             margin-top: 20px;
+            cursor: pointer;
         }
         p.card-name {
             font-size: 18px;
@@ -57,7 +58,7 @@
     <button id="view-deck" onclick="goToDeck()">View Deck</button>
     <button id="reset" onclick="resetProgress()">Reset Progress</button>
 
-    <div id="you-received">
+    <div id="you-received" onclick="clearDisplay()">
         <p>You received:</p>
         <div id="card-container"></div>
     </div>
@@ -156,9 +157,7 @@
                     const imgElement = document.createElement("img");
                     imgElement.src = cardImages[card];
                     imgElement.classList.add("card");
-                    imgElement.onclick = () => showTextCards();
                     document.getElementById("card-container").appendChild(imgElement);
-                    imgElement.style.display = "block";
                     imagesDisplayed = true;
                 }
             });
@@ -182,6 +181,11 @@
                     document.getElementById("card-container").appendChild(cardText);
                 }
             });
+        }
+
+        function clearDisplay() {
+            document.getElementById("you-received").style.display = "none";
+            document.getElementById("card-container").innerHTML = "";
         }
 
         function resetProgress() {
