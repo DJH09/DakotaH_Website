@@ -17,9 +17,10 @@
         }
         #card-pack {
             margin: 20px;
+            position: relative;
         }
         #card-pack img {
-            width: 300px; /* Increase size */
+            width: 300px;
             cursor: pointer;
         }
         #reset, #view-deck {
@@ -27,12 +28,13 @@
             padding: 10px 20px;
             font-size: 16px;
         }
-        .card {
-            display: none;
-            margin: 20px;
-        }
-        img.card {
-            width: 200px;
+        .square {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #007bff;
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
         }
         #you-received {
             display: none;
@@ -89,7 +91,6 @@
             "Katherine Poock": "KatieCard.png"
         };
 
-        // Load received cards from local storage
         window.onload = function() {
             const storedCards = JSON.parse(localStorage.getItem('receivedCards'));
             if (storedCards) {
@@ -104,17 +105,43 @@
         };
 
         function openCardPack() {
-            if (receivedCards.length === 0) {
-                const randomCards = [];
-                for (let i = 0; i < 3; i++) {
-                    const randomIndex = Math.floor(Math.random() * cards.length);
-                    randomCards.push(cards[randomIndex]);
-                }
-                receivedCards.push(...randomCards);
-                localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
+            triggerScatterAnimation();
+            setTimeout(() => {
+                if (receivedCards.length === 0) {
+                    const randomCards = [];
+                    for (let i = 0; i < 3; i++) {
+                        const randomIndex = Math.floor(Math.random() * cards.length);
+                        randomCards.push(cards[randomIndex]);
+                    }
+                    receivedCards.push(...randomCards);
+                    localStorage.setItem('receivedCards', JSON.stringify(receivedCards));
 
-                document.getElementById("card-pack").style.display = "none";
-                displayReceivedCards();
+                    document.getElementById("card-pack").style.display = "none";
+                    displayReceivedCards();
+                }
+            }, 500); // Wait for animation before hiding card pack
+        }
+
+        function triggerScatterAnimation() {
+            const cardPack = document.getElementById("card-pack");
+            for (let i = 0; i < 20; i++) {
+                const square = document.createElement("div");
+                square.classList.add("square");
+                square.style.top = "50%";
+                square.style.left = "50%";
+                cardPack.appendChild(square);
+
+                // Randomize scatter direction and distance
+                const angle = Math.random() * 2 * Math.PI;
+                const distance = Math.random() * 150 + 50;
+                square.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+                square.style.opacity = "1";
+
+                // Remove square after animation
+                setTimeout(() => {
+                    square.style.opacity = "0";
+                    setTimeout(() => square.remove(), 500);
+                }, 500);
             }
         }
 
@@ -124,7 +151,6 @@
 
             let imagesDisplayed = false;
 
-            // Display card images first if any are present
             receivedCards.forEach(card => {
                 if (cardImages[card]) {
                     const imgElement = document.createElement("img");
@@ -137,13 +163,11 @@
                 }
             });
 
-            // Show text cards if no images, or wait until image is clicked
             if (!imagesDisplayed) {
                 showTextCards();
             }
         }
 
-        // Show text cards after images have been shown
         function showTextCards() {
             document.querySelectorAll(".card").forEach(card => {
                 card.style.display = "none";
