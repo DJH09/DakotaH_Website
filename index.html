@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,26 +22,37 @@
             align-items: center;
             justify-content: center;
             flex-direction: column; /* Stack elements vertically */
-            background: url('DataPhoto.png') no-repeat center center;
-            background-size: cover;
-            opacity: 1;
+            overflow: hidden; /* Ensure the video fits within the section */
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Send video behind other elements */
+            overflow: hidden; /* Ensure it doesn't overflow */
+        }
+
+        .video-background iframe {
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Disable interaction with the iframe */
         }
 
         .title {
-            color: transparent;
+            color: white;
             font-size: 6em; /* Bigger bubble letters */
             font-weight: bold;
             text-align: center;
-            background: url('DataPhoto.png') no-repeat center center;
-            background-size: cover;
-            -webkit-background-clip: text;
-            background-clip: text;
-            padding: 0 20px; /* Padding for better appearance */
             text-shadow: 
-                -1px -1px 0 #fff,  
-                1px -1px 0 #fff,
-                -1px 1px 0 #fff,
-                1px 1px 0 #fff; /* White outline */
+                -1px -1px 0 #000,  
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000; /* Black outline */
+            padding: 0 20px; /* Padding for better appearance */
+            z-index: 1; /* Bring title in front of video */
         }
 
         .about-me {
@@ -56,6 +66,7 @@
             color: white;
             transition: background-color 0.3s, color 0.3s;
             background-color: transparent; /* No background color */
+            z-index: 1; /* Bring links in front of video */
         }
 
         .about-me:hover {
@@ -141,6 +152,16 @@
 </head>
 <body>
     <div class="title-section">
+        <div class="video-background">
+            <iframe 
+                src="https://www.youtube.com/embed/xDFWLudn5WY?si=Fm0FLB7f1V1nM7YM&controls=0&autoplay=1&mute=1&loop=1&playlist=xDFWLudn5WY" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+        </div>
         <h1 class="title">Dakota's Digital Adventure</h1>
         <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
         <a href="friends.html" class="about-me">&lt;friends&gt;</a> <!-- Friends link -->
