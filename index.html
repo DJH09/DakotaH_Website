@@ -22,26 +22,35 @@
             align-items: center;
             justify-content: center;
             flex-direction: column; /* Stack elements vertically */
-            background: url('DataPhoto.png') no-repeat center center;
-            background-size: cover;
-            opacity: 1;
+            overflow: hidden; /* Ensure the video fits within the section */
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .title {
-            color: transparent;
+            color: white;
             font-size: 6em; /* Bigger bubble letters */
             font-weight: bold;
             text-align: center;
-            background: url('DataPhoto.png') no-repeat center center;
-            background-size: cover;
-            -webkit-background-clip: text;
-            background-clip: text;
-            padding: 0 20px; /* Padding for better appearance */
             text-shadow: 
-                -1px -1px 0 #fff,  
-                1px -1px 0 #fff,
-                -1px 1px 0 #fff,
-                1px 1px 0 #fff; /* White outline */
+                -1px -1px 0 #000,  
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000; /* Black outline */
+            padding: 0 20px; /* Padding for better appearance */
         }
 
         .about-me {
@@ -140,6 +149,12 @@
 </head>
 <body>
     <div class="title-section">
+        <div class="video-background">
+            <video autoplay muted loop>
+                <source src="Background - Made with Clipchamp.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
         <h1 class="title">Dakota's Digital Adventure</h1>
         <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
         <a href="friends.html" class="about-me">&lt;friends&gt;</a> <!-- Friends link -->
