@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dakota's Digital Adventure</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden; /* Prevent horizontal overflow */
+            background-color: #001f3f; /* Set a dark blue background */
+        }
+
+        .title-section {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column; /* Stack elements vertically */
+            background: url('DataPhoto.png') no-repeat center center;
+            background-size: cover;
+            opacity: 1;
+        }
+
+        .title {
+            color: transparent;
+            font-size: 6em; /* Bigger bubble letters */
+            font-weight: bold;
+            text-align: center;
+            background: url('DataPhoto.png') no-repeat center center;
+            background-size: cover;
+            -webkit-background-clip: text;
+            background-clip: text;
+            padding: 0 20px; /* Padding for better appearance */
+            text-shadow: 
+                -1px -1px 0 #fff,  
+                1px -1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px 1px 0 #fff; /* White outline */
+        }
+
+        .about-me {
+            margin-top: 20px; /* Space between title and rectangle */
+            border: 2px solid white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 1.5em;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            transition: background-color 0.3s, color 0.3s;
+            background-color: transparent; /* No background color */
+        }
+
+        .about-me:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .bottom-half {
+            display: flex;
+            height: calc(100vh - 100%); /* Occupy remaining height */
+        }
+
+        .left {
+            flex: 1;
+            background-color: #001f3f; /* Dark blue */
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column; /* Stack content vertically */
+            color: white;
+            padding: 20px;
+        }
+
+        .my-photo {
+            width: 80%; /* Adjust width as necessary */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 20px; /* Space below the photo */
+        }
+
+        .separator {
+            width: 2px; /* Width of the separator line */
+            background-color: darkgray; /* Color of the separator */
+            margin: 0 20px; /* Spacing left and right */
+        }
+
+        .right {
+            flex: 1;
+            background-color: #001f3f; /* Dark blue */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column; /* Center text vertically */
+            color: white;
+            padding: 20px;
+        }
+
+        .computer-science {
+            border: 2px solid white;
+            margin-top: 20px; /* Space above */
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.2s; /* Transition for scaling effect */
+        }
+
+        .computer-science img {
+            border: 4px solid gray; /* Gray border */
+            margin: 10px; /* Space around image */
+            max-width: 80%; /* Responsive */
+            height: auto; /* Maintain aspect ratio */
+            transition: transform 0.2s; /* Transition for scaling effect */
+        }
+
+        .computer-science img:active {
+            transform: scale(0.95); /* Scale down on click */
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3em; /* Adjust for mobile */
+                padding: 0 10px; /* Adjust padding for mobile */
+            }
+
+            .bottom-half {
+                flex-direction: column; /* Stack sections on mobile */
+                height: auto; /* Adjust height */
+            }
+
+            .computer-science img {
+                max-width: 90%; /* Responsive for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="title-section">
+        <h1 class="title">Dakota's Digital Adventure</h1>
+        <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
+        <a href="friends.html" class="about-me">&lt;friends&gt;</a> <!-- Friends link -->
+    </div>
+    
+    <div class="bottom-half">
+        <div class="left">
+            <img src="MyPhoto.png" alt="My Photo" class="my-photo"> <!-- Add your photo -->
+            <div class="text-content">
+                <h2>Hey!</h2>
+                <p>My name is Dakota Higdon and I am a high school student. My passions include music, art, mathematics, and computer science. This is my portfolio that has information about me and my way to display all of my digital work.</p>
+            </div>
+        </div>
+        <div class="separator"></div> <!-- Vertical Separator Line -->
+        <div class="right">
+            <div class="text-content">
+                <h2>Computer Science</h2>
+                <div class="computer-science">
+                    <a href="Computer_Science.html" class="cs-link">
+                        <img src="CSPhoto.png" alt="Computer Science" id="cs-image">
+                    </a>
+                    <p>Learn about my projects in Computer Science!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Click animation for computer science image
+        const csImage = document.getElementById('cs-image');
+
+        csImage.addEventListener('click', function() {
+            csImage.style.transform = 'scale(0.95)'; // Scale down
+            setTimeout(() => {
+                csImage.style.transform = 'scale(1)'; // Reset scale after a brief moment
+            }, 200); // 200ms for the scaling effect
+        });
+    </script>
+</body>
+</html>
