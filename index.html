@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,68 +11,42 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            overflow: hidden; /* Prevent scrolling */
-            background-color: #001f3f; /* Fallback background color */
-        }
-
-        /* Moving Squares Background */
-        .squares-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            z-index: -1; /* Set behind other content */
-        }
-
-        .square {
-            position: absolute;
-            background-color: rgba(0, 191, 255, 0.7); /* Neon colors */
-            opacity: 0.8;
-            animation: move 10s linear infinite; /* Adjust duration for speed */
-        }
-
-        @keyframes move {
-            0% {
-                transform: translateY(0) translateX(0);
-            }
-            100% {
-                transform: translateY(100vh) translateX(100vw);
-            }
-        }
-
-        /* Animation to generate squares */
-        @keyframes squareAnimation {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(100vh); }
+            overflow-x: hidden; /* Prevent horizontal overflow */
+            background-color: #001f3f; /* Set a dark blue background */
         }
 
         .title-section {
             width: 100vw;
             height: 100vh;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            position: relative; /* Position relative to keep content above the squares */
-            z-index: 1; /* Ensure title section is above the animated background */
-            color: white; /* Text color */
-            text-align: center;
+            flex-direction: column; /* Stack elements vertically */
+            background: url('DataPhoto.png') no-repeat center center;
+            background-size: cover;
+            opacity: 1;
         }
 
         .title {
-            font-size: 6em;
+            color: transparent;
+            font-size: 6em; /* Bigger bubble letters */
             font-weight: bold;
+            text-align: center;
+            background: url('DataPhoto.png') no-repeat center center;
+            background-size: cover;
+            -webkit-background-clip: text;
+            background-clip: text;
+            padding: 0 20px; /* Padding for better appearance */
             text-shadow: 
-                -1px -1px 0 #000,  
-                1px -1px 0 #000,
-                -1px 1px 0 #000,
-                1px 1px 0 #000;
+                -1px -1px 0 #fff,  
+                1px -1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px 1px 0 #fff; /* White outline */
         }
 
         .about-me {
-            margin-top: 20px;
+            margin-top: 20px; /* Space between title and rectangle */
             border: 2px solid white;
             padding: 10px 20px;
             text-align: center;
@@ -80,113 +55,106 @@
             text-decoration: none;
             color: white;
             transition: background-color 0.3s, color 0.3s;
-            background-color: transparent;
+            background-color: transparent; /* No background color */
+        }
+
+        .about-me:hover {
+            background-color: black;
+            color: white;
         }
 
         .bottom-half {
             display: flex;
-            height: auto;
+            height: calc(100vh - 100%); /* Occupy remaining height */
         }
 
         .left {
             flex: 1;
-            background-color: #001f3f;
+            background-color: #001f3f; /* Dark blue */
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            flex-direction: column;
+            flex-direction: column; /* Stack content vertically */
             color: white;
             padding: 20px;
         }
 
         .my-photo {
-            width: 80%;
-            height: auto;
-            margin-bottom: 20px;
+            width: 80%; /* Adjust width as necessary */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 20px; /* Space below the photo */
         }
 
         .separator {
-            width: 2px;
-            background-color: darkgray;
-            margin: 0 20px;
+            width: 2px; /* Width of the separator line */
+            background-color: darkgray; /* Color of the separator */
+            margin: 0 20px; /* Spacing left and right */
         }
 
         .right {
             flex: 1;
-            background-color: #001f3f;
+            background-color: #001f3f; /* Dark blue */
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
+            flex-direction: column; /* Center text vertically */
             color: white;
             padding: 20px;
         }
 
         .computer-science {
             border: 2px solid white;
-            margin-top: 20px;
+            margin-top: 20px; /* Space above */
             padding: 10px;
             text-align: center;
-            transition: transform 0.2s;
+            transition: transform 0.2s; /* Transition for scaling effect */
         }
 
         .computer-science img {
-            border: 4px solid gray;
-            margin: 10px;
-            max-width: 80%;
-            height: auto;
-            transition: transform 0.2s;
+            border: 4px solid gray; /* Gray border */
+            margin: 10px; /* Space around image */
+            max-width: 80%; /* Responsive */
+            height: auto; /* Maintain aspect ratio */
+            transition: transform 0.2s; /* Transition for scaling effect */
         }
 
         .computer-science img:active {
-            transform: scale(0.95);
+            transform: scale(0.95); /* Scale down on click */
         }
 
         @media (max-width: 768px) {
             .title {
-                font-size: 3em;
-                padding: 0 10px;
+                font-size: 3em; /* Adjust for mobile */
+                padding: 0 10px; /* Adjust padding for mobile */
             }
 
             .bottom-half {
-                flex-direction: column;
-                height: auto;
+                flex-direction: column; /* Stack sections on mobile */
+                height: auto; /* Adjust height */
             }
 
             .computer-science img {
-                max-width: 90%;
+                max-width: 90%; /* Responsive for mobile */
             }
         }
     </style>
 </head>
 <body>
-    <div class="squares-background">
-        <!-- Squares with different colors and animation -->
-        <div class="square" style="width: 100px; height: 100px; top: 20%; left: 10%; animation-duration: 10s;"></div>
-        <div class="square" style="width: 150px; height: 150px; top: 30%; left: 50%; animation-duration: 12s; background-color: rgba(255, 0, 255, 0.7);"></div>
-        <div class="square" style="width: 80px; height: 80px; top: 50%; left: 70%; animation-duration: 15s; background-color: rgba(255, 215, 0, 0.7);"></div>
-        <div class="square" style="width: 120px; height: 120px; top: 80%; left: 30%; animation-duration: 14s;"></div>
-        <div class="square" style="width: 200px; height: 200px; top: 10%; left: 80%; animation-duration: 18s; background-color: rgba(0, 255, 0, 0.7);"></div>
-        <div class="square" style="width: 170px; height: 170px; top: 60%; left: 20%; animation-duration: 16s; background-color: rgba(0, 0, 255, 0.7);"></div>
-        <div class="square" style="width: 90px; height: 90px; top: 40%; left: 40%; animation-duration: 11s; background-color: rgba(0, 191, 255, 0.7);"></div>
-        <!-- More squares can be added here -->
-    </div>
-
     <div class="title-section">
         <h1 class="title">Dakota's Digital Adventure</h1>
         <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
-        <a href="friends.html" class="about-me">&lt;friends&gt;</a>
+        <a href="friends.html" class="about-me">&lt;friends&gt;</a> <!-- Friends link -->
     </div>
     
     <div class="bottom-half">
         <div class="left">
-            <img src="MyPhoto.png" alt="My Photo" class="my-photo">
+            <img src="MyPhoto.png" alt="My Photo" class="my-photo"> <!-- Add your photo -->
             <div class="text-content">
                 <h2>Hey!</h2>
                 <p>My name is Dakota Higdon and I am a high school student. My passions include music, art, mathematics, and computer science. This is my portfolio that has information about me and my way to display all of my digital work.</p>
             </div>
         </div>
-        <div class="separator"></div>
+        <div class="separator"></div> <!-- Vertical Separator Line -->
         <div class="right">
             <div class="text-content">
                 <h2>Computer Science</h2>
@@ -205,10 +173,10 @@
         const csImage = document.getElementById('cs-image');
 
         csImage.addEventListener('click', function() {
-            csImage.style.transform = 'scale(0.95)';
+            csImage.style.transform = 'scale(0.95)'; // Scale down
             setTimeout(() => {
-                csImage.style.transform = 'scale(1)';
-            }, 200);
+                csImage.style.transform = 'scale(1)'; // Reset scale after a brief moment
+            }, 200); // 200ms for the scaling effect
         });
     </script>
 </body>
