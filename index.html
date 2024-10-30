@@ -10,7 +10,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            overflow: hidden;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
             background-color: #001f3f; /* Fallback background color */
         }
 
@@ -21,43 +21,17 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            overflow: hidden;
+            background: linear-gradient(45deg, #1E90FF, #87CEFA, #005EB8, #39FF14, #FF1C80);
+            background-size: 300% 300%;
+            animation: gradient 15s ease infinite; /* Animate gradient */
             z-index: -1; /* Set behind other content */
         }
 
-        .square {
-            position: absolute;
-            width: 100px; /* Adjust size as needed */
-            height: 100px; /* Adjust size as needed */
-            opacity: 0.8;
-            animation: move 10s infinite ease-in-out;
-            border-radius: 10px; /* Rounded corners */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-
-        @keyframes move {
-            0% {
-                transform: translate(0, 0);
-            }
-            25% {
-                transform: translate(100vw, 0);
-            }
-            50% {
-                transform: translate(100vw, 100vh);
-            }
-            75% {
-                transform: translate(0, 100vh);
-            }
-            100% {
-                transform: translate(0, 0);
-            }
-        }
-
-        /* Animation color variations */
-        .blue { background-color: #1E90FF; }
-        .light-blue { background-color: #87CEFA; }
-        .dark-blue { background-color: #005EB8; }
-        .neon-green { background-color: #39FF14; }
-        .neon-pink { background-color: #FF1C80; }
 
         .title-section {
             width: 100vw;
@@ -68,23 +42,18 @@
             flex-direction: column;
             position: relative; /* Position relative to keep content above the squares */
             z-index: 1; /* Ensure title section is above the animated background */
+            color: white; /* Text color */
+            text-align: center;
         }
 
         .title {
-            color: transparent;
             font-size: 6em;
             font-weight: bold;
-            text-align: center;
-            background: url('DataPhoto.png') no-repeat center center;
-            background-size: cover;
-            -webkit-background-clip: text;
-            background-clip: text;
-            padding: 0 20px;
             text-shadow: 
-                -1px -1px 0 #fff,  
-                1px -1px 0 #fff,
-                -1px 1px 0 #fff,
-                1px 1px 0 #fff;
+                -1px -1px 0 #000,  
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
         }
 
         .about-me {
@@ -102,7 +71,7 @@
 
         .bottom-half {
             display: flex;
-            height: calc(100vh - 100%);
+            height: auto;
         }
 
         .left {
@@ -177,16 +146,7 @@
     </style>
 </head>
 <body>
-    <div class="animated-background">
-        <div class="square blue" style="top: 20%; left: 20%; animation-delay: 0s;"></div>
-        <div class="square light-blue" style="top: 40%; left: 10%; animation-delay: 2s;"></div>
-        <div class="square dark-blue" style="top: 60%; left: 50%; animation-delay: 4s;"></div>
-        <div class="square neon-green" style="top: 10%; left: 70%; animation-delay: 6s;"></div>
-        <div class="square neon-pink" style="top: 30%; left: 80%; animation-delay: 8s;"></div>
-        <div class="square blue" style="top: 70%; left: 30%; animation-delay: 1s;"></div>
-        <div class="square light-blue" style="top: 50%; left: 40%; animation-delay: 3s;"></div>
-        <div class="square dark-blue" style="top: 80%; left: 20%; animation-delay: 5s;"></div>
-    </div>
+    <div class="animated-background"></div>
 
     <div class="title-section">
         <h1 class="title">Dakota's Digital Adventure</h1>
