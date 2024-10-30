@@ -10,8 +10,8 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            overflow-x: hidden;
-            background-color: #001f3f;
+            overflow: hidden;
+            background-color: #001f3f; /* Fallback background color */
         }
 
         /* Animated Background */
@@ -21,18 +21,43 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(45deg, #001f3f, #004080, #001f3f, #004080, #001f3f);
-            background-size: 400% 400%;
-            animation: gradientAnimation 10s ease infinite;
+            overflow: hidden;
             z-index: -1; /* Set behind other content */
         }
 
-        /* Gradient animation */
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .square {
+            position: absolute;
+            width: 100px; /* Adjust size as needed */
+            height: 100px; /* Adjust size as needed */
+            opacity: 0.8;
+            animation: move 10s infinite ease-in-out;
+            border-radius: 10px; /* Rounded corners */
         }
+
+        @keyframes move {
+            0% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(100vw, 0);
+            }
+            50% {
+                transform: translate(100vw, 100vh);
+            }
+            75% {
+                transform: translate(0, 100vh);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        /* Animation color variations */
+        .blue { background-color: #1E90FF; }
+        .light-blue { background-color: #87CEFA; }
+        .dark-blue { background-color: #005EB8; }
+        .neon-green { background-color: #39FF14; }
+        .neon-pink { background-color: #FF1C80; }
 
         .title-section {
             width: 100vw;
@@ -41,6 +66,8 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
+            position: relative; /* Position relative to keep content above the squares */
+            z-index: 1; /* Ensure title section is above the animated background */
         }
 
         .title {
@@ -58,8 +85,6 @@
                 1px -1px 0 #fff,
                 -1px 1px 0 #fff,
                 1px 1px 0 #fff;
-            z-index: 1;
-            position: relative;
         }
 
         .about-me {
@@ -73,8 +98,6 @@
             color: white;
             transition: background-color 0.3s, color 0.3s;
             background-color: transparent;
-            z-index: 1;
-            position: relative;
         }
 
         .bottom-half {
@@ -154,8 +177,16 @@
     </style>
 </head>
 <body>
-    <!-- Moving background -->
-    <div class="animated-background"></div>
+    <div class="animated-background">
+        <div class="square blue" style="top: 20%; left: 20%; animation-delay: 0s;"></div>
+        <div class="square light-blue" style="top: 40%; left: 10%; animation-delay: 2s;"></div>
+        <div class="square dark-blue" style="top: 60%; left: 50%; animation-delay: 4s;"></div>
+        <div class="square neon-green" style="top: 10%; left: 70%; animation-delay: 6s;"></div>
+        <div class="square neon-pink" style="top: 30%; left: 80%; animation-delay: 8s;"></div>
+        <div class="square blue" style="top: 70%; left: 30%; animation-delay: 1s;"></div>
+        <div class="square light-blue" style="top: 50%; left: 40%; animation-delay: 3s;"></div>
+        <div class="square dark-blue" style="top: 80%; left: 20%; animation-delay: 5s;"></div>
+    </div>
 
     <div class="title-section">
         <h1 class="title">Dakota's Digital Adventure</h1>
