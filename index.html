@@ -21,13 +21,14 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(45deg, #001f3f, #004080, #001f3f, #002f4f, #003f6f, #001f3f);
-            background-size: 300% 300%;
-            animation: backgroundAnimation 20s ease infinite;
-            z-index: -1;
+            background: linear-gradient(45deg, #001f3f, #004080, #001f3f, #004080, #001f3f);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+            z-index: -1; /* Set behind other content */
         }
 
-        @keyframes backgroundAnimation {
+        /* Gradient animation */
+        @keyframes gradientAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
@@ -36,13 +37,10 @@
         .title-section {
             width: 100vw;
             height: 100vh;
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            overflow: hidden;
-            z-index: 0; /* Ensures the title is above the animated background */
         }
 
         .title {
@@ -60,6 +58,8 @@
                 1px -1px 0 #fff,
                 -1px 1px 0 #fff,
                 1px 1px 0 #fff;
+            z-index: 1;
+            position: relative;
         }
 
         .about-me {
@@ -73,6 +73,8 @@
             color: white;
             transition: background-color 0.3s, color 0.3s;
             background-color: transparent;
+            z-index: 1;
+            position: relative;
         }
 
         .bottom-half {
@@ -152,14 +154,15 @@
     </style>
 </head>
 <body>
-    <div class="animated-background"></div> <!-- Moving background layer -->
-    
+    <!-- Moving background -->
+    <div class="animated-background"></div>
+
     <div class="title-section">
         <h1 class="title">Dakota's Digital Adventure</h1>
         <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
         <a href="friends.html" class="about-me">&lt;friends&gt;</a>
     </div>
-
+    
     <div class="bottom-half">
         <div class="left">
             <img src="MyPhoto.png" alt="My Photo" class="my-photo">
@@ -185,6 +188,7 @@
     <script>
         // Click animation for computer science image
         const csImage = document.getElementById('cs-image');
+
         csImage.addEventListener('click', function() {
             csImage.style.transform = 'scale(0.95)';
             setTimeout(() => {
