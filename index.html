@@ -14,23 +14,31 @@
             background-color: #001f3f; /* Fallback background color */
         }
 
-        /* Animated Background */
-        .animated-background {
+        /* Moving Squares Background */
+        .squares-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(45deg, #1E90FF, #87CEFA, #005EB8, #39FF14, #FF1C80);
-            background-size: 300% 300%;
-            animation: gradient 15s ease infinite; /* Animate gradient */
+            overflow: hidden;
             z-index: -1; /* Set behind other content */
         }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .square {
+            position: absolute;
+            background-color: rgba(0, 191, 255, 0.7); /* Neon colors */
+            opacity: 0.8;
+            animation: move 15s linear infinite;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            100% {
+                transform: translateY(100vh) translateX(100vw);
+            }
         }
 
         .title-section {
@@ -146,7 +154,15 @@
     </style>
 </head>
 <body>
-    <div class="animated-background"></div>
+    <div class="squares-background">
+        <div class="square" style="width: 100px; height: 100px; top: 20%; left: 10%; animation-duration: 10s;"></div>
+        <div class="square" style="width: 150px; height: 150px; top: 30%; left: 50%; animation-duration: 15s; background-color: rgba(255, 0, 255, 0.7);"></div>
+        <div class="square" style="width: 80px; height: 80px; top: 50%; left: 70%; animation-duration: 12s; background-color: rgba(255, 215, 0, 0.7);"></div>
+        <div class="square" style="width: 120px; height: 120px; top: 80%; left: 30%; animation-duration: 20s;"></div>
+        <div class="square" style="width: 200px; height: 200px; top: 10%; left: 80%; animation-duration: 18s; background-color: rgba(0, 255, 0, 0.7);"></div>
+        <div class="square" style="width: 170px; height: 170px; top: 60%; left: 20%; animation-duration: 14s; background-color: rgba(0, 0, 255, 0.7);"></div>
+        <!-- Add more squares as needed -->
+    </div>
 
     <div class="title-section">
         <h1 class="title">Dakota's Digital Adventure</h1>
