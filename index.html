@@ -28,10 +28,11 @@
         .title-section iframe {
             position: absolute;
             top: 0;
-            left: 50%; /* Center horizontally */
-            width: 200vw; /* Extend slightly beyond viewport width */
-            height: 100vh; /* Full viewport height */
-            transform: translateX(-50%); /* Center video */
+            left: 50%;
+            width: 100vw; /* Use 100vw to cover full viewport width */
+            height: 100vh; /* Use 100vh to cover full viewport height */
+            transform: translateX(-50%);
+            object-fit: cover; /* Fill without stretching */
             z-index: 0; /* Set the video behind other content */
             pointer-events: none; /* Allow clicks to go through the video */
         }
