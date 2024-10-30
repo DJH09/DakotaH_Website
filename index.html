@@ -42,6 +42,7 @@
             justify-content: center;
             flex-direction: column;
             overflow: hidden;
+            z-index: 0; /* Ensures the title is above the animated background */
         }
 
         .title {
@@ -59,8 +60,6 @@
                 1px -1px 0 #fff,
                 -1px 1px 0 #fff,
                 1px 1px 0 #fff;
-            z-index: 1;
-            position: relative;
         }
 
         .about-me {
@@ -74,8 +73,6 @@
             color: white;
             transition: background-color 0.3s, color 0.3s;
             background-color: transparent;
-            z-index: 1;
-            position: relative;
         }
 
         .bottom-half {
