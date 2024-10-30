@@ -10,7 +10,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: Arial, sans-serif;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            overflow: hidden; /* Prevent scrolling */
             background-color: #001f3f; /* Fallback background color */
         }
 
@@ -29,7 +29,7 @@
             position: absolute;
             background-color: rgba(0, 191, 255, 0.7); /* Neon colors */
             opacity: 0.8;
-            animation: move 15s linear infinite;
+            animation: move 10s linear infinite; /* Adjust duration for speed */
         }
 
         @keyframes move {
@@ -39,6 +39,12 @@
             100% {
                 transform: translateY(100vh) translateX(100vw);
             }
+        }
+
+        /* Animation to generate squares */
+        @keyframes squareAnimation {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
         }
 
         .title-section {
@@ -155,13 +161,15 @@
 </head>
 <body>
     <div class="squares-background">
+        <!-- Squares with different colors and animation -->
         <div class="square" style="width: 100px; height: 100px; top: 20%; left: 10%; animation-duration: 10s;"></div>
-        <div class="square" style="width: 150px; height: 150px; top: 30%; left: 50%; animation-duration: 15s; background-color: rgba(255, 0, 255, 0.7);"></div>
-        <div class="square" style="width: 80px; height: 80px; top: 50%; left: 70%; animation-duration: 12s; background-color: rgba(255, 215, 0, 0.7);"></div>
-        <div class="square" style="width: 120px; height: 120px; top: 80%; left: 30%; animation-duration: 20s;"></div>
+        <div class="square" style="width: 150px; height: 150px; top: 30%; left: 50%; animation-duration: 12s; background-color: rgba(255, 0, 255, 0.7);"></div>
+        <div class="square" style="width: 80px; height: 80px; top: 50%; left: 70%; animation-duration: 15s; background-color: rgba(255, 215, 0, 0.7);"></div>
+        <div class="square" style="width: 120px; height: 120px; top: 80%; left: 30%; animation-duration: 14s;"></div>
         <div class="square" style="width: 200px; height: 200px; top: 10%; left: 80%; animation-duration: 18s; background-color: rgba(0, 255, 0, 0.7);"></div>
-        <div class="square" style="width: 170px; height: 170px; top: 60%; left: 20%; animation-duration: 14s; background-color: rgba(0, 0, 255, 0.7);"></div>
-        <!-- Add more squares as needed -->
+        <div class="square" style="width: 170px; height: 170px; top: 60%; left: 20%; animation-duration: 16s; background-color: rgba(0, 0, 255, 0.7);"></div>
+        <div class="square" style="width: 90px; height: 90px; top: 40%; left: 40%; animation-duration: 11s; background-color: rgba(0, 191, 255, 0.7);"></div>
+        <!-- More squares can be added here -->
     </div>
 
     <div class="title-section">
