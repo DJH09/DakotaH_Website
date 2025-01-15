@@ -1,182 +1,165 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dakota's Digital Adventure</title>
+    <title>Interactive Background</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-            overflow-x: hidden; /* Prevent horizontal overflow */
-            background-color: #001f3f; /* Set a dark blue background */
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #000000, #111111);
         }
 
-        .title-section {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column; /* Stack elements vertically */
-            background: url('DataPhoto.png') no-repeat center center;
-            background-size: cover;
-            opacity: 1;
+        canvas {
+            display: block;
+        }
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
         }
 
         .title {
-            color: transparent;
-            font-size: 6em; /* Bigger bubble letters */
+            font-size: 4rem;
             font-weight: bold;
-            text-align: center;
-            background: url('DataPhoto.png') no-repeat center center;
-            background-size: cover;
+            background: linear-gradient(90deg, #FFD700, #FFA500, #FF4500);
             -webkit-background-clip: text;
-            background-clip: text;
-            padding: 0 20px; /* Padding for better appearance */
-            text-shadow: 
-                -1px -1px 0 #fff,  
-                1px -1px 0 #fff,
-                -1px 1px 0 #fff,
-                1px 1px 0 #fff; /* White outline */
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            margin-bottom: 10px;
         }
 
-        .about-me {
-            margin-top: 20px; /* Space between title and rectangle */
-            border: 2px solid white;
-            padding: 10px 20px;
-            text-align: center;
-            font-size: 1.5em;
+        .subtitle {
+            font-size: 1.8rem;
+            font-weight: 300;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            margin-bottom: 30px;
+        }
+
+        .button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            color: white;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             cursor: pointer;
-            text-decoration: none;
-            color: white;
-            transition: background-color 0.3s, color 0.3s;
-            background-color: transparent; /* No background color */
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
         }
 
-        .about-me:hover {
-            background-color: black;
-            color: white;
-        }
-
-        .bottom-half {
-            display: flex;
-            height: calc(100vh - 100%); /* Occupy remaining height */
-        }
-
-        .left {
-            flex: 1;
-            background-color: #001f3f; /* Dark blue */
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            flex-direction: column; /* Stack content vertically */
-            color: white;
-            padding: 20px;
-        }
-
-        .my-photo {
-            width: 80%; /* Adjust width as necessary */
-            height: auto; /* Maintain aspect ratio */
-            margin-bottom: 20px; /* Space below the photo */
-        }
-
-        .separator {
-            width: 2px; /* Width of the separator line */
-            background-color: darkgray; /* Color of the separator */
-            margin: 0 20px; /* Spacing left and right */
-        }
-
-        .right {
-            flex: 1;
-            background-color: #001f3f; /* Dark blue */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column; /* Center text vertically */
-            color: white;
-            padding: 20px;
-        }
-
-        .computer-science {
-            border: 2px solid white;
-            margin-top: 20px; /* Space above */
-            padding: 10px;
-            text-align: center;
-            transition: transform 0.2s; /* Transition for scaling effect */
-        }
-
-        .computer-science img {
-            border: 4px solid gray; /* Gray border */
-            margin: 10px; /* Space around image */
-            max-width: 80%; /* Responsive */
-            height: auto; /* Maintain aspect ratio */
-            transition: transform 0.2s; /* Transition for scaling effect */
-        }
-
-        .computer-science img:active {
-            transform: scale(0.95); /* Scale down on click */
-        }
-
-        @media (max-width: 768px) {
-            .title {
-                font-size: 3em; /* Adjust for mobile */
-                padding: 0 10px; /* Adjust padding for mobile */
-            }
-
-            .bottom-half {
-                flex-direction: column; /* Stack sections on mobile */
-                height: auto; /* Adjust height */
-            }
-
-            .computer-science img {
-                max-width: 90%; /* Responsive for mobile */
-            }
+        .button:hover {
+            transform: scale(1.1);
+            background: linear-gradient(90deg, #2575fc, #6a11cb);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
 <body>
-    <div class="title-section">
-        <h1 class="title">Dakota's Digital Adventure</h1>
-        <a href="about-me.html" class="about-me">&lt;about me&gt;</a>
+    <div class="content">
+        <div class="title">Hello, I'm Dakota Higdon</div>
+        <div class="subtitle">Computer Programmer</div>
+        <button class="button" onclick="createRipple()">Learn More</button>
     </div>
-    
-    <div class="bottom-half">
-        <div class="left">
-            <img src="MyPhoto.png" alt="My Photo" class="my-photo"> <!-- Add your photo -->
-            <div class="text-content">
-                <h2>Hey!</h2>
-                <p>My name is Dakota Higdon and I am a high school student. My passions include music, art, mathematics, and computer science. This is my portfolio that has information about me and my way to display all of my digital work.</p>
-            </div>
-        </div>
-        <div class="separator"></div> <!-- Vertical Separator Line -->
-        <div class="right">
-            <div class="text-content">
-                <h2>Computer Science</h2>
-                <div class="computer-science">
-                    <a href="Computer_Science.html" class="cs-link">
-                        <img src="CSPhoto.png" alt="Computer Science" id="cs-image">
-                    </a>
-                    <p>Learn about my projects in Computer Science!</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <canvas id="background"></canvas>
     <script>
-        // Click animation for computer science image
-        const csImage = document.getElementById('cs-image');
+        const canvas = document.getElementById("background");
+        const ctx = canvas.getContext("2d");
 
-        csImage.addEventListener('click', function() {
-            csImage.style.transform = 'scale(0.95)'; // Scale down
-            setTimeout(() => {
-                csImage.style.transform = 'scale(1)'; // Reset scale after a brief moment
-            }, 200); // 200ms for the scaling effect
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const colors = ["#FFD700", "#FFA500"]; // Yellow shades for particles
+
+        class Particle {
+            constructor(x, y, size, speedX, speedY, color) {
+                this.x = x;
+                this.y = y;
+                this.size = size;
+                this.baseSize = size;
+                this.speedX = speedX;
+                this.speedY = speedY;
+                this.color = color;
+                this.alpha = Math.random() * 0.8 + 0.2;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.alpha;
+                ctx.shadowBlur = 40;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.y < 0) {
+                    this.y = canvas.height + this.size;
+                    this.x = Math.random() * canvas.width;
+                }
+
+                this.size = this.baseSize + Math.sin(Date.now() * 0.001 + this.baseSize) * 0.5;
+            }
+        }
+
+        for (let i = 0; i < 150; i++) {
+            const size = Math.random() * 3 + 2;
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const speedX = (Math.random() - 0.5) * 0.5;
+            const speedY = Math.random() * -1 - 0.5;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            particles.push(new Particle(x, y, size, speedX, speedY, color));
+        }
+
+        function createRipple() {
+            for (let i = 0; i < 50; i++) {
+                const size = Math.random() * 4 + 2;
+                const speedX = (Math.random() - 0.5) * 4;
+                const speedY = (Math.random() - 0.5) * 4;
+                particles.push(
+                    new Particle(mouse.x, mouse.y, size, speedX, speedY, "rgba(255,255,255,0.8)")
+                );
+            }
+        }
+
+        const mouse = { x: 0, y: 0 };
+        window.addEventListener("mousemove", (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
         });
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle, index) => {
+                particle.update();
+                particle.draw();
+
+                if (
+                    particle.color === "rgba(255,255,255,0.8)" &&
+                    Math.hypot(particle.x - mouse.x, particle.y - mouse.y) > 100
+                ) {
+                    particles.splice(index, 1);
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
     </script>
 </body>
 </html>
