@@ -24,6 +24,7 @@
             transform: translate(-50%, -50%);
             text-align: center;
             color: white;
+            z-index: 10;
         }
 
         .title {
@@ -60,15 +61,20 @@
             background: linear-gradient(90deg, #2575fc, #6a11cb);
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
         }
+
+        .button:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body>
     <div class="content">
         <div class="title">Hello, I'm Dakota Higdon</div>
         <div class="subtitle">Computer Programmer</div>
-        <button class="button" onclick="createRipple()">Learn More</button>
+        <button class="button" onclick="startTransition()">Learn More</button>
     </div>
     <canvas id="background"></canvas>
+
     <script>
         const canvas = document.getElementById("background");
         const ctx = canvas.getContext("2d");
@@ -84,7 +90,6 @@
                 this.x = x;
                 this.y = y;
                 this.size = size;
-                this.baseSize = size;
                 this.speedX = speedX;
                 this.speedY = speedY;
                 this.color = color;
@@ -109,8 +114,6 @@
                     this.y = canvas.height + this.size;
                     this.x = Math.random() * canvas.width;
                 }
-
-                this.size = this.baseSize + Math.sin(Date.now() * 0.001 + this.baseSize) * 0.5;
             }
         }
 
@@ -124,42 +127,28 @@
             particles.push(new Particle(x, y, size, speedX, speedY, color));
         }
 
-        function createRipple() {
-            for (let i = 0; i < 50; i++) {
-                const size = Math.random() * 4 + 2;
-                const speedX = (Math.random() - 0.5) * 4;
-                const speedY = (Math.random() - 0.5) * 4;
-                particles.push(
-                    new Particle(mouse.x, mouse.y, size, speedX, speedY, "rgba(255,255,255,0.8)")
-                );
-            }
-        }
-
-        const mouse = { x: 0, y: 0 };
-        window.addEventListener("mousemove", (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-        });
-
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            particles.forEach((particle, index) => {
+            particles.forEach(particle => {
                 particle.update();
                 particle.draw();
-
-                if (
-                    particle.color === "rgba(255,255,255,0.8)" &&
-                    Math.hypot(particle.x - mouse.x, particle.y - mouse.y) > 100
-                ) {
-                    particles.splice(index, 1);
-                }
             });
 
             requestAnimationFrame(animate);
         }
 
         animate();
+
+        function startTransition() {
+            const content = document.querySelector('.content');
+            content.style.transition = 'opacity 0.8s ease';
+            content.style.opacity = 0;
+
+            setTimeout(() => {
+                window.location.href = 'dev.html';
+            }, 800);
+        }
     </script>
 </body>
 </html>
