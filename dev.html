@@ -12,53 +12,52 @@
             font-family: 'Poppins', sans-serif;
             color: white;
             overflow-x: hidden;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            border: 10px solid yellow; /* Added yellow border */
+            border: 0.5vw solid yellow;
             box-sizing: border-box;
             position: relative;
         }
 
         .header {
             text-align: center;
-            padding: 50px 20px;
-            position: relative;
+            padding: 2vw;
         }
 
         .header h1 {
-            font-size: 4em;
+            font-size: 4vw;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 0.2vw;
             color: yellow;
-            text-shadow: 0 0 15px yellow, 0 0 30px yellow;
-            margin-bottom: 10px;
+            text-shadow: 0 0 0.5vw yellow, 0 0 1vw yellow;
+            margin-bottom: 1vw;
         }
 
         .header p {
-            font-size: 1.2em;
+            font-size: 1.5vw;
             color: #ddd;
-            margin-bottom: 30px;
+            margin-bottom: 2vw;
         }
 
         .cards-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            padding: 20px 50px;
-            max-width: 1200px;
-            justify-content: center;
-            margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2vw;
+            padding: 2vw;
+            width: 90%;
+            max-width: 900px;
+            margin-bottom: 3vw;
         }
 
         .card {
             background: rgba(26, 26, 26, 0.8);
             border: 1px solid #444;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-            padding: 20px;
+            border-radius: 1vw;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+            padding: 1.5vw;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -69,42 +68,30 @@
             overflow: hidden;
         }
 
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, yellow, transparent);
-            opacity: 0.05;
-            pointer-events: none;
-        }
-
         .card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 10px 30px yellow, 0 0 50px yellow;
+            transform: translateY(-0.5vw);
+            box-shadow: 0 5px 1vw yellow, 0 0 2vw yellow;
         }
 
         .card h2 {
-            font-size: 1.8em;
+            font-size: 2vw;
             color: yellow;
-            margin: 15px 0 10px;
+            margin: 0.5vw 0;
         }
 
         .card p {
             color: #ddd;
-            font-size: 1.1em;
+            font-size: 1.2vw;
         }
 
         .footer {
             text-align: center;
-            padding: 20px;
+            padding: 1vw;
             color: gray;
-            font-size: 0.9em;
+            font-size: 1vw;
         }
 
-        /* Lightning bolts with moving gradient effect */
+        /* Lightning bolts */
         .lightning {
             position: absolute;
             top: 0;
@@ -120,18 +107,18 @@
             content: "";
             position: absolute;
             background: linear-gradient(45deg, yellow, transparent);
-            width: 10px; /* Thicker lines to match the border */
+            width: 0.7vw;
             height: 100%;
             animation: moveGradient 3s infinite linear;
         }
 
         .lightning:before {
-            left: 10%;
+            left: 8%;
             transform: rotate(45deg);
         }
 
         .lightning:after {
-            right: 10%;
+            right: 8%;
             transform: rotate(-45deg);
         }
 
@@ -143,11 +130,60 @@
                 background-position: 100% 100%;
             }
         }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 5vw;
+            }
+
+            .header p {
+                font-size: 2.5vw;
+            }
+
+            .card h2 {
+                font-size: 3vw;
+            }
+
+            .card p {
+                font-size: 2vw;
+            }
+
+            .footer {
+                font-size: 2vw;
+            }
+
+            .cards-container {
+                padding: 1vw;
+                gap: 1.5vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 6vw;
+            }
+
+            .header p {
+                font-size: 3vw;
+            }
+
+            .card h2 {
+                font-size: 4vw;
+            }
+
+            .card p {
+                font-size: 2.5vw;
+            }
+
+            .footer {
+                font-size: 2.5vw;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Lightning Effect with Moving Gradient -->
     <div class="lightning"></div>
 
     <div class="header">
@@ -167,10 +203,6 @@
         <div class="card" onclick="navigateTo('portfolio.html')">
             <h2>Portfolio</h2>
             <p>See all the projects I've worked on.</p>
-        </div>
-        <div class="card" onclick="navigateTo('contact.html')">
-            <h2>Contact</h2>
-            <p>Reach out or connect with me.</p>
         </div>
     </div>
 
