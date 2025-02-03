@@ -1,91 +1,109 @@
+<!-- Declares the document type as HTML5 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- Starts the HTML document and specifies the language as English -->
 <head>
+    <!-- Sets the character encoding to UTF-8, ensuring proper text display -->
     <meta charset="UTF-8">
+    <!-- Ensures proper display on mobile devices by setting the viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the title of the webpage, which appears on the browser tab -->
     <title>Dakota's Website</title>
+    <!-- Links a favicon (small icon in browser tab) -->
     <link rel="icon" type="image/x-icon" href="Favicon.jpeg">
+    
     <style>
+        /* Removes default margin and padding from body and html elements */
         body, html {
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #000000, #111111);
+            overflow: hidden; /* Prevents scrolling */
+            font-family: 'Arial', sans-serif; /* Sets the default font */
+            background: linear-gradient(135deg, #000000, #111111); /* Creates a black gradient background */
         }
 
+        /* Styles the canvas (for animations) */
         canvas {
-            display: block;
+            display: block; /* Removes extra space under the canvas element */
         }
 
+        /* Styles the content div, positioning it in the center of the screen */
         .content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: white;
-            z-index: 10;
+            position: absolute; /* Positions relative to the nearest positioned ancestor (the body in this case) */
+            top: 50%; /* Moves the element down by 50% of the viewport height */
+            left: 50%; /* Moves the element right by 50% of the viewport width */
+            transform: translate(-50%, -50%); /* Centers the element exactly */
+            text-align: center; /* Centers the text inside */
+            color: white; /* Sets the text color to white */
+            z-index: 10; /* Ensures this content appears above the canvas */
         }
 
+        /* Styles the title text */
         .title {
-            font-size: 4rem;
-            font-weight: bold;
-            background: linear-gradient(90deg, #FFD700, #FFA500, #FF4500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-            margin-bottom: 10px;
+            font-size: 4rem; /* Sets a large font size (4 rem = 4 times the default size) */
+            font-weight: bold; /* Makes the text bold */
+            background: linear-gradient(90deg, #FFD700, #FFA500, #FF4500); /* Creates a gold-to-orange gradient */
+            -webkit-background-clip: text; /* Makes the gradient apply only to the text (for WebKit browsers) */
+            -webkit-text-fill-color: transparent; /* Makes the text transparent so the gradient shows */
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); /* Adds a glowing effect to the text */
+            margin-bottom: 10px; /* Adds space below the title */
         }
 
+        /* Styles the subtitle text */
         .subtitle {
-            font-size: 1.8rem;
-            font-weight: 300;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            margin-bottom: 30px;
+            font-size: 1.8rem; /* Sets the font size */
+            font-weight: 300; /* Makes the text slightly lighter */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Adds a subtle glow */
+            margin-bottom: 30px; /* Adds space below the subtitle */
         }
 
+        /* Styles the button */
         .button {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            color: white;
-            background: linear-gradient(90deg, #6a11cb, #2575fc);
-            border: none;
-            border-radius: 30px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            padding: 15px 40px; /* Adds space inside the button */
+            font-size: 1.2rem; /* Sets the font size */
+            color: white; /* Sets the text color */
+            background: linear-gradient(90deg, #6a11cb, #2575fc); /* Adds a blue gradient background */
+            border: none; /* Removes the default border */
+            border-radius: 30px; /* Rounds the edges */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Adds a shadow below the button */
+            cursor: pointer; /* Changes the cursor to indicate it's clickable */
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s; /* Adds smooth animation effects */
         }
 
+        /* Button hover effect */
         .button:hover {
-            transform: scale(1.1);
-            background: linear-gradient(90deg, #2575fc, #6a11cb);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+            transform: scale(1.1); /* Slightly enlarges the button */
+            background: linear-gradient(90deg, #2575fc, #6a11cb); /* Reverses the gradient */
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5); /* Increases shadow intensity */
         }
 
+        /* Button click effect */
         .button:active {
-            transform: scale(0.95);
+            transform: scale(0.95); /* Shrinks the button slightly */
         }
     </style>
 </head>
 <body>
+    <!-- Main content container -->
     <div class="content">
         <div class="title">Hello, I'm Dakota Higdon</div>
         <div class="subtitle">Computer Programmer</div>
         <button class="button" onclick="startTransition()">Learn More</button>
     </div>
+
+    <!-- Canvas element for background animation -->
     <canvas id="background"></canvas>
 
     <script>
-        const canvas = document.getElementById("background");
-        const ctx = canvas.getContext("2d");
+        const canvas = document.getElementById("background"); // Selects the canvas element
+        const ctx = canvas.getContext("2d"); // Gets the 2D rendering context
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth; // Sets canvas width to window width
+        canvas.height = window.innerHeight; // Sets canvas height to window height
 
-        const particles = [];
-        const colors = ["#FFD700", "#FFA500"]; // Yellow shades for particles
+        const particles = []; // Array to store particle objects
+        const colors = ["#FFD700", "#FFA500"]; // Defines colors for particles
 
+        // Defines a particle class
         class Particle {
             constructor(x, y, size, speedX, speedY, color) {
                 this.x = x;
@@ -94,30 +112,31 @@
                 this.speedX = speedX;
                 this.speedY = speedY;
                 this.color = color;
-                this.alpha = Math.random() * 0.8 + 0.2;
+                this.alpha = Math.random() * 0.8 + 0.2; // Random transparency level
             }
 
             draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.beginPath(); // Starts drawing
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); // Draws a circle
                 ctx.fillStyle = this.color;
-                ctx.globalAlpha = this.alpha;
-                ctx.shadowBlur = 40;
+                ctx.globalAlpha = this.alpha; // Sets transparency
+                ctx.shadowBlur = 40; // Adds glow effect
                 ctx.shadowColor = this.color;
-                ctx.fill();
+                ctx.fill(); // Fills the circle with color
             }
 
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
 
-                if (this.y < 0) {
-                    this.y = canvas.height + this.size;
-                    this.x = Math.random() * canvas.width;
+                if (this.y < 0) { // If the particle moves off screen
+                    this.y = canvas.height + this.size; // Reset it to the bottom
+                    this.x = Math.random() * canvas.width; // Change its x position
                 }
             }
         }
 
+        // Creates particles
         for (let i = 0; i < 150; i++) {
             const size = Math.random() * 3 + 2;
             const x = Math.random() * canvas.width;
@@ -130,25 +149,15 @@
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animate);
         }
 
         animate();
 
         function startTransition() {
-            const content = document.querySelector('.content');
-            content.style.transition = 'opacity 0.8s ease';
-            content.style.opacity = 0;
-
-            setTimeout(() => {
-                window.location.href = 'dev.html';
-            }, 800);
+            document.querySelector('.content').style.opacity = 0;
+            setTimeout(() => window.location.href = 'dev.html', 800);
         }
     </script>
 </body>
