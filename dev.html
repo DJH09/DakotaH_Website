@@ -1,140 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!-- Declares the document as an HTML5 file -->
+<html lang="en"> <!-- Opens the HTML document and sets the language to English -->
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore Dakota's World</title>
+    <meta charset="UTF-8"> <!-- Specifies character encoding to support special characters -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes the page responsive on different screen sizes -->
+    <title>Explore Dakota's World</title> <!-- Sets the title displayed on the browser tab -->
+
     <style>
+        /* Styling for the entire page */
         body {
-            margin: 0;
-            padding: 0;
-            background: #121212;
-            font-family: 'Poppins', sans-serif;
-            color: white;
-            overflow-x: hidden;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border: 10px solid yellow; /* Added yellow border */
-            box-sizing: border-box;
-            position: relative;
+            margin: 0; /* Removes default margins */
+            padding: 0; /* Removes default padding */
+            background: #121212; /* Sets a dark background color */
+            font-family: 'Poppins', sans-serif; /* Uses the Poppins font */
+            color: white; /* Sets the text color to white */
+            overflow-x: hidden; /* Prevents horizontal scrolling */
+            height: 100vh; /* Makes the body take up the full viewport height */
+            display: flex; /* Uses flexbox for centering */
+            flex-direction: column; /* Arranges content in a column */
+            justify-content: center; /* Centers content vertically */
+            align-items: center; /* Centers content horizontally */
+            border: 10px solid yellow; /* Adds a yellow border around the page */
+            box-sizing: border-box; /* Ensures padding/border don't affect width */
+            position: relative; /* Allows absolute positioning of child elements */
         }
 
+        /* Styles for the header section */
         .header {
-            text-align: center;
-            padding: 50px 20px;
-            position: relative;
+            text-align: center; /* Centers text inside the header */
+            padding: 50px 20px; /* Adds spacing inside the header */
+            position: relative; /* Allows for positioning relative to itself */
         }
 
+        /* Styles for the main title */
         .header h1 {
-            font-size: 4em;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: yellow;
-            text-shadow: 0 0 15px yellow, 0 0 30px yellow;
-            margin-bottom: 10px;
+            font-size: 4em; /* Makes the title text large */
+            text-transform: uppercase; /* Converts text to uppercase */
+            letter-spacing: 3px; /* Adds space between letters */
+            color: yellow; /* Sets the text color to yellow */
+            text-shadow: 0 0 15px yellow, 0 0 30px yellow; /* Adds a glowing effect */
+            margin-bottom: 10px; /* Adds space below the title */
         }
 
+        /* Styles for the subtitle */
         .header p {
-            font-size: 1.2em;
-            color: #ddd;
-            margin-bottom: 30px;
+            font-size: 1.2em; /* Sets the font size */
+            color: #ddd; /* Light gray text */
+            margin-bottom: 30px; /* Adds space below the paragraph */
         }
 
+        /* Container for the cards */
         .cards-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            padding: 20px 50px;
-            max-width: 1200px;
-            justify-content: center;
-            margin-bottom: 50px;
+            display: grid; /* Uses a grid layout */
+            grid-template-columns: repeat(2, 1fr); /* Creates two equal columns */
+            gap: 30px; /* Adds space between the cards */
+            padding: 20px 50px; /* Adds padding around the container */
+            max-width: 1200px; /* Limits the width of the container */
+            justify-content: center; /* Centers the grid */
+            margin-bottom: 50px; /* Adds space below the container */
         }
 
+        /* Styles for each card */
         .card {
-            background: rgba(26, 26, 26, 0.8);
-            border: 1px solid #444;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            background: rgba(26, 26, 26, 0.8); /* Dark semi-transparent background */
+            border: 1px solid #444; /* Adds a border with dark gray color */
+            border-radius: 15px; /* Rounds the card corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); /* Adds a subtle shadow */
+            padding: 20px; /* Adds space inside the card */
+            display: flex; /* Uses flexbox for layout */
+            flex-direction: column; /* Stacks content vertically */
+            align-items: center; /* Centers items horizontally */
+            text-align: center; /* Centers text */
+            transition: transform 0.3s, box-shadow 0.3s; /* Animates hover effects */
+            cursor: pointer; /* Changes cursor to indicate it's clickable */
+            position: relative; /* Allows absolute positioning inside */
+            overflow: hidden; /* Prevents content from overflowing */
         }
 
+        /* Adds a subtle lighting effect to cards */
         .card::before {
-            content: "";
-            position: absolute;
+            content: ""; /* Adds an empty element */
+            position: absolute; /* Positions it inside the card */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, yellow, transparent);
-            opacity: 0.05;
-            pointer-events: none;
+            background: linear-gradient(135deg, yellow, transparent); /* Adds a light gradient */
+            opacity: 0.05; /* Makes the gradient barely visible */
+            pointer-events: none; /* Prevents interaction with it */
         }
 
+        /* Hover effect for the cards */
         .card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 10px 30px yellow, 0 0 50px yellow;
+            transform: translateY(-15px); /* Moves the card upwards */
+            box-shadow: 0 10px 30px yellow, 0 0 50px yellow; /* Adds a glowing effect */
         }
 
+        /* Styles for card titles */
         .card h2 {
-            font-size: 1.8em;
-            color: yellow;
-            margin: 15px 0 10px;
+            font-size: 1.8em; /* Increases font size */
+            color: yellow; /* Sets text color to yellow */
+            margin: 15px 0 10px; /* Adds spacing */
         }
 
+        /* Styles for card descriptions */
         .card p {
-            color: #ddd;
-            font-size: 1.1em;
+            color: #ddd; /* Sets text color to light gray */
+            font-size: 1.1em; /* Sets font size */
         }
 
+        /* Footer styles */
         .footer {
-            text-align: center;
-            padding: 20px;
-            color: gray;
-            font-size: 0.9em;
+            text-align: center; /* Centers text */
+            padding: 20px; /* Adds space inside the footer */
+            color: gray; /* Sets text color */
+            font-size: 0.9em; /* Reduces font size */
         }
 
-        /* Lightning bolts with moving gradient effect */
+        /* Lightning effect with animation */
         .lightning {
-            position: absolute;
+            position: absolute; /* Positions it over the entire page */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: -1;
+            pointer-events: none; /* Prevents interaction */
+            z-index: -1; /* Moves it behind everything */
         }
 
+        /* Creates diagonal animated lightning bolts */
         .lightning:before,
         .lightning:after {
-            content: "";
-            position: absolute;
-            background: linear-gradient(45deg, yellow, transparent);
-            width: 10px; /* Thicker lines to match the border */
+            content: ""; /* Creates an empty element */
+            position: absolute; /* Positions it inside */
+            background: linear-gradient(45deg, yellow, transparent); /* Adds a glowing effect */
+            width: 10px; /* Sets thickness of lightning */
             height: 100%;
-            animation: moveGradient 3s infinite linear;
+            animation: moveGradient 3s infinite linear; /* Moves the effect continuously */
         }
 
         .lightning:before {
-            left: 10%;
-            transform: rotate(45deg);
+            left: 10%; /* Positions one lightning bolt on the left */
+            transform: rotate(45deg); /* Rotates it diagonally */
         }
 
         .lightning:after {
-            right: 10%;
-            transform: rotate(-45deg);
+            right: 10%; /* Positions another bolt on the right */
+            transform: rotate(-45deg); /* Rotates it in the opposite direction */
         }
 
+        /* Animation for moving lightning effect */
         @keyframes moveGradient {
             0% {
                 background-position: 0% 0%;
@@ -145,16 +160,19 @@
         }
     </style>
 </head>
+
 <body>
 
-    <!-- Lightning Effect with Moving Gradient -->
+    <!-- Adds the lightning effect to the background -->
     <div class="lightning"></div>
 
+    <!-- Header section with title and subtitle -->
     <div class="header">
-        <h1>Explore Dakota's World</h1>
-        <p>Discover my passions, projects, and more.</p>
+        <h1>Explore Dakota's World</h1> <!-- Main title -->
+        <p>Discover my passions, projects, and more.</p> <!-- Subtitle -->
     </div>
 
+    <!-- Container holding clickable cards -->
     <div class="cards-container">
         <div class="card" onclick="navigateTo('computer_science.html')">
             <h2>Computer Science</h2>
@@ -174,14 +192,17 @@
         </div>
     </div>
 
+    <!-- Footer text -->
     <div class="footer">
         &copy; 2025 Dakota Higdon. All Rights Reserved.
     </div>
 
     <script>
+        // Function to navigate to another page when a card is clicked
         function navigateTo(page) {
-            window.location.href = page;
+            window.location.href = page; /* Redirects the browser to the given page */
         }
     </script>
 </body>
+
 </html>
