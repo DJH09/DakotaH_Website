@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hangman Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+    }
+    canvas {
+      border: 2px solid black;
+      background-color: #fff;
+      margin-top: 20px;
+    }
+    .letters {
+      margin-top: 20px;
+    }
+    button.letter {
+      margin: 5px;
+      padding: 10px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hangman Game</h1>
+  <p>Created by: Dakota Higdon, Sophomore, Nevada High School, Nevada, IA</p>
+  <canvas id="hangmanCanvas" width="600" height="400"></canvas>
+  <h2 id="wordDisplay">_ _ _ _ _</h2>
+  <div class="letters" id="letters"></div>
+  <h2 id="livesDisplay">Lives: 6</h2>
+  <h2 id="result"></h2>
+
+  <script>
+    const wordList = ["banana", "python", "gaming", "school", "laptop"];
+    let word = wordList[Math.floor(Math.random() * wordList.length)].toLowerCase();
+    let guessed = [];
+    let lives = 6;
+
+    const canvas = document.getElementById("hangmanCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function drawGallows() {
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(50, 350); ctx.lineTo(150, 350);
+      ctx.moveTo(100, 350); ctx.lineTo(100, 50);
+      ctx.lineTo(250, 50); ctx.lineTo(250, 80);
+      ctx.stroke();
+    }
+
+    function drawHangman() {
+      switch (lives) {
+        case 5: // Head
+          ctx.beginPath(); ctx.arc(250, 100, 20, 0, Math.PI * 2); ctx.stroke(); break;
+        case 4: // Body
+          ctx.beginPath(); ctx.moveTo(250, 120); ctx.lineTo(250, 200); ctx.stroke(); break;
+        case 3: // Left Arm
+          ctx.beginPath(); ctx.moveTo(250, 150); ctx.lineTo(220, 180); ctx.stroke(); break;
+        case 2: // Right Arm
+          ctx.beginPath(); ctx.moveTo(250, 150); ctx.lineTo(280, 180); ctx.stroke(); break;
+        case 1: // Left Leg
+          ctx.beginPath(); ctx.moveTo(250, 200); ctx.lineTo(220, 250); ctx.stroke(); break;
+        case 0: // Right Leg
+          ctx.beginPath(); ctx.moveTo(250, 200); ctx.lineTo(280, 250); ctx.stroke(); break;
+      }
+    }
+
+    function updateWordDisplay() {
+      const display = word.split('').map(letter => guessed.includes(letter) ? letter : '_').join(' ');
+      document.getElementById("wordDisplay").innerText = display;
+    }
+
+    function updateLives() {
+      document.getElementById("livesDisplay").innerText = `Lives: ${lives}`;
+    }
+
+    function checkGameEnd() {
+      if (lives <= 0) {
+        document.getElementById("result").innerText = `You lose! The word was: ${word}`;
+        disableButtons();
+      } else if (!word.split('').some(letter => !guessed.includes(letter))) {
+        document.getElementById("result").innerText = "You win!";
+        disableButtons();
+      }
+    }
+
+    function disableButtons() {
+      document.querySelectorAll("button.letter").forEach(btn => btn.disabled = true);
+    }
+
+    function guessLetter(letter) {
+      if (!guessed.includes(letter)) {
+        guessed.push(letter);
+        if (!word.includes(letter)) {
+          lives--;
+          updateLives();
+          drawHangman();
+        }
+        updateWordDisplay();
+        checkGameEnd();
+      }
+    }
+
+    function createLetterButtons() {
+      const container = document.getElementById("letters");
+      "abcdefghijklmnopqrstuvwxyz".split('').forEach(letter => {
+        const btn = document.createElement("button");
+        btn.innerText = letter;
+        btn.className = "letter";
+        btn.onclick = () => guessLetter(letter);
+        container.appendChild(btn);
+      });
+    }
+
+    drawGallows();
+    updateWordDisplay();
+    createLetterButtons();
+    updateLives();
+  </script>
+</body>
+</html>
