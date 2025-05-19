@@ -70,6 +70,13 @@
             cursor: pointer; /* Make squares clickable */
         }
 
+        .square img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .knowledge-section {
             text-align: center;
         }
@@ -120,7 +127,9 @@
             <h1>Projects</h1>
             <div class="squares-container">
                 <!-- Clickable First Square -->
-                <div class="square" onclick="window.location.href='HangmanGame.html';"><img src="HANGMAN.jpg" alt="Hangman" width="400" height="400"></div> <!-- First box links to Hangman Game -->
+                <div class="square" onclick="window.location.href='HangmanGame.html';">
+                    <img src="HANGMAN.jpg" alt="Hangman">
+                </div><!-- First box links to Hangman Game -->
                 <div class="square"></div>
                 <div class="square"></div>
                 <div class="square"></div> <!-- Fourth box added back -->
