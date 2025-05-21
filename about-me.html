@@ -17,14 +17,14 @@
 
     body {
       font-family: 'Montserrat', sans-serif;
-      background: #0f0f0f;
+      background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
       color: white;
       overflow-x: hidden;
       transition: background 0.5s ease, color 0.5s ease;
     }
 
     body.light-mode {
-      background: #f0f0f0;
+      background: linear-gradient(135deg, #f0f0f0, #dcdcdc);
       color: #000;
     }
 
@@ -41,18 +41,17 @@
       margin: 15vh auto;
       padding: 50px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25);
       transform-style: preserve-3d;
-      perspective: 1000px;
       transition: transform 0.3s ease;
     }
 
     .section:hover {
-      transform: perspective(1000px) rotateX(1deg) rotateY(1deg) scale(1.01);
-      box-shadow: 0 15px 45px rgba(0, 255, 255, 0.2);
+      transform: perspective(1000px) rotateX(0.5deg) rotateY(0.5deg) scale(1.01);
+      box-shadow: 0 20px 45px rgba(0, 255, 255, 0.2);
     }
 
     .typing-header {
@@ -77,17 +76,21 @@
     }
 
     .title {
-      font-size: 1.8rem;
-      font-weight: 600;
+      font-size: 2rem;
+      font-weight: 700;
       margin-bottom: 20px;
       text-align: center;
+      background: linear-gradient(90deg, #00e0ff, #00bfff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .content-text {
-      font-size: 1.1rem;
-      line-height: 1.7;
+      font-size: 1.15rem;
+      line-height: 1.75;
       min-height: 150px;
       text-align: center;
+      color: #e0e0e0;
     }
 
     .button-group {
@@ -118,7 +121,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #ccc;
+      background-color: #888;
       transition: .4s;
       border-radius: 34px;
     }
@@ -147,17 +150,17 @@
       padding: 12px 24px;
       border: none;
       border-radius: 12px;
-      background-color: #00e0ff;
+      background: linear-gradient(to right, #00e0ff, #00bfff);
       color: #fff;
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s ease;
-      box-shadow: 0 0 10px #00e0ff;
+      box-shadow: 0 0 12px #00e0ff;
     }
 
     .btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 15px #00f6ff;
+      box-shadow: 0 0 20px #00f6ff;
     }
   </style>
 </head>
@@ -169,7 +172,7 @@
     <div class="title">Contact</div>
     <div class="content-text">
       <p>Email: <strong>Djhigs09@gmail.com</strong><br>
-         Location: <strong>Iowa, United States</strong><br>
+         Location: <strong>Iowa, United States</strong><br></p>
     </div>
     <div class="button-group">
       <label class="toggle-switch">
@@ -190,14 +193,14 @@
   <div class="section" data-aos="fade-up">
     <div class="title">Work Experience</div>
     <div class="content-text">
-      <p><strong>Fareway Grocery Store</strong><br>December 2022 – Present<br>My role included bagging and taking out groceries, helping customers find items, and stocking the shelves.. I’ve developed time management as I had to learn how to work in a fast-paced setting. I also developed great communication as I was the last employee customers would talk to on their visit before they drove off. Finally, I had to learn independence because of its fast-paced setting, I could not get help for everything.</p>
+      <p><strong>Fareway Grocery Store</strong><br>December 2022 – Present<br>My role included bagging and taking out groceries, helping customers find items, and stocking the shelves. I’ve developed time management as I had to learn how to work in a fast-paced setting. I also developed great communication as I was the last employee customers would talk to on their visit before they drove off. Finally, I had to learn independence because of its fast-paced setting—I could not get help for everything.</p>
     </div>
   </div>
 
   <div class="section" data-aos="fade-up">
     <div class="title">Education</div>
     <div class="content-text">
-      <p>High School Student – Class of 2027<br>Took Honors English 9, Honors Biology, and Honors Chemestry. Took AP Computer Science Priciples. 3.5+ GPA. Participated in marching band. Took teen leadership class to learn leadership skills not taught in the typical classroom.</p>
+      <p>High School Student – Class of 2027<br>Took Honors English 9, Honors Biology, and Honors Chemistry. Took AP Computer Science Principles. 3.5+ GPA. Participated in marching band. Took a teen leadership class to learn leadership skills not taught in the typical classroom.</p>
     </div>
   </div>
 
