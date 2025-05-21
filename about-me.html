@@ -6,6 +6,8 @@
   <title>About Me</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
   <style>
     * {
       margin: 0;
@@ -45,18 +47,6 @@
       box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
       transform-style: preserve-3d;
       perspective: 1000px;
-      animation: fadeInUp 1s ease forwards;
-    }
-
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     .container:hover {
@@ -96,30 +86,6 @@
       line-height: 1.7;
       min-height: 150px;
       transition: opacity 0.4s ease-in-out;
-    }
-
-    .nav {
-      position: fixed;
-      top: 50%;
-      font-size: 3rem;
-      transform: translateY(-50%);
-      color: inherit;
-      cursor: pointer;
-      user-select: none;
-      z-index: 10;
-      transition: transform 0.3s;
-    }
-
-    .nav:hover {
-      transform: translateY(-50%) scale(1.15);
-    }
-
-    .left {
-      left: 20px;
-    }
-
-    .right {
-      right: 20px;
     }
 
     .button-group {
@@ -195,9 +161,7 @@
 </head>
 <body>
   <div id="particles-js"></div>
-  <div class="nav left" onclick="previousContent()">&#9664;</div>
-  <div class="nav right" onclick="nextContent()">&#9654;</div>
-  <div class="container" id="container">
+  <div class="container" id="container" data-aos="fade-up">
     <div class="typing-header">Hi, I'm DJ — Here's my story</div>
     <div id="title" class="title">Contact</div>
     <div id="content-text" class="content-text">
@@ -251,16 +215,6 @@
       }, 300);
     }
 
-    function nextContent() {
-      currentIndex = (currentIndex + 1) % contentData.length;
-      updateContent();
-    }
-
-    function previousContent() {
-      currentIndex = (currentIndex - 1 + contentData.length) % contentData.length;
-      updateContent();
-    }
-
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
     }
@@ -272,7 +226,60 @@
       link.click();
     }
 
-    particlesJS.load('particles-js', 'https://cdn.jsdelivr.net/gh/VincentGarreau/particles.js/particles.json');
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#ffffff" },
+        shape: {
+          type: "circle",
+          stroke: { width: 0, color: "#000000" },
+        },
+        opacity: {
+          value: 0.5,
+          random: false,
+          anim: { enable: false },
+        },
+        size: {
+          value: 3,
+          random: true,
+          anim: { enable: false },
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#ffffff",
+          opacity: 0.4,
+          width: 1,
+        },
+        move: {
+          enable: true,
+          speed: 6,
+          direction: "none",
+          random: false,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+        },
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" },
+          resize: true,
+        },
+        modes: {
+          grab: { distance: 400, line_linked: { opacity: 1 } },
+          bubble: { distance: 400, size: 40, duration: 2, opacity: 8 },
+          repulse: { distance: 200 },
+          push: { particles_nb: 4 },
+          remove: { particles_nb: 2 },
+        },
+      },
+      retina_detect: true,
+    });
+
+    AOS.init({ duration: 1000 });
   </script>
 </body>
 </html>
