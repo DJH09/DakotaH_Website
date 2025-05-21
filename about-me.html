@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About Me</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <style>
     * {
@@ -22,7 +21,8 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      transition: background 0.5s ease;
+      color: white;
+      transition: background 0.5s ease, color 0.5s ease;
     }
 
     body.light-mode {
@@ -39,14 +39,12 @@
       backdrop-filter: blur(16px);
       border-radius: 20px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      color: white;
       text-align: center;
       transition: all 0.4s ease-in-out;
     }
 
     body.light-mode .container {
       background: rgba(255, 255, 255, 0.95);
-      color: #333;
     }
 
     .typing-header {
@@ -88,7 +86,7 @@
       top: 50%;
       font-size: 2.5rem;
       transform: translateY(-50%);
-      color: white;
+      color: inherit;
       cursor: pointer;
       user-select: none;
     }
@@ -107,11 +105,58 @@
 
     .button-group {
       margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #00e0ff;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
     }
 
     .btn {
       padding: 10px 20px;
-      margin: 10px;
       border: none;
       border-radius: 10px;
       background-color: #00e0ff;
@@ -123,11 +168,6 @@
 
     .btn:hover {
       transform: scale(1.05);
-    }
-
-    canvas {
-      margin-top: 30px;
-      max-width: 100%;
     }
 
     #particles-js {
@@ -152,10 +192,12 @@
     <div class="nav left" onclick="previousContent()">&#9664;</div>
     <div class="nav right" onclick="nextContent()">&#9654;</div>
     <div class="button-group">
-      <button class="btn" onclick="toggleTheme()">Toggle Light/Dark</button>
+      <label class="toggle-switch">
+        <input type="checkbox" onchange="toggleTheme()">
+        <span class="slider"></span>
+      </label>
       <button class="btn" onclick="downloadResume()">Download Resume</button>
     </div>
-    <canvas id="skillsChart" width="400" height="200"></canvas>
   </div>
 
   <script>
@@ -165,14 +207,19 @@
         text: `<p>Email: <strong>Djhigs09@gmail.com</strong><br>
                Phone: <strong>(555) 123-4567</strong><br>
                Location: <strong>Midwest, United States</strong><br>
-               LinkedIn: <a href="#" style="color: #00e0ff;">linkedin.com/in/yourprofile</a></p>`
+               LinkedIn: <a href='#' style='color: #00e0ff;'>linkedin.com/in/yourprofile</a></p>`
       },
       {
-        title: "Skills & Tools",
-        text: `<p><strong>Languages:</strong> Python, HTML, CSS, JavaScript<br>
-               <strong>Tools:</strong> GitHub, VS Code, Canva, Figma<br>
-               <strong>Soft Skills:</strong> Leadership, Critical Thinking, Communication<br>
-               <strong>Certifications:</strong> PLTW Computer Science Principles</p>`
+        title: "Background Knowledge",
+        text: `<p>I have a strong background in front-end development, web design, and digital tools including Photoshop, Figma, and Notion. I'm passionate about creating sleek, modern user interfaces and interactive web elements.</p>`
+      },
+      {
+        title: "Work Experience",
+        text: `<p><strong>Fareway Grocery Store</strong><br>December 2022 – Present<br>Roles include customer service, inventory management, and operations. I’ve developed time management, communication, and teamwork skills.</p>`
+      },
+      {
+        title: "Education",
+        text: `<p>High School Student – Class of 2026<br>Enrolled in Project Lead The Way (PLTW) program with focus on Computer Science Principles. Honors student with active involvement in technology clubs and extracurricular projects.</p>`
       }
     ];
 
@@ -208,30 +255,6 @@
       link.download = 'DJ_Resume.pdf';
       link.click();
     }
-
-    const ctx = document.getElementById('skillsChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'radar',
-      data: {
-        labels: ['Python', 'HTML', 'CSS', 'JavaScript', 'GitHub', 'Figma'],
-        datasets: [{
-          label: 'Skill Level',
-          data: [90, 85, 80, 75, 70, 65],
-          backgroundColor: 'rgba(0, 224, 255, 0.2)',
-          borderColor: '#00e0ff',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        scales: {
-          r: {
-            angleLines: { display: false },
-            suggestedMin: 0,
-            suggestedMax: 100
-          }
-        }
-      }
-    });
 
     particlesJS.load('particles-js', 'https://cdn.jsdelivr.net/gh/VincentGarreau/particles.js/particles.json');
   </script>
