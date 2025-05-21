@@ -1,90 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-image: url("Mountains.png");
-            background-size: cover;
-            background-position: center;
-            font-family: Arial, sans-serif;
-        }
-        .content-box {
-            width: 60%; /* Adjusted width */
-            max-width: 800px;
-            background-color: white;
-            margin: 0 auto;
-            padding: 40px;
-            border-radius: 15px;
-            position: relative;
-            top: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-        }
-        .title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .content-text {
-            font-size: 18px;
-        }
-        .arrow {
-            position: absolute;
-            font-size: 24px;
-            cursor: pointer;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        .left-arrow {
-            left: -40px;
-        }
-        .right-arrow {
-            right: -40px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Me</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url("Mountains.png");
+      background-size: cover;
+      background-position: center;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .content-box {
+      width: 90%;
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+
+    .title {
+      font-size: 2em;
+      font-weight: 600;
+      margin-bottom: 20px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .content-text {
+      font-size: 1.1em;
+      line-height: 1.6;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s ease;
+    }
+
+    .arrow:hover {
+      transform: translateY(-50%) scale(1.2);
+    }
+
+    .left-arrow {
+      left: -50px;
+    }
+
+    .right-arrow {
+      right: -50px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .arrow {
+        font-size: 1.5rem;
+      }
+      .left-arrow, .right-arrow {
+        left: 10px;
+        right: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="content-box">
-        <div id="title" class="title">Contact</div>
-        <div id="content-text" class="content-text"><p>Email: Djhigs09@gmail.com</p></div>
-        <div class="arrow left-arrow" onclick="previousContent()">&#9664;</div>
-        <div class="arrow right-arrow" onclick="nextContent()">&#9654;</div>
+  <div class="content-box" id="content-box">
+    <div id="title" class="title">Contact</div>
+    <div id="content-text" class="content-text">
+      <p>Email: Djhigs09@gmail.com</p>
     </div>
+    <div class="arrow left-arrow" onclick="previousContent()">&#9664;</div>
+    <div class="arrow right-arrow" onclick="nextContent()">&#9654;</div>
+  </div>
 
-    <script>
-        const contentData = [
-            { title: "Contact", text: "<p>Email: Djhigs09@gmail.com</p>" },
-            { title: "Background Knowledge", text: "<p>There is so much background knowledge.</p>" },
-            { title: "Work Experience", text: "<p>Fareway from Dec 12 to present day.</p>" },
-            { title: "Education", text: "<p>High School Student</p>" }
-        ];
+  <script>
+    const contentData = [
+      { title: "Contact", text: "<p>Email: Djhigs09@gmail.com</p>" },
+      { title: "Background Knowledge", text: "<p>Experienced with programming, problem-solving, and creative thinking.</p>" },
+      { title: "Work Experience", text: "<p>Employee at Fareway (Dec 2023 - Present)</p>" },
+      { title: "Education", text: "<p>Currently enrolled in High School, actively pursuing STEM-related coursework.</p>" },
+      { title: "Skills", text: "<p>Python, HTML/CSS, JavaScript, Leadership, Communication</p>" }
+    ];
 
-        let currentContentIndex = 0;
+    let currentContentIndex = 0;
 
-        function updateContent() {
-            document.getElementById("title").innerHTML = contentData[currentContentIndex].title;
-            document.getElementById("content-text").innerHTML = contentData[currentContentIndex].text;
-        }
+    function updateContent() {
+      const titleEl = document.getElementById("title");
+      const textEl = document.getElementById("content-text");
 
-        function nextContent() {
-            currentContentIndex = (currentContentIndex + 1) % contentData.length;
-            updateContent();
-        }
+      // Animate fade out
+      document.getElementById("content-box").style.opacity = 0;
+      setTimeout(() => {
+        titleEl.innerHTML = contentData[currentContentIndex].title;
+        textEl.innerHTML = contentData[currentContentIndex].text;
 
-        function previousContent() {
-            currentContentIndex = (currentContentIndex - 1 + contentData.length) % contentData.length;
-            updateContent();
-        }
-    </script>
+        // Animate fade in
+        document.getElementById("content-box").style.opacity = 1;
+      }, 300);
+    }
+
+    function nextContent() {
+      currentContentIndex = (currentContentIndex + 1) % contentData.length;
+      updateContent();
+    }
+
+    function previousContent() {
+      currentContentIndex = (currentContentIndex - 1 + contentData.length) % contentData.length;
+      updateContent();
+    }
+  </script>
 </body>
 </html>
