@@ -35,10 +35,10 @@
       z-index: -1;
     }
 
-    .container {
+    .section {
       width: 90%;
       max-width: 800px;
-      margin: 5vh auto;
+      margin: 15vh auto;
       padding: 50px;
       border-radius: 20px;
       background: rgba(255, 255, 255, 0.06);
@@ -47,9 +47,10 @@
       box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
       transform-style: preserve-3d;
       perspective: 1000px;
+      transition: transform 0.3s ease;
     }
 
-    .container:hover {
+    .section:hover {
       transform: perspective(1000px) rotateX(1deg) rotateY(1deg) scale(1.01);
       box-shadow: 0 15px 45px rgba(0, 255, 255, 0.2);
     }
@@ -79,13 +80,14 @@
       font-size: 1.8rem;
       font-weight: 600;
       margin-bottom: 20px;
+      text-align: center;
     }
 
     .content-text {
       font-size: 1.1rem;
       line-height: 1.7;
       min-height: 150px;
-      transition: opacity 0.4s ease-in-out;
+      text-align: center;
     }
 
     .button-group {
@@ -161,10 +163,11 @@
 </head>
 <body>
   <div id="particles-js"></div>
-  <div class="container" id="container" data-aos="fade-up">
+
+  <div class="section" data-aos="fade-up">
     <div class="typing-header">Hi, I'm DJ — Here's my story</div>
-    <div id="title" class="title">Contact</div>
-    <div id="content-text" class="content-text">
+    <div class="title">Contact</div>
+    <div class="content-text">
       <p>Email: <strong>Djhigs09@gmail.com</strong><br>
          Phone: <strong>(555) 123-4567</strong><br>
          Location: <strong>Midwest, United States</strong><br>
@@ -179,42 +182,28 @@
     </div>
   </div>
 
+  <div class="section" data-aos="fade-up">
+    <div class="title">Background Knowledge</div>
+    <div class="content-text">
+      <p>I have a strong background in front-end development, web design, and digital tools including Photoshop, Figma, and Notion. I'm passionate about creating sleek, modern user interfaces and interactive web elements.</p>
+    </div>
+  </div>
+
+  <div class="section" data-aos="fade-up">
+    <div class="title">Work Experience</div>
+    <div class="content-text">
+      <p><strong>Fareway Grocery Store</strong><br>December 2022 – Present<br>Roles include customer service, inventory management, and operations. I’ve developed time management, communication, and teamwork skills.</p>
+    </div>
+  </div>
+
+  <div class="section" data-aos="fade-up">
+    <div class="title">Education</div>
+    <div class="content-text">
+      <p>High School Student – Class of 2026<br>Enrolled in Project Lead The Way (PLTW) program with focus on Computer Science Principles. Honors student with active involvement in technology clubs and extracurricular projects.</p>
+    </div>
+  </div>
+
   <script>
-    const contentData = [
-      {
-        title: "Contact",
-        text: `<p>Email: <strong>Djhigs09@gmail.com</strong><br>
-               Phone: <strong>(555) 123-4567</strong><br>
-               Location: <strong>Midwest, United States</strong><br>
-               LinkedIn: <a href='#' style='color: #00e0ff;'>linkedin.com/in/yourprofile</a></p>`
-      },
-      {
-        title: "Background Knowledge",
-        text: `<p>I have a strong background in front-end development, web design, and digital tools including Photoshop, Figma, and Notion. I'm passionate about creating sleek, modern user interfaces and interactive web elements.</p>`
-      },
-      {
-        title: "Work Experience",
-        text: `<p><strong>Fareway Grocery Store</strong><br>December 2022 – Present<br>Roles include customer service, inventory management, and operations. I’ve developed time management, communication, and teamwork skills.</p>`
-      },
-      {
-        title: "Education",
-        text: `<p>High School Student – Class of 2026<br>Enrolled in Project Lead The Way (PLTW) program with focus on Computer Science Principles. Honors student with active involvement in technology clubs and extracurricular projects.</p>`
-      }
-    ];
-
-    let currentIndex = 0;
-
-    function updateContent() {
-      const title = document.getElementById("title");
-      const text = document.getElementById("content-text");
-      text.style.opacity = 0;
-      setTimeout(() => {
-        title.innerHTML = contentData[currentIndex].title;
-        text.innerHTML = contentData[currentIndex].text;
-        text.style.opacity = 1;
-      }, 300);
-    }
-
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
     }
