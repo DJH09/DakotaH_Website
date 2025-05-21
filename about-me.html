@@ -1,141 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About Me</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
-      background-image: url("Mountains.png");
-      background-size: cover;
-      background-position: center;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      box-sizing: border-box;
     }
 
-    .content-box {
-      width: 90%;
-      max-width: 700px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(15px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      border-radius: 20px;
-      padding: 40px;
-      text-align: center;
-      color: #fff;
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928DAB);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      transition: background 0.5s ease;
+    }
+
+    body.light-mode {
+      background: linear-gradient(135deg, #fdfbfb, #ebedee);
+      color: #000;
+    }
+
+    .container {
       position: relative;
-      transition: transform 0.5s ease, opacity 0.5s ease;
+      width: 90%;
+      max-width: 800px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      color: white;
+      text-align: center;
+      transition: all 0.4s ease-in-out;
+    }
+
+    body.light-mode .container {
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+    }
+
+    .typing-header {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      height: 40px;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid rgba(255,255,255,0.75);
+      width: fit-content;
+      margin: 0 auto 30px;
+      animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
     }
 
     .title {
-      font-size: 2em;
+      font-size: 1.8rem;
       font-weight: 600;
-      margin-bottom: 20px;
-      animation: fadeIn 0.5s ease-in-out;
+      margin-bottom: 15px;
     }
 
     .content-text {
-      font-size: 1.1em;
-      line-height: 1.6;
-      animation: fadeIn 0.5s ease-in-out;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      min-height: 140px;
     }
 
-    .arrow {
+    .nav {
       position: absolute;
       top: 50%;
+      font-size: 2.5rem;
       transform: translateY(-50%);
-      font-size: 2rem;
       color: white;
       cursor: pointer;
       user-select: none;
-      transition: transform 0.3s ease;
     }
 
-    .arrow:hover {
-      transform: translateY(-50%) scale(1.2);
+    .nav:hover {
+      transform: translateY(-50%) scale(1.1);
     }
 
-    .left-arrow {
-      left: -50px;
+    .left {
+      left: -60px;
     }
 
-    .right-arrow {
-      right: -50px;
+    .right {
+      right: -60px;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .button-group {
+      margin-top: 20px;
     }
 
-    @media screen and (max-width: 600px) {
-      .arrow {
-        font-size: 1.5rem;
-      }
-      .left-arrow, .right-arrow {
-        left: 10px;
-        right: 10px;
-      }
+    .btn {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      background-color: #00e0ff;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    canvas {
+      margin-top: 30px;
+      max-width: 100%;
+    }
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
   </style>
 </head>
 <body>
-  <div class="content-box" id="content-box">
+  <div id="particles-js"></div>
+  <div class="container" id="container">
+    <div class="typing-header">Hi, I'm DJ — Here's my story</div>
     <div id="title" class="title">Contact</div>
     <div id="content-text" class="content-text">
-      <p>Email: Djhigs09@gmail.com</p>
+      <p>Email: <strong>Djhigs09@gmail.com</strong><br>
+         Phone: <strong>(555) 123-4567</strong><br>
+         Location: <strong>Midwest, United States</strong><br>
+         LinkedIn: <a href="#" style="color: #00e0ff;">linkedin.com/in/yourprofile</a></p>
     </div>
-    <div class="arrow left-arrow" onclick="previousContent()">&#9664;</div>
-    <div class="arrow right-arrow" onclick="nextContent()">&#9654;</div>
+    <div class="nav left" onclick="previousContent()">&#9664;</div>
+    <div class="nav right" onclick="nextContent()">&#9654;</div>
+    <div class="button-group">
+      <button class="btn" onclick="toggleTheme()">Toggle Light/Dark</button>
+      <button class="btn" onclick="downloadResume()">Download Resume</button>
+    </div>
+    <canvas id="skillsChart" width="400" height="200"></canvas>
   </div>
 
   <script>
     const contentData = [
-      { title: "Contact", text: "<p>Email: Djhigs09@gmail.com</p>" },
-      { title: "Background Knowledge", text: "<p>Experienced with programming, problem-solving, and creative thinking.</p>" },
-      { title: "Work Experience", text: "<p>Employee at Fareway (Dec 2023 - Present)</p>" },
-      { title: "Education", text: "<p>Currently enrolled in High School, actively pursuing STEM-related coursework.</p>" },
-      { title: "Skills", text: "<p>Python, HTML/CSS, JavaScript, Leadership, Communication</p>" }
+      {
+        title: "Contact",
+        text: `<p>Email: <strong>Djhigs09@gmail.com</strong><br>
+               Phone: <strong>(555) 123-4567</strong><br>
+               Location: <strong>Midwest, United States</strong><br>
+               LinkedIn: <a href="#" style="color: #00e0ff;">linkedin.com/in/yourprofile</a></p>`
+      },
+      {
+        title: "Skills & Tools",
+        text: `<p><strong>Languages:</strong> Python, HTML, CSS, JavaScript<br>
+               <strong>Tools:</strong> GitHub, VS Code, Canva, Figma<br>
+               <strong>Soft Skills:</strong> Leadership, Critical Thinking, Communication<br>
+               <strong>Certifications:</strong> PLTW Computer Science Principles</p>`
+      }
     ];
 
-    let currentContentIndex = 0;
+    let currentIndex = 0;
 
     function updateContent() {
-      const titleEl = document.getElementById("title");
-      const textEl = document.getElementById("content-text");
-
-      // Animate fade out
-      document.getElementById("content-box").style.opacity = 0;
+      const container = document.getElementById("container");
+      container.style.opacity = 0;
       setTimeout(() => {
-        titleEl.innerHTML = contentData[currentContentIndex].title;
-        textEl.innerHTML = contentData[currentContentIndex].text;
-
-        // Animate fade in
-        document.getElementById("content-box").style.opacity = 1;
+        document.getElementById("title").innerHTML = contentData[currentIndex].title;
+        document.getElementById("content-text").innerHTML = contentData[currentIndex].text;
+        container.style.opacity = 1;
       }, 300);
     }
 
     function nextContent() {
-      currentContentIndex = (currentContentIndex + 1) % contentData.length;
+      currentIndex = (currentIndex + 1) % contentData.length;
       updateContent();
     }
 
     function previousContent() {
-      currentContentIndex = (currentContentIndex - 1 + contentData.length) % contentData.length;
+      currentIndex = (currentIndex - 1 + contentData.length) % contentData.length;
       updateContent();
     }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+    }
+
+    function downloadResume() {
+      const link = document.createElement('a');
+      link.href = 'resume.pdf'; // Replace with your resume path
+      link.download = 'DJ_Resume.pdf';
+      link.click();
+    }
+
+    const ctx = document.getElementById('skillsChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Python', 'HTML', 'CSS', 'JavaScript', 'GitHub', 'Figma'],
+        datasets: [{
+          label: 'Skill Level',
+          data: [90, 85, 80, 75, 70, 65],
+          backgroundColor: 'rgba(0, 224, 255, 0.2)',
+          borderColor: '#00e0ff',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        scales: {
+          r: {
+            angleLines: { display: false },
+            suggestedMin: 0,
+            suggestedMax: 100
+          }
+        }
+      }
+    });
+
+    particlesJS.load('particles-js', 'https://cdn.jsdelivr.net/gh/VincentGarreau/particles.js/particles.json');
   </script>
 </body>
 </html>
