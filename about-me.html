@@ -38,13 +38,21 @@
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(16px);
       border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
       text-align: center;
       transition: all 0.4s ease-in-out;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+
+    .container:hover {
+      transform: scale(1.01) rotateX(1deg) rotateY(1deg);
+      box-shadow: 0 12px 48px rgba(0, 255, 255, 0.2);
     }
 
     body.light-mode .container {
       background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
     }
 
     .typing-header {
@@ -79,6 +87,7 @@
       font-size: 1.1rem;
       line-height: 1.7;
       min-height: 140px;
+      transition: opacity 0.4s ease-in-out;
     }
 
     .nav {
@@ -164,10 +173,12 @@
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s ease;
+      box-shadow: 0 0 10px #00e0ff;
     }
 
     .btn:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 15px #00f6ff;
     }
 
     #particles-js {
@@ -226,12 +237,13 @@
     let currentIndex = 0;
 
     function updateContent() {
-      const container = document.getElementById("container");
-      container.style.opacity = 0;
+      const title = document.getElementById("title");
+      const text = document.getElementById("content-text");
+      text.style.opacity = 0;
       setTimeout(() => {
-        document.getElementById("title").innerHTML = contentData[currentIndex].title;
-        document.getElementById("content-text").innerHTML = contentData[currentIndex].text;
-        container.style.opacity = 1;
+        title.innerHTML = contentData[currentIndex].title;
+        text.innerHTML = contentData[currentIndex].text;
+        text.style.opacity = 1;
       }, 300);
     }
 
@@ -251,7 +263,7 @@
 
     function downloadResume() {
       const link = document.createElement('a');
-      link.href = 'resume.pdf'; // Replace with your resume path
+      link.href = 'resume.pdf';
       link.download = 'DJ_Resume.pdf';
       link.click();
     }
