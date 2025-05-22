@@ -62,13 +62,13 @@
       border-right: 2px solid rgba(255, 255, 255, 0.75);
       width: fit-content;
       margin: 0 auto 30px;
-      animation: typing 1s steps(15, end), blink 0.75s step-end infinite;
+      animation: typing 2s steps(16, end) forwards, blink 0.75s step-end infinite;
       overflow: hidden;
     }
 
     @keyframes typing {
       from { width: 0 }
-      to { width: 100% }
+      to { width: 16ch }
     }
 
     @keyframes blink {
