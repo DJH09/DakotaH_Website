@@ -1,202 +1,228 @@
-<!DOCTYPE html> <!-- Declares the document as an HTML5 file -->
-<html lang="en"> <!-- Opens the HTML document and sets the language to English -->
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8"> <!-- Specifies character encoding to support special characters -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes the page responsive on different screen sizes -->
-    <title>Explore Dakota's World</title> <!-- Sets the title displayed on the browser tab -->
+<meta charset="UTF-8" />
+<title>Galaxy Looping Squares</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; height: 100%; overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0a0a1a;
+  }
 
-    <style>
-        /* Styling for the entire page */
-        body {
-            margin: 0; /* Removes default margins */
-            padding: 0; /* Removes default padding */
-            background: #121212; /* Sets a dark background color */
-            font-family: 'Poppins', sans-serif; /* Uses the Poppins font */
-            color: white; /* Sets the text color to white */
-            overflow-x: hidden; /* Prevents horizontal scrolling */
-            height: 100vh; /* Makes the body take up the full viewport height */
-            display: flex; /* Uses flexbox for centering */
-            flex-direction: column; /* Arranges content in a column */
-            justify-content: center; /* Centers content vertically */
-            align-items: center; /* Centers content horizontally */
-            border: 10px solid yellow; /* Adds a yellow border around the page */
-            box-sizing: border-box; /* Ensures padding/border don't affect width */
-            position: relative; /* Allows absolute positioning of child elements */
-        }
+  #particles-js {
+    position: fixed;
+    width: 100%; height: 100%; top: 0; left: 0;
+    z-index: 0;
+    background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
+  }
 
-        /* Styles for the header section */
-        .header {
-            text-align: center; /* Centers text inside the header */
-            padding: 50px 20px; /* Adds spacing inside the header */
-            position: relative; /* Allows for positioning relative to itself */
-        }
+  .carousel-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
 
-        /* Styles for the main title */
-        .header h1 {
-            font-size: 3em; /* Makes the title text large */
-            text-transform: uppercase; /* Converts text to uppercase */
-            letter-spacing: 3px; /* Adds space between letters */
-            color: yellow; /* Sets the text color to yellow */
-            text-shadow: 0 0 15px yellow, 0 0 30px yellow; /* Adds a glowing effect */
-            margin-bottom: 6px; /* Adds space below the title */
-        }
+  .square {
+    position: absolute;
+    background: rgba(255 255 255 / 0.1);
+    border: 2px solid rgba(255 255 255 / 0.3);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+  }
 
-        /* Styles for the subtitle */
-        .header p {
-            font-size: 1.2em; /* Sets the font size */
-            color: #ddd; /* Light gray text */
-            margin-bottom: 30px; /* Adds space below the paragraph */
-        }
+  .square.center {
+    width: 400px; height: 400px;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0) translateZ(0);
+    z-index: 10;
+  }
 
-        /* Container for the cards */
-        .cards-container {
-            display: grid; /* Uses a grid layout */
-            grid-template-columns: repeat(2, 1fr); /* Creates two equal columns */
-            gap: 30px; /* Adds space between the cards */
-            padding: 20px 50px; /* Adds padding around the container */
-            max-width: 1200px; /* Limits the width of the container */
-            justify-content: center; /* Centers the grid */
-            margin-bottom: 50px; /* Adds space below the container */
-        }
+  .square.left {
+    width: 150px; height: 150px;
+    opacity: 0.5;
+    pointer-events: auto;
+    z-index: 5;
+    transform: translateX(-350px);
+  }
 
-        /* Styles for each card */
-        .card {
-            background: rgba(26, 26, 26, 0.8); /* Dark semi-transparent background */
-            border: 1px solid #444; /* Adds a border with dark gray color */
-            border-radius: 15px; /* Rounds the card corners */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); /* Adds a subtle shadow */
-            padding: 20px; /* Adds space inside the card */
-            display: flex; /* Uses flexbox for layout */
-            flex-direction: column; /* Stacks content vertically */
-            align-items: center; /* Centers items horizontally */
-            text-align: center; /* Centers text */
-            transition: transform 0.3s, box-shadow 0.3s; /* Animates hover effects */
-            cursor: pointer; /* Changes cursor to indicate it's clickable */
-            position: relative; /* Allows absolute positioning inside */
-            overflow: hidden; /* Prevents content from overflowing */
-        }
+  .square.right {
+    width: 150px; height: 150px;
+    opacity: 0.5;
+    pointer-events: auto;
+    z-index: 5;
+    transform: translateX(350px);
+  }
 
-        /* Adds a subtle lighting effect to cards */
-        .card::before {
-            content: ""; /* Adds an empty element */
-            position: absolute; /* Positions it inside the card */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, yellow, transparent); /* Adds a light gradient */
-            opacity: 0.05; /* Makes the gradient barely visible */
-            pointer-events: none; /* Prevents interaction with it */
-        }
+  .square:hover {
+    transform: scale(1.05) translateY(-8px);
+    box-shadow: 0 15px 40px rgba(255,255,255,0.35);
+  }
 
-        /* Hover effect for the cards */
-        .card:hover {
-            transform: translateY(-15px); /* Moves the card upwards */
-            box-shadow: 0 10px 30px yellow, 0 0 50px yellow; /* Adds a glowing effect */
-        }
-
-        /* Styles for card titles */
-        .card h2 {
-            font-size: 1.8em; /* Increases font size */
-            color: yellow; /* Sets text color to yellow */
-            margin: 15px 0 10px; /* Adds spacing */
-        }
-
-        /* Styles for card descriptions */
-        .card p {
-            color: #ddd; /* Sets text color to light gray */
-            font-size: 1.1em; /* Sets font size */
-        }
-
-        /* Footer styles */
-        .footer {
-            text-align: center; /* Centers text */
-            padding: 20px; /* Adds space inside the footer */
-            color: gray; /* Sets text color */
-            font-size: 0.9em; /* Reduces font size */
-        }
-
-        /* Lightning effect with animation */
-        .lightning {
-            position: absolute; /* Positions it over the entire page */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Prevents interaction */
-            z-index: -1; /* Moves it behind everything */
-        }
-
-        /* Creates diagonal animated lightning bolts */
-        .lightning:before,
-        .lightning:after {
-            content: ""; /* Creates an empty element */
-            position: absolute; /* Positions it inside */
-            background: linear-gradient(45deg, yellow, transparent); /* Adds a glowing effect */
-            width: 10px; /* Sets thickness of lightning */
-            height: 100%;
-            animation: moveGradient 3s infinite linear; /* Moves the effect continuously */
-        }
-
-        .lightning:before {
-            left: 10%; /* Positions one lightning bolt on the left */
-            transform: rotate(45deg); /* Rotates it diagonally */
-        }
-
-        .lightning:after {
-            right: 10%; /* Positions another bolt on the right */
-            transform: rotate(-45deg); /* Rotates it in the opposite direction */
-        }
-
-        /* Animation for moving lightning effect */
-        @keyframes moveGradient {
-            0% {
-                background-position: 0% 0%;
-            }
-            100% {
-                background-position: 100% 100%;
-            }
-        }
-    </style>
+  @media (max-width: 600px) {
+    .square.center {
+      width: 200px; height: 200px;
+    }
+    .square.left, .square.right {
+      width: 100px; height: 100px;
+    }
+    .square.left {
+      transform: translateX(-150px);
+    }
+    .square.right {
+      transform: translateX(150px);
+    }
+  }
+</style>
 </head>
-
 <body>
 
-    <!-- Adds the lightning effect to the background -->
-    <div class="lightning"></div>
+<div id="particles-js"></div>
 
-    <!-- Header section with title and subtitle -->
-    <div class="header">
-        <h1>Explore Dakota's World</h1> <!-- Main title -->
-        <p>Discover my passions, projects, and more.</p> <!-- Subtitle -->
-    </div>
+<div class="carousel-wrapper" id="wrapper">
+  <div class="square" data-link="index.html">Home</div>
+  <div class="square" data-link="Computer_Science.html">Computer Science</div>
+  <div class="square" data-link="about-me.html">About Me</div>
+  <div class="square" data-link="#">Friends</div>
+  <div class="square" data-link="#">Marching Band Game</div>
+</div>
 
-    <!-- Container holding clickable cards -->
-    <div class="cards-container">
-        <div class="card" onclick="navigateTo('Computer_Science.html')">
-            <h2>Computer Science</h2>
-            <p>Dive into my coding projects and skills.</p>
-        </div>
-        <div class="card" onclick="navigateTo('about-me.html')">
-            <h2>About Me</h2>
-            <p>Get to know more about me.</p>
-        </div>
-        <div class="card" onclick="navigateTo('portfolio.html')">
-            <h2>Undecided</h2>
-            <p>N/A.</p>
-        </div>
-        <div class="card" onclick="navigateTo('contact.html')">
-            <h2>Undecided</h2>
-            <p>N/A.</p>
-        </div>
-    </div>
-    <script>
-        // Function to navigate to another page when a card is clicked
-        function navigateTo(page) {
-            window.location.href = page; /* Redirects the browser to the given page */
-        }
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+  particlesJS("particles-js", {
+    particles: {
+      number: { value: 100, density: { enable: true, value_area: 1200 } },
+      color: { value: "#ffffff" },
+      shape: { type: "circle" },
+      opacity: {
+        value: 0.3,
+        random: true,
+        anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+      },
+      size: {
+        value: 2,
+        random: true,
+        anim: { enable: true, speed: 2, size_min: 0.5, sync: false }
+      },
+      line_linked: {
+        enable: true,
+        distance: 120,
+        color: "#aaa",
+        opacity: 0.08,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 0.4,
+        direction: "none",
+        random: true,
+        straight: false,
+        out_mode: "out",
+        bounce: false
+      }
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
+    },
+    retina_detect: true
+  });
+
+  const squares = document.querySelectorAll('.square');
+  const total = squares.length;
+  let currentIndex = 0;
+
+  function updateSquares() {
+    squares.forEach((sq, i) => {
+      sq.classList.remove('center', 'left', 'right');
+      sq.style.opacity = '0';
+      sq.style.pointerEvents = 'none';
+      sq.style.zIndex = '1';
+      sq.style.transform = '';
+    });
+
+    const center = squares[currentIndex];
+    center.classList.add('center');
+    center.style.opacity = '1';
+    center.style.pointerEvents = 'auto';
+    center.style.zIndex = '10';
+
+    const leftIndex = (currentIndex - 1 + total) % total;
+    const rightIndex = (currentIndex + 1) % total;
+
+    const left = squares[leftIndex];
+    left.classList.add('left');
+    left.style.opacity = '0.5';
+    left.style.pointerEvents = 'auto';
+    left.style.zIndex = '5';
+
+    const right = squares[rightIndex];
+    right.classList.add('right');
+    right.style.opacity = '0.5';
+    right.style.pointerEvents = 'auto';
+    right.style.zIndex = '5';
+  }
+
+  // Throttle scroll to prevent stacking glitches
+  let scrollTimeout;
+  window.addEventListener('wheel', e => {
+    e.preventDefault();
+    if(scrollTimeout) return;
+
+    if (e.deltaY > 0) currentIndex = (currentIndex + 1) % total;
+    else currentIndex = (currentIndex - 1 + total) % total;
+
+    updateSquares();
+
+    scrollTimeout = setTimeout(() => {
+      scrollTimeout = null;
+    }, 300);
+  }, { passive: false });
+
+  // Swipe handling for mobile
+  let startX = 0;
+  window.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  });
+  window.addEventListener('touchend', e => {
+    const endX = e.changedTouches[0].clientX;
+    if (startX - endX > 50) currentIndex = (currentIndex + 1) % total;
+    else if (endX - startX > 50) currentIndex = (currentIndex - 1 + total) % total;
+    updateSquares();
+  });
+
+  // Only link valid squares
+  squares.forEach(sq => {
+    sq.addEventListener('click', () => {
+      const url = sq.getAttribute('data-link');
+      if (url && url !== '#') {
+        window.location.href = url;
+      }
+    });
+  });
+
+  updateSquares();
+  window.addEventListener('resize', updateSquares);
+</script>
 </body>
-
 </html>
