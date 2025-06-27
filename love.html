@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Love Notes</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .slider {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 40px;
+      scroll-snap-type: x mandatory;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      max-width: 90vw;
+      max-height: 80vh;
+      align-items: center;
+    }
+    .card {
+      flex: 0 0 250px;
+      height: 250px;
+      background: #ffe0e9;
+      border-radius: 20px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      color: #c94f7c;
+      cursor: pointer;
+      scroll-snap-align: center;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      background: #ffc1d8;
+    }
+    .message-view {
+      display: none;
+      padding: 40px;
+      max-width: 90vw;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .back-btn {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ff6b81;
+      cursor: pointer;
+      margin-bottom: 20px;
+      display: inline-block;
+      transition: color 0.3s;
+    }
+    .back-btn:hover {
+      color: #e63946;
+    }
+    .visible {
+      display: block;
+    }
+    #messageContent {
+      font-size: 16px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      color: #333;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="slider" class="slider"></div>
+
+  <div id="messageView" class="message-view">
+    <div class="back-btn" onclick="goBack()">⬅ Back</div>
+    <div id="messageContent"></div>
+  </div>
+
+  <script>
+    const messages = [
+      {
+        date: "February 14th, 2025",
+        text: `❤️ I hope you had at least a somewhat decent night at work! Obvi I harassed u a bit to show u I care. I'm sorry u don't wanna be there but think of it this way, once u get home, u get to talk to me (if u even want to). I was gonna give u a hug if u wanted one but u didn't so I just let it be. I just want u to know that I appreciate u and u matter to me! Thanks for being a great part of my life! I couldn't imagine a life without u because u are my world! I love you ❤️😘, happy valentines day beautiful! U walk around lookin that cute even more and I just might drop dead cuz u drop dead Gorgeous! ❤️`
+      },
+      {
+        date: "February 15th, 2025",
+        text: `❤️Hello sweet pumpkin! Ik work sucked, but now that u are through it, you don't have to worry ab til Monday and I get to work with u Monday and take away ur pain at work! I love everything about you from your beautiful diamond eyes that shine to your smile that gives me comfort from that beautiful smile. Whether you think you are worth it or not, always remember you are worth it to me. In my eyes, you are perfect in everyway with an outgoing personality that brightens my day. All I want is for you to be happy and know that u mean a lot to someone, and Im gonna work hard to make sure you know that you are priceless and really fucking important to me my beautiful savocado❤️`
+      },
+      {
+        date: "February 17th, 2025",
+        text: `❤️Heyyyyy Savocado! I hope work went decent for u, at least while I was there. I heard u talking ab me to customers, asking if im checking anyone else out, but to that I answer your the most beautiful girl and I cant take my eyes of u. I tried to give u a hug and I did, without u hitting me this time. I just wanted to show u that I care and that I will always be there for you when you need me. And it doesnt matter that dylana says u shouldnt date, u can make ur own decisions. If you are willing to wait for me, then you will be able to date me. But whether we date or not, im still gonna show u how u should be treated and make sure u know that ur the most special girl in the world. I want to show u im not like ur exs and am not going to intentionally hurt u. Just promise me you will keep smiling because ur smile takes my breath away. I want to see you smile more, I want to know that ur happy. I love u and never forget that u mean something to me, more than u know❤️`
+      },
+      {
+        date: "February 18th, 2025",
+        text: `❤️Savocado I wanna just get straight to the point and tell u ur the best thing to have ever came into my life. Your sweet kind heart shows that u know how to love the right people. Your humor always cracks me up when u try to be funny. In your eyes, I can see a girl who has never quite been treated right, but imma show u how u should be treated. Im gonna show u that u should be treated like the beautiful soul you are. You are an angel that fell outta heaven. And i just wanna say, whether u think ur doing anything wrong or right, with me, you have done so much right. More than I can even explain. You are enough and always will be. U are the toughest person I know, and I want u by my side with me on this journey of life, because u mean a lot to me. I Can never say it enough. Ik you felt like everyone hates u or thinks your always making the wrong choices, but to me, I will love you for who u are and be there by ur side whether ur right or wrong. I love you and always will - Kota Bota❤️ p.s. Send me a snap when u finish reading this so I can see whether u cried or not`
+      },
+      {
+        date: "February 22nd, 2025",
+        text: `❤️❤️❤️Heyyyy Pumpkin! Gonna keep this short and sweet because I just wanted to take a minute to reconize the sweetest girl Ive ever met with the biggest heart and the most beautiful soul. You are more than enough to me. It doesnt matter if u dont put on makeup or if u think u have a bad hair day, in my eyes, i will always see the most perfect girl, an angel in disguise. You are the best thing to happen to me. I really hope to never lose you as it would leave me heartbroken. I love you so much, more than u know. I will always be there to pick u up when u fall. I will always make sure u know how much u mean and how pretty you really are. I will always be there, for you. I know you like me and I like you too. Ive put a little bit of thought into it. I feel like we share something special and I want to see where this takes us. I wanted to know if you would like to take it a step further. I wanted to know if you wanted to be my gf? - Kota Bota❤️❤️❤️`
+      },
+      {
+        date: "February 25th, 2025",
+        text: `❤️‍🔥Hey bae! Just wanted you to know I smile everytime I open my phone to see you, because truth is, you make everything in my life brighter, simply by being in it. I honestly cant imagine my life without u. I thank god everyday for putting u in my life, cuz you are the best thing to ever happen to me, I literally dont deserve you. I have always seen myself as ugly, yet somehow I was blessed with you, so beautiful, literally drop dead Gorgeous  I wish you could realise how I see you, straight beauty, most beautiful person in the universe. You are the only thing I know that makes flowers look boring compared to your beauty. I dont need a picture perfect life that everyone always talks and dreams about, I just need you. I hope we can be together forever, cuz I love you and wanna make so many memories with u. I wanna make you smile, make you life, realise that you are a amazing person even tho you dont think you are. You have given me proof, that there really are angels on earth, because you are one. I promise you, you are more than enough just the way you are, and I will make sure you never think otherwise. I love you, and I always will, no matter what happens. - Kota Bota ❤️‍🔥`
+      },
+      {
+        date: "March 4th, 2025",
+        text: `Hey Savocado! This one might be a little shorter but I hope u like it. I really love the drawing a note hun and I hope you know that. Ive stared at the drawing countless times today and reread the note like a thousand times because it truly means something to me. You truly mean something to me. Every moment that I get to spend with u is a blessing because you are so amazing and Im glad I get to call u my girlfriend. I hope we can make so many memories together in the future and grow old together. I promise I will always love u and treat you like the amazing person you are. I love you so much, Savannah Higdon -- Uh i mean, Klein, Savannah Klein. \n\nYours forever, Kota Bota\nXOXO`
+      },
+      {
+        date: "March 6th, 2025",
+        text: `SAVOCADO!!!! Im so glad that u feel happy with me and comfortable enough to just be youself. You even went and held my hand, and oh boy was I happy after that! Although at work you kept tapping my ass so I might need to just randomly grab a handful of yours so we are even 😝. I love you so much and I always will, since we are married. Does that mean we gonna have a child soon? Lol. I hope you know that I love seeing you smile. Like when you smiled today at work, made my night. I will always be there for you, to make sure that you laugh. I hope you feel safe with me. (which you should since according to you im fat and have man titties, plenty protection there.) I could get lost in those beautiful eyes forever and I hope you know that. Love ya wifey! - Sincerly, your husband, duh…`
+      },
+      {
+        date: "March 15th, 2025",
+        text: `Hey my perfect girl. I know ive missed a couple of these from falling asleep or whatever the case might be, but here we are for the next one. I just wanted to remind you about how proud you make everyday. Im lucky to be able to call u my gf because you make my world better in ways I cant even describe. You run around in my mind all day, im literally always thinking ab u every minutes of every day. I wish I could hold u in my arms right now, show u how much I care about u. Even just doing that wouldnt prove to u how much u mean to me. You are literally my favorite part of every single day savannah higdon- i mean klein, savannah klein. U literally make my heart warmer just by being yourself. No matter what happens in this game of life, i promise u that u will always have me right here on ur side supporting u with everything u do. If i had 100 more lives, id wanna spend all of them with u. I dont need anybody else but u, you are my favorite person, my best friend, my gf, my wife, the mother to our future kids. I love you babe, and I always will`
+      },
+      {
+        date: "March 18th, 2025",
+        text: `Heyyyyyy sweet pumpkin, my cuddle bear. Just wanted to remind you that while im no where near perfect, im willing to get better for u. While you may think I look at you as just a really beautiful girl with a big ass, thats not all I see. I see the kindness in your heart and the strength you carry with your beautiful soul that makes my day better just by being yourself. You are the sunshine in my darkest days and im glad I, Dakota Higdon, get to call u my girlfriend because you mean the absolute world to me. If I had to write a list of all of the things I love about you, I think Id go through the worlds paper supply because in my eyes, all I see is a wonderful girl that I wanna spend the rest of my days with. (and no, the papers wont just have your ass written over and over again as much as I love that, I love a lot more of you a whole bunch more, I told you I would wait til you are ready and comfortable for things like that and kissing and whatnot). I could name so many things about you that I love like your eyes, your hair, your face, your smile, your personality, your humor, etc. And most importantly is the parts of u that no one can see. Your heart and your soul. You just have a way of making everything feel okay when your around and I hope I make you feel the same because you deserve true love, a kind of love that isnt going to use you for your body and play with your feelings. A love that you feel comfortable enough around that you have no filter and can talk to about anything, someone who you can always go to when your down and someone who wont yell at you for ever little mistake. I want to be that someone for you. I want to hug you and never let go. I want to tell you your perfect to me in every way possible over and over again. I love you so fucking much that you have no idea how hard it is not to kiss you every time you smile and look at me lookin hella cute. Knowing that you are mine makes me feel like the luckiest person alive and I cant wait to make memories with you. Once you are ungrounded, I REALLY REALLY want us to hang out someway whether we just go on a walk, we hang out at eachothers houses, or even as much as going to the mall or movies or something. I wanna spend EVERY minute with you and its hard that I cant even do that. But ill manage, because I love you too much. Like I love you soooooooooooo much. -Your true love, Kota Bota XOXO`
+      },
+      {
+        date: "March 22nd, 2025",
+        text: `Happy 1 month Lovebug! I cant believe its already been a whole month since my life changed for the better. I LOVE YOU SO MUCH and I cant wait to make so many more memories with you! You make me so happy and are the most amazing person I met and no matter how much you say you are not, you are very beautiful make up or not. I will continue to say it until you realise it. Youre the sunshine of my life and I enjoy every moment I get to spend with you. Im looking forward to being able to snap you again and fall asleep on call together with your new phone. Im excited to be able to go on walks with you and spend the rest of my life together. I love you so much my beautiful girl and I always will.`
+      },
+      {
+        date: "March 25th, 2025",
+        text: `My love, my one and only, becoming your bf was the best decision ive ever made. I didnt realise how much of an impact you would have on my life, until I made the decision. When we first started \"talking\" after u found out that u and cameron couldnt be, ngl, I was skeptical and nervous. I had this stunning amazing girl with a beautiful heart throwing herself all over me because she liked me, and then there was me. I didnt know whether or not to believe that it was true and even debated whether or not I should have actually asked you out or if it was too good to be true. But since the day that i did, you have made me the happiest and I couldnt ask for a better girl to be my side and that I get to call mine. You are perfect just the way you are, and I wouldnt change anything about you, you are truly amazing. You deserve the world and I may not be able to give it all to you, but ill give it my all to make you the happiest youve ever been. Im excited to make so many memories with you as always. However, there is something you should know about me. Even if you dont want to know, im going to tell you. (sound familiar?) when I said my love language is physical touch, I really mean it. (Just a warning cuz im always gonna want hugs and you to hold my hand and put your hand on my thigh and cuddles (yes even in school)) Ill even hold you in my arms in front of all the girls that you think are prettier than you (even tho you are the prettiest) just to prove to you that when I say your the only girl I want, I mean it. I love you my sweetheart, and I always will and I do hope you are happy in the relationship and feel supported and safe and I want you to be open about it. If you are, tell me so ik im doing something right. If im doing something wrong, also tell me so I can fix it. I want you to be happy. Again, Love you Soooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo much.\n\nXOXO - Kota Bota`
+      }
+    ];
+
+    const slider = document.getElementById("slider");
+    const messageView = document.getElementById("messageView");
+    const messageContent = document.getElementById("messageContent");
+
+    messages.forEach((msg, index) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerText = msg.date;
+      card.onclick = () => showMessage(index);
+      slider.appendChild(card);
+    });
+
+    function showMessage(index) {
+      slider.style.display = "none";
+      messageView.classList.add("visible");
+      messageContent.innerText = messages[index].text;
+    }
+
+    function goBack() {
+      messageView.classList.remove("visible");
+      slider.style.display = "flex";
+    }
+  </script>
+
+</body>
+</html>
