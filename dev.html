@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Galaxy Looping Squares</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
 <style>
   html, body {
     margin: 0; padding: 0; height: 100%; overflow: hidden;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: #0a0a1a;
   }
 
@@ -30,61 +32,96 @@
 
   .square {
     position: absolute;
-    background: rgba(255 255 255 / 0.1);
-    border: 2px solid rgba(255 255 255 / 0.3);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: white;
+    background: rgba(255 255 255 / 0.12);
+    border: 1.5px solid rgba(255 255 255 / 0.4);
+    box-shadow:
+      0 0 10px rgba(0, 200, 255, 0.4),
+      inset 0 0 15px rgba(0, 200, 255, 0.25);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    color: #00e5ff;
+    font-weight: 700;
+    font-size: 1.6rem;
+    text-shadow: 0 0 3px rgba(0,0,0,0.4);
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-weight: 600;
-    font-size: 1.4rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
     cursor: pointer;
-    transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+    user-select: none;
     opacity: 0;
     pointer-events: none;
-    user-select: none;
   }
 
+  /* Center square */
   .square.center {
-    width: 400px; height: 400px;
+    width: 400px;
+    height: 400px;
     opacity: 1;
     pointer-events: auto;
-    transform: translateX(0) translateZ(0);
+    animation: float 4s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
     z-index: 10;
   }
 
-  .square.left {
-    width: 150px; height: 150px;
+  /* Shine overlay on center */
+  .square.center::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+    transform: rotate(25deg) translateX(-100%);
+    animation: shine 3s linear infinite;
+    pointer-events: none;
+  }
+
+  /* Side squares */
+  .square.left, .square.right {
+    width: 150px;
+    height: 150px;
     opacity: 0.5;
     pointer-events: auto;
-    z-index: 5;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    color: #00b8cc;
+    box-shadow:
+      0 0 6px rgba(0, 200, 255, 0.25),
+      inset 0 0 8px rgba(0, 200, 255, 0.15);
+  }
+
+  .square.left {
     transform: translateX(-350px);
   }
 
   .square.right {
-    width: 150px; height: 150px;
-    opacity: 0.5;
-    pointer-events: auto;
-    z-index: 5;
     transform: translateX(350px);
   }
 
+  /* Hover effect */
   .square:hover {
-    transform: scale(1.05) translateY(-8px);
-    box-shadow: 0 15px 40px rgba(255,255,255,0.35);
+    transform: scale(1.1) translateY(-10px);
+    border-color: #00ffff;
+    box-shadow:
+      0 0 20px #00ffff,
+      inset 0 0 25px #00ffff;
+    text-shadow: 0 0 8px #00ffff;
   }
 
+  /* Mobile scaling */
   @media (max-width: 600px) {
     .square.center {
-      width: 200px; height: 200px;
+      width: 200px;
+      height: 200px;
     }
     .square.left, .square.right {
-      width: 100px; height: 100px;
+      width: 100px;
+      height: 100px;
     }
     .square.left {
       transform: translateX(-150px);
@@ -92,6 +129,17 @@
     .square.right {
       transform: translateX(150px);
     }
+  }
+
+  /* Animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes shine {
+    0% { transform: rotate(25deg) translateX(-100%); }
+    100% { transform: rotate(25deg) translateX(100%); }
   }
 </style>
 </head>
@@ -101,7 +149,7 @@
 
 <div class="carousel-wrapper" id="wrapper">
   <div class="square" data-link="index.html">Home</div>
-  <div class="square" data-link="Computer_Science.html">Computer Science</div>
+  <div class="square" data-link="dev.html">Computer Science</div>
   <div class="square" data-link="about-me.html">About Me</div>
   <div class="square" data-link="#">Friends</div>
   <div class="square" data-link="#">Marching Band Game</div>
@@ -109,6 +157,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
+  // Galaxy-style twinkling particles config
   particlesJS("particles-js", {
     particles: {
       number: { value: 100, density: { enable: true, value_area: 1200 } },
@@ -211,7 +260,7 @@
     updateSquares();
   });
 
-  // Only link valid squares
+  // Link squares that have valid links
   squares.forEach(sq => {
     sq.addEventListener('click', () => {
       const url = sq.getAttribute('data-link');
@@ -224,5 +273,6 @@
   updateSquares();
   window.addEventListener('resize', updateSquares);
 </script>
+
 </body>
 </html>
