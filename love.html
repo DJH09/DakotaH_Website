@@ -117,15 +117,19 @@
     }
     .message-view {
       display: none;
-      padding: 40px;
-      width: 80vw;
-      height: 80vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px;
       overflow-y: auto;
-      background: white;
-      border-radius: 20px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.25);
       animation: fadeIn 0.5s ease-in-out;
-      max-height: 80vh;
+      z-index: 9999;
+      font-size: 18px;
     }
     .back-btn {
       font-size: 20px;
@@ -146,7 +150,7 @@
       font-size: 16px;
       line-height: 1.6;
       white-space: pre-wrap;
-      color: #333;
+      color: #ddd;
     }
     @keyframes fadeIn {
       from {
@@ -229,7 +233,7 @@ const todaysMessage = `HEY HUNNYYYYY!!!! I hope you had a good day at work today
 
 P.S. The reason I said to not talk to me and avoided talking to you while you were hanging with your friends is because I wanted to make sure that you got to hang out with them rather than spend half the time texting me. Oh and btw, you told my dad that you were gonna move out when you were 18, does that mean at 18 you are gonna go live with morgan? if so it better not be super far away so I can still visit you (even though apparently you think im coming with lol). Idk, you can either text me it or tell me on call cuz im genuinely curious.`;
 
-      // Display Today's message
+ // Display Today's message
     function showTodaysMessage() {
       document.getElementById("messageContent").innerText = todaysMessage;
       document.getElementById("messageView").classList.add("visible");
