@@ -91,6 +91,21 @@
       white-space: pre-wrap;
       color: #333;
     }
+    .special-btn {
+      display: inline-block;
+      background-color: #ff6b81;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: background-color 0.3s;
+      text-align: center;
+    }
+    .special-btn:hover {
+      background-color: #e63946;
+    }
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -105,13 +120,14 @@
 </head>
 <body>
 
+  <div class="special-btn" onclick="showTodaysMessage()">Today's Message</div>
   <div id="slider" class="slider"></div>
 
   <div id="messageView" class="message-view">
     <div class="back-btn" onclick="goBack()">⬅ Back</div>
     <div id="messageContent"></div>
   </div>
-
+  
   <script>
     const messages = [
       {
@@ -164,29 +180,36 @@
       }
     ];
 
-     const slider = document.getElementById("slider");
-    const messageView = document.getElementById("messageView");
-    const messageContent = document.getElementById("messageContent");
+const todaysMessage = `HEY HUNNYYYYY!!!! I hope you had a good day at work today. Sorry I decided not to go. Anyways. to start I just wanted to say, I am still mad at you for something. I'm still mad at you for going fishing for the first time and catching a fish like right away. How dare you. I didn't even get to catch anything. Regardless, I'm still glad that you had fun and maybe we will get to do it again sometime. I also wanted to tell you that Ik with school starting, not only will we have less time to talk which will make me sad, but I also know that there is a chance you are going to get stressed over your school work. It's bound to happen. But please never feel like you are on your own for your school work because you aren't. If you need help, don't feel afraid to ask. I understand that sometimes school can be stressful but I am always here when you need me no matter what it is. If you need me to stay up til 3am on call with you so you have me to do dmacc with, trust me I'll be on call with you. All just so I can show you that you aren't alone. Not only in school work, but you aren't alone at all. I deeply care about you and what you are feeling, and I want you to feel safe enough to openly say anything that you are feeling whether school was terrible and you just need to rant to me or if something happen that makes you upset and you need someone to cry to. I don't just wanna be there with you when you are happy, I also wanna be there with you the rest of the time, because we are a team and your feelings matter to me too. I also know that with school starting up, I'm gonna be the luckiest guy at the homecoming dance because I'm gonna get to go with you. I'll get some nice flowers to give to you and I'll even make a sign for you to do a Homecoming Proposal or whatever when you hang out with me at some point again. I'm excited for our first dance and I hope you are too. It may be our first school dance together, but it for sure isn't gonna be our last I'll tell you that because I am not gonna give up our relationship. You make me the happiest I have ever felt in a long time and I want it to stay that way. You know just how to hug me when we get to see each other again, you always find a way to make me smile someway, you very kindly beat me when I act up, and you may be short but you still the boss lol. Still in all seriousness, you are a really good girlfriend. In a lifetime, I couldn't ever find anyone else that treats me just the way you do and I hope you feel the same. Sure our relationship might not be the kinda love you might see in the movies. It has its flaws and its time where it may seem a little bad, but together we always find a way to make it work because we know that in the end, its not you vs me, its us against everything else. There is no one else I would rather spend my life  with then you. I want your beautiful, glowing green eyes to be the last eyes I see before I go to bed. I want your smile to be the first thing I see every morning when we get up out of bed only to find out your hair is frizzy and my hair is all over the place and goofy. I want you to be the last girl (besides our future daughter) that I hold in my arms. I've given you my heart, trusting you enough to not break it. I trust you with my whole life and soul. You may have fallen for me, but I only fell harder. You were the unexpected love that came into my life, the love I didn't know I needed until you came along. Everything about you just makes me happy on the inside, from the fact that you can cry tears of happiness or even sadness but always point to the fact that your mascara is going everywhere to the fact that you always try to make sure I know that you are always right. Oh and also while I'm thinking about it, if you ever think I'm gonna break up with you, just know 2 things. 1, my mom loves you so much that I couldn't stand to see her hurt from it, so I will always try my damn hardest to work it out with you. and 2, I have spent way too damn long writing after work messages and spent too much damn money on monster energy drinks to see you smile for me to just give up on our relationship. Anyways, besides that, always remember that you are like a sunflower, because you shine and stand beautifully, and I love you so very much wifey, never forget that.`;
 
-    messages.forEach((msg, index) => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerText = msg.date;
-      card.onclick = () => showMessage(index);
-      slider.appendChild(card);
-    });
-
-    function showMessage(index) {
-      slider.style.display = "none";
-      messageView.classList.add("visible");
-      messageContent.innerText = messages[index].text;
+    // Display Today's message
+    function showTodaysMessage() {
+      document.getElementById("messageContent").innerText = todaysMessage;
+      document.getElementById("messageView").classList.add("visible");
     }
 
+    // Go back to the slider
     function goBack() {
-      messageView.classList.remove("visible");
-      slider.style.display = "flex";
-      window.scrollTo(0, 0);
+      document.getElementById("messageView").classList.remove("visible");
     }
+
+    // Create the slider content dynamically
+    function createSlider() {
+      const slider = document.getElementById("slider");
+
+      messages.forEach((message, index) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.innerHTML = `<div><strong>${message.date}</strong><br>${message.text.slice(0, 100)}...</div>`;
+        card.onclick = () => {
+          document.getElementById("messageContent").innerText = message.text;
+          document.getElementById("messageView").classList.add("visible");
+        };
+        slider.appendChild(card);
+      });
+    }
+
+    createSlider();
   </script>
 
 </body>
