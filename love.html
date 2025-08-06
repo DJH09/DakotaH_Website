@@ -18,6 +18,61 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
+    }
+    .special-btn {
+      display: inline-block;
+      background-color: #ff6b81;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 20px;
+      font-size: 20px;
+      cursor: pointer;
+      margin-bottom: 30px;
+      transition: background-color 0.3s, transform 0.3s;
+      animation: sparkle 1.5s infinite;
+      position: relative;
+    }
+    .special-btn:hover {
+      background-color: #e63946;
+      transform: scale(1.1);
+    }
+    .special-btn::before {
+      content: "✨";
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      font-size: 24px;
+      opacity: 0.8;
+      animation: sparkleEffect 1.5s infinite alternate;
+    }
+    @keyframes sparkle {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    @keyframes sparkleEffect {
+      0% {
+        top: -5px;
+        left: -5px;
+        opacity: 0.8;
+      }
+      50% {
+        top: 10px;
+        left: 10px;
+        opacity: 1;
+      }
+      100% {
+        top: -5px;
+        left: -5px;
+        opacity: 0.8;
+      }
     }
     .slider {
       display: flex;
@@ -31,6 +86,7 @@
       max-width: 90vw;
       max-height: 80vh;
       align-items: center;
+      flex-wrap: nowrap;
     }
     .slider::-webkit-scrollbar {
       display: none;
@@ -62,13 +118,14 @@
     .message-view {
       display: none;
       padding: 40px;
-      max-width: 90vw;
-      height: 100vh;
+      width: 80vw;
+      height: 80vh;
       overflow-y: auto;
       background: white;
       border-radius: 20px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.25);
       animation: fadeIn 0.5s ease-in-out;
+      max-height: 80vh;
     }
     .back-btn {
       font-size: 20px;
@@ -91,21 +148,6 @@
       white-space: pre-wrap;
       color: #333;
     }
-    .special-btn {
-      display: inline-block;
-      background-color: #ff6b81;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-size: 18px;
-      cursor: pointer;
-      margin-bottom: 20px;
-      transition: background-color 0.3s;
-      text-align: center;
-    }
-    .special-btn:hover {
-      background-color: #e63946;
-    }
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -121,6 +163,7 @@
 <body>
 
   <div class="special-btn" onclick="showTodaysMessage()">Today's Message</div>
+
   <div id="slider" class="slider"></div>
 
   <div id="messageView" class="message-view">
@@ -186,7 +229,7 @@ const todaysMessage = `HEY HUNNYYYYY!!!! I hope you had a good day at work today
 
 P.S. The reason I said to not talk to me and avoided talking to you while you were hanging with your friends is because I wanted to make sure that you got to hang out with them rather than spend half the time texting me. Oh and btw, you told my dad that you were gonna move out when you were 18, does that mean at 18 you are gonna go live with morgan? if so it better not be super far away so I can still visit you (even though apparently you think im coming with lol). Idk, you can either text me it or tell me on call cuz im genuinely curious.`;
 
-    // Display Today's message
+      // Display Today's message
     function showTodaysMessage() {
       document.getElementById("messageContent").innerText = todaysMessage;
       document.getElementById("messageView").classList.add("visible");
