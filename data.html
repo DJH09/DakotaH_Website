@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sleep & Daily Activities Visualization</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #timeline, #stacked {
+      width: 90%;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Daily Activity Visualization</h1>
+
+  <!-- Timeline Graph -->
+  <div id="timeline"></div>
+
+  <!-- Stacked Bar Chart -->
+  <div id="stacked"></div>
+
+  <script>
+    // Example data (replace with your own!)
+    const activities = [
+      { activity: "Sleep", start: "22:00", end: "06:00", color: "royalblue" },
+      { activity: "Homework", start: "18:00", end: "18:30", color: "gold" },
+      { activity: "Cleaning", start: "18:30", end: "19:00", color: "limegreen" },
+      { activity: "Social Media", start: "19:30", end: "21:00", color: "hotpink" },
+      { activity: "Gaming", start: "16:00", end: "17:00", color: "orange" },
+      { activity: "YouTube", start: "21:00", end: "22:00", color: "red" }
+    ];
+
+    // Convert time (HH:MM) to hours since midnight
+    function toHours(t) {
+      let [h, m] = t.split(":").map(Number);
+      return h + m / 60;
+    }
+
+    // Timeline data
+    let timelineTraces = activities.map(act => {
+      return {
+        x: [toHours(act.start), toHours(act.end)],
+        y: [act.activity, act.activity],
+        mode: "lines",
+        line: { width: 20, color: act.color },
+        name: act.activity
+      };
+    });
+
+    let timelineLayout = {
+      title: "Timeline of My Day",
+      xaxis: {
+        title: "Hours of Day",
+        tickmode: "array",
+        tickvals: [...Array(25).keys()],
+        ticktext: [...Array(25).keys()].map(h => `${h}:00`),
+        range: [0, 24]
+      },
+      yaxis: { title: "Activity", automargin: true },
+      showlegend: false,
+      paper_bgcolor: "#111",
+      plot_bgcolor: "#111",
+      font: { color: "white" }
+    };
+
+    Plotly.newPlot("timeline", timelineTraces, timelineLayout);
+
+    // Stacked Bar Chart Data
+    const stackedData = [{
+      x: activities.map(a => a.activity),
+      y: activities.map(a => toHours(a.end) - toHours(a.start)),
+      type: 'bar',
+      marker: { color: activities.map(a => a.color) }
+    }];
+
+    const stackedLayout = {
+      title: "Time Spent on Each Activity",
+      xaxis: { title: "Activity" },
+      yaxis: { title: "Hours" },
+      paper_bgcolor: "#111",
+      plot_bgcolor: "#111",
+      font: { color: "white" }
+    };
+
+    Plotly.newPlot("stacked", stackedData, stackedLayout);
+  </script>
+</body>
+</html>
