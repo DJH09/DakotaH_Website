@@ -2,94 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sleep & Daily Activities Visualization</title>
+  <title>Day Visualization</title>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <style>
     body {
-      background: #111;
-      color: white;
+      background: #0d1117;
+      color: #fff;
       font-family: Arial, sans-serif;
       text-align: center;
     }
-    #timeline, #stacked {
-      width: 90%;
-      margin: 20px auto;
+    #dayViz {
+      width: 95%;
+      margin: 30px auto;
     }
   </style>
 </head>
 <body>
-  <h1>My Daily Activity Visualization</h1>
-
-  <!-- Timeline Graph -->
-  <div id="timeline"></div>
-
-  <!-- Stacked Bar Chart -->
-  <div id="stacked"></div>
+  <h1>My Day from 8:30 to 6:00</h1>
+  <div id="dayViz"></div>
 
   <script>
-    // Example data (replace with your own!)
-    const activities = [
-      { activity: "Sleep", start: "22:00", end: "06:00", color: "royalblue" },
-      { activity: "Homework", start: "18:00", end: "18:30", color: "gold" },
-      { activity: "Cleaning", start: "18:30", end: "19:00", color: "limegreen" },
-      { activity: "Social Media", start: "19:30", end: "21:00", color: "hotpink" },
-      { activity: "Gaming", start: "16:00", end: "17:00", color: "orange" },
-      { activity: "YouTube", start: "21:00", end: "22:00", color: "red" }
-    ];
-
-    // Convert time (HH:MM) to hours since midnight
+    // Convert HH:MM → decimal hours
     function toHours(t) {
       let [h, m] = t.split(":").map(Number);
       return h + m / 60;
     }
 
-    // Timeline data
-    let timelineTraces = activities.map(act => {
-      return {
-        x: [toHours(act.start), toHours(act.end)],
-        y: [act.activity, act.activity],
-        mode: "lines",
-        line: { width: 20, color: act.color },
-        name: act.activity
-      };
-    });
+    // Define activities
+    const activities = [
+      { name: "School", start: "08:30", end: "15:30", color: "royalblue" },
+      { name: "Homework", start: "16:00", end: "16:30", color: "gold" },
+      { name: "Cleaning", start: "16:30", end: "17:00", color: "limegreen" },
+      { name: "Unproductive Screen (Gaming)", start: "17:00", end: "17:30", color: "tomato" },
+      { name: "Unproductive Screen (YouTube)", start: "17:30", end: "18:00", color: "orchid" }
+    ];
 
-    let timelineLayout = {
-      title: "Timeline of My Day",
+    // Timeline traces
+    const traces = activities.map(act => ({
+      x: [toHours(act.start), toHours(act.end)],
+      y: [act.name, act.name],
+      mode: "lines",
+      line: { width: 30, color: act.color },
+      name: act.name,
+      hovertemplate: `${act.name}<br>%{x} hr<extra></extra>`
+    }));
+
+    // Layout
+    const layout = {
+      title: "Activity Blocks (8:30 → 6:00)",
       xaxis: {
-        title: "Hours of Day",
-        tickmode: "array",
-        tickvals: [...Array(25).keys()],
-        ticktext: [...Array(25).keys()].map(h => `${h}:00`),
-        range: [0, 24]
+        title: "Time of Day",
+        tickvals: [8.5, 10, 12, 14, 16, 18],
+        ticktext: ["8:30", "10:00", "12:00", "2:00", "4:00", "6:00"],
+        range: [8.5, 18],
+        showgrid: false
       },
-      yaxis: { title: "Activity", automargin: true },
+      yaxis: {
+        visible: false
+      },
       showlegend: false,
-      paper_bgcolor: "#111",
-      plot_bgcolor: "#111",
-      font: { color: "white" }
+      paper_bgcolor: "#0d1117",
+      plot_bgcolor: "#0d1117",
+      font: { color: "#fff" }
     };
 
-    Plotly.newPlot("timeline", timelineTraces, timelineLayout);
-
-    // Stacked Bar Chart Data
-    const stackedData = [{
-      x: activities.map(a => a.activity),
-      y: activities.map(a => toHours(a.end) - toHours(a.start)),
-      type: 'bar',
-      marker: { color: activities.map(a => a.color) }
-    }];
-
-    const stackedLayout = {
-      title: "Time Spent on Each Activity",
-      xaxis: { title: "Activity" },
-      yaxis: { title: "Hours" },
-      paper_bgcolor: "#111",
-      plot_bgcolor: "#111",
-      font: { color: "white" }
-    };
-
-    Plotly.newPlot("stacked", stackedData, stackedLayout);
+    Plotly.newPlot("dayViz", traces, layout);
   </script>
 </body>
 </html>
