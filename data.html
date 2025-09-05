@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Day Visualization</title>
+  <title>Daily Visualization</title>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <style>
     body {
@@ -18,23 +18,24 @@
   </style>
 </head>
 <body>
-  <h1>My Day from 8:30 to 6:00</h1>
+  <h1>My Daily Activity (8:30 PM → 6:00 PM)</h1>
   <div id="dayViz"></div>
 
   <script>
-    // Convert HH:MM → decimal hours
-    function toHours(t) {
-      let [h, m] = t.split(":").map(Number);
+    // Convert HH:MM (24h) to decimal hours
+    function toHours(timeStr) {
+      let [h, m] = timeStr.split(":").map(Number);
       return h + m / 60;
     }
 
-    // Define activities
+    // Activities (Dakota’s example day)
     const activities = [
-      { name: "School", start: "08:30", end: "15:30", color: "royalblue" },
-      { name: "Homework", start: "16:00", end: "16:30", color: "gold" },
-      { name: "Cleaning", start: "16:30", end: "17:00", color: "limegreen" },
-      { name: "Unproductive Screen (Gaming)", start: "17:00", end: "17:30", color: "tomato" },
-      { name: "Unproductive Screen (YouTube)", start: "17:30", end: "18:00", color: "orchid" }
+      { name: "Sleep", start: "00:00", end: "06:00", color: "royalblue" },
+      { name: "Cleaning/Organizing", start: "08:30", end: "09:15", color: "limegreen" },
+      { name: "Calling", start: "10:00", end: "11:30", color: "gold" },
+      { name: "Unproductive Screen", start: "12:00", end: "14:15", color: "tomato" },
+      { name: "TikTok", start: "14:15", end: "14:45", color: "orchid" },
+      { name: "Texting Friends", start: "14:45", end: "15:00", color: "deepskyblue" }
     ];
 
     // Timeline traces
@@ -42,24 +43,22 @@
       x: [toHours(act.start), toHours(act.end)],
       y: [act.name, act.name],
       mode: "lines",
-      line: { width: 30, color: act.color },
+      line: { width: 40, color: act.color },
       name: act.name,
-      hovertemplate: `${act.name}<br>%{x} hr<extra></extra>`
+      hovertemplate: `${act.name}<br>${act.start} - ${act.end}<extra></extra>`
     }));
 
     // Layout
     const layout = {
-      title: "Activity Blocks (8:30 → 6:00)",
+      title: "Activity Timeline (8:30 PM → 6:00 PM)",
       xaxis: {
         title: "Time of Day",
-        tickvals: [8.5, 10, 12, 14, 16, 18],
-        ticktext: ["8:30", "10:00", "12:00", "2:00", "4:00", "6:00"],
-        range: [8.5, 18],
+        tickvals: [20.5, 22, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18],
+        ticktext: ["8:30 PM", "10 PM", "12 AM", "2 AM", "4 AM", "6 AM", "8 AM", "10 AM", "12 PM", "2 PM", "4 PM", "6 PM"],
+        range: [20.5, 18], // Wraps overnight: 20.5 (8:30 PM) → 18 (6 PM next day)
         showgrid: false
       },
-      yaxis: {
-        visible: false
-      },
+      yaxis: { visible: false },
       showlegend: false,
       paper_bgcolor: "#0d1117",
       plot_bgcolor: "#0d1117",
