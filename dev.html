@@ -3,127 +3,88 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Nebula Navigation</title>
+<title>Portfolio Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
 <style>
   html, body {
-    margin: 0; padding: 0; height: 100%; overflow: hidden;
+    margin: 0; padding: 0; height: 100%;
     font-family: 'Poppins', sans-serif;
     background: #0a0a1a;
-    color: white;
+    overflow-x: hidden;
   }
 
+  /* Background particle container */
   #particles-js {
     position: fixed;
+    top: 0; left: 0;
     width: 100%; height: 100%;
     z-index: 0;
     background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
   }
 
-  .carousel-wrapper {
+  /* Layout wrapper */
+  .content {
     position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     z-index: 1;
-    overflow: hidden;
-  }
-
-  .square {
-    position: absolute;
-    background: rgba(255 255 255 / 0.08);
-    border: 1.5px solid rgba(255 255 255 / 0.3);
-    box-shadow:
-      0 0 10px rgba(0, 200, 255, 0.4),
-      inset 0 0 15px rgba(0, 200, 255, 0.25);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
-    color: #00e5ff;
-    font-weight: 600;
-    font-size: 1.4rem;
-    text-align: center;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 40px 20px;
+  }
+
+  /* Grid of cards */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1000px;
+  }
+
+  /* Individual card style */
+  .card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1.5px solid rgba(0, 200, 255, 0.4);
+    border-radius: 20px;
+    padding: 40px 20px;
+    text-align: center;
+    color: #00e5ff;
+    font-size: 1.3rem;
+    font-weight: 600;
+    box-shadow:
+      0 0 12px rgba(0, 200, 255, 0.3),
+      inset 0 0 20px rgba(0, 200, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     cursor: pointer;
-    user-select: none;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
   }
 
-  /* Active (center) card */
-  .square.center {
-    width: 320px; height: 320px;
-    opacity: 1;
-    pointer-events: auto;
-    z-index: 10;
-    animation: float 5s ease-in-out infinite;
+  /* Glow + hover */
+  .card:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: #00ffff;
+    box-shadow:
+      0 0 20px #00ffff,
+      inset 0 0 25px #00ffff;
+    text-shadow: 0 0 6px #00ffff;
   }
 
-  /* Side cards */
-  .square.left, .square.right {
-    width: 160px; height: 160px;
-    opacity: 0.6;
-    pointer-events: auto;
-    color: #00b8cc;
-    z-index: 5;
-  }
-
-  .square.left {
-    transform: translateX(-280px) scale(0.9);
-  }
-
-  .square.right {
-    transform: translateX(280px) scale(0.9);
-  }
-
-  /* Hover effect (desktop only) */
-  @media (hover: hover) {
-    .square:hover {
-      transform: scale(1.1);
-      border-color: #00ffff;
-      box-shadow:
-        0 0 20px #00ffff,
-        inset 0 0 25px #00ffff;
-      text-shadow: 0 0 6px #00ffff;
-    }
-  }
-
-  /* Shine effect on center */
-  .square.center::before {
-    content: '';
+  /* Shine effect */
+  .card::before {
+    content: "";
     position: absolute;
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%);
+    background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
     transform: rotate(25deg) translateX(-100%);
-    animation: shine 3.5s linear infinite;
+    animation: shine 4s linear infinite;
     pointer-events: none;
-  }
-
-  /* Mobile adjustments */
-  @media (max-width: 600px) {
-    .square.center {
-      width: 220px;
-      height: 220px;
-      font-size: 1.1rem;
-    }
-    .square.left, .square.right {
-      width: 100px; height: 100px;
-      transform: translateX(-160px) scale(0.85);
-    }
-    .square.right { transform: translateX(160px) scale(0.85); }
-  }
-
-  /* Animations */
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
   }
 
   @keyframes shine {
@@ -136,90 +97,38 @@
 
 <div id="particles-js"></div>
 
-<div class="carousel-wrapper">
-  <div class="square" data-link="#">Projects</div>
-  <div class="square" data-link="Computer_Science.html">Computer Science</div>
-  <div class="square" data-link="about-me.html">About Me</div>
-  <div class="square" data-link="#">Portfolio</div>
-  <div class="square" data-link="#">Contact</div>
+<div class="content">
+  <div class="grid">
+    <div class="card" onclick="goTo('Computer_Science.html')">Computer Science</div>
+    <div class="card" onclick="goTo('about-me.html')">About Me</div>
+    <div class="card">Undecided</div>
+    <div class="card">Undecided</div>
+    <div class="card">Undecided</div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
-  // Particle config with mobile optimization
+  // Particles background
   particlesJS("particles-js", {
     particles: {
-      number: { value: window.innerWidth < 600 ? 50 : 100, density: { enable: true, value_area: 1200 } },
+      number: { value: 100, density: { enable: true, value_area: 1200 } },
       color: { value: "#ffffff" },
       shape: { type: "circle" },
       opacity: { value: 0.3, random: true },
       size: { value: 2, random: true },
-      line_linked: { enable: true, distance: 120, color: "#aaa", opacity: 0.08, width: 1 },
-      move: { enable: true, speed: 0.3, random: true }
+      line_linked: {
+        enable: true, distance: 120, color: "#aaa", opacity: 0.08, width: 1
+      },
+      move: { enable: true, speed: 0.4, random: true, out_mode: "out" }
     },
     interactivity: { detect_on: "canvas", events: { resize: true } },
     retina_detect: true
   });
 
-  const squares = document.querySelectorAll('.square');
-  const total = squares.length;
-  let currentIndex = 0;
-
-  function updateSquares() {
-    squares.forEach((sq, i) => {
-      sq.classList.remove('center', 'left', 'right');
-      sq.style.opacity = '0';
-      sq.style.pointerEvents = 'none';
-    });
-
-    const center = squares[currentIndex];
-    center.classList.add('center');
-    center.style.opacity = '1';
-    center.style.pointerEvents = 'auto';
-
-    const leftIndex = (currentIndex - 1 + total) % total;
-    const rightIndex = (currentIndex + 1) % total;
-
-    squares[leftIndex].classList.add('left');
-    squares[leftIndex].style.opacity = '0.6';
-    squares[leftIndex].style.pointerEvents = 'auto';
-
-    squares[rightIndex].classList.add('right');
-    squares[rightIndex].style.opacity = '0.6';
-    squares[rightIndex].style.pointerEvents = 'auto';
+  function goTo(url) {
+    window.location.href = url;
   }
-
-  // Throttle scroll navigation
-  let scrollTimeout;
-  window.addEventListener('wheel', e => {
-    e.preventDefault();
-    if (scrollTimeout) return;
-    if (e.deltaY > 0) currentIndex = (currentIndex + 1) % total;
-    else currentIndex = (currentIndex - 1 + total) % total;
-    updateSquares();
-    scrollTimeout = setTimeout(() => scrollTimeout = null, 300);
-  }, { passive: false });
-
-  // Swipe navigation for touch devices
-  let startX = 0;
-  window.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-  window.addEventListener('touchend', e => {
-    const endX = e.changedTouches[0].clientX;
-    if (startX - endX > 50) currentIndex = (currentIndex + 1) % total;
-    else if (endX - startX > 50) currentIndex = (currentIndex - 1 + total) % total;
-    updateSquares();
-  });
-
-  // Click navigation
-  squares.forEach(sq => {
-    sq.addEventListener('click', () => {
-      const url = sq.getAttribute('data-link');
-      if (url && url !== '#') window.location.href = url;
-    });
-  });
-
-  updateSquares();
-  window.addEventListener('resize', updateSquares);
 </script>
 
 </body>
