@@ -23,11 +23,6 @@
       transition: background 0.5s ease, color 0.5s ease;
     }
 
-    body.light-mode {
-      background: linear-gradient(135deg, #f0f0f0, #dcdcdc);
-      color: #000;
-    }
-
     #particles-js {
       position: fixed;
       width: 100%;
@@ -101,51 +96,6 @@
       flex-wrap: wrap;
     }
 
-    .toggle-switch {
-      position: relative;
-      display: inline-block;
-      width: 60px;
-      height: 34px;
-    }
-
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #888;
-      transition: .4s;
-      border-radius: 34px;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-    }
-
-    input:checked + .slider {
-      background-color: #00e0ff;
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(26px);
-    }
-
     .btn {
       padding: 12px 24px;
       border: none;
@@ -175,10 +125,6 @@
          Location: <strong>Iowa, United States</strong><br></p>
     </div>
     <div class="button-group">
-      <label class="toggle-switch">
-        <input type="checkbox" onchange="toggleTheme()">
-        <span class="slider"></span>
-      </label>
       <button class="btn" onclick="downloadResume()">Download Resume</button>
     </div>
   </div>
@@ -205,10 +151,6 @@
   </div>
 
   <script>
-    function toggleTheme() {
-      document.body.classList.toggle('light-mode');
-    }
-
     function downloadResume() {
       const link = document.createElement('a');
       link.href = 'DJ_Resume.pdf';
