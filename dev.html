@@ -3,71 +3,96 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Galaxy Looping Squares</title>
+<title>Nebula Navigation</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
 <style>
   html, body {
     margin: 0; padding: 0; height: 100%; overflow: hidden;
     font-family: 'Poppins', sans-serif;
     background: #0a0a1a;
+    color: white;
   }
 
   #particles-js {
     position: fixed;
-    width: 100%; height: 100%; top: 0; left: 0;
+    width: 100%; height: 100%;
     z-index: 0;
     background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
   }
 
   .carousel-wrapper {
     position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: visible;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1;
+    overflow: hidden;
   }
 
   .square {
     position: absolute;
-    background: rgba(255 255 255 / 0.12);
-    border: 1.5px solid rgba(255 255 255 / 0.4);
+    background: rgba(255 255 255 / 0.08);
+    border: 1.5px solid rgba(255 255 255 / 0.3);
     box-shadow:
       0 0 10px rgba(0, 200, 255, 0.4),
       inset 0 0 15px rgba(0, 200, 255, 0.25);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
     color: #00e5ff;
-    font-weight: 700;
-    font-size: 1.6rem;
-    text-shadow: 0 0 3px rgba(0,0,0,0.4);
+    font-weight: 600;
+    font-size: 1.4rem;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    border-radius: 20px;
-    transition: all 0.3s ease;
     cursor: pointer;
     user-select: none;
     opacity: 0;
     pointer-events: none;
+    transition: all 0.4s ease;
   }
 
-  /* Center square */
+  /* Active (center) card */
   .square.center {
-    width: 400px;
-    height: 400px;
+    width: 320px; height: 320px;
     opacity: 1;
     pointer-events: auto;
-    animation: float 4s ease-in-out infinite;
-    position: relative;
-    overflow: hidden;
     z-index: 10;
+    animation: float 5s ease-in-out infinite;
   }
 
-  /* Shine overlay on center */
+  /* Side cards */
+  .square.left, .square.right {
+    width: 160px; height: 160px;
+    opacity: 0.6;
+    pointer-events: auto;
+    color: #00b8cc;
+    z-index: 5;
+  }
+
+  .square.left {
+    transform: translateX(-280px) scale(0.9);
+  }
+
+  .square.right {
+    transform: translateX(280px) scale(0.9);
+  }
+
+  /* Hover effect (desktop only) */
+  @media (hover: hover) {
+    .square:hover {
+      transform: scale(1.1);
+      border-color: #00ffff;
+      box-shadow:
+        0 0 20px #00ffff,
+        inset 0 0 25px #00ffff;
+      text-shadow: 0 0 6px #00ffff;
+    }
+  }
+
+  /* Shine effect on center */
   .square.center::before {
     content: '';
     position: absolute;
@@ -75,60 +100,24 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%);
     transform: rotate(25deg) translateX(-100%);
-    animation: shine 3s linear infinite;
+    animation: shine 3.5s linear infinite;
     pointer-events: none;
   }
 
-  /* Side squares */
-  .square.left, .square.right {
-    width: 150px;
-    height: 150px;
-    opacity: 0.5;
-    pointer-events: auto;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    color: #00b8cc;
-    box-shadow:
-      0 0 6px rgba(0, 200, 255, 0.25),
-      inset 0 0 8px rgba(0, 200, 255, 0.15);
-  }
-
-  .square.left {
-    transform: translateX(-350px);
-  }
-
-  .square.right {
-    transform: translateX(350px);
-  }
-
-  /* Hover effect */
-  .square:hover {
-    transform: scale(1.1) translateY(-10px);
-    border-color: #00ffff;
-    box-shadow:
-      0 0 20px #00ffff,
-      inset 0 0 25px #00ffff;
-    text-shadow: 0 0 8px #00ffff;
-  }
-
-  /* Mobile scaling */
+  /* Mobile adjustments */
   @media (max-width: 600px) {
     .square.center {
-      width: 200px;
-      height: 200px;
+      width: 220px;
+      height: 220px;
+      font-size: 1.1rem;
     }
     .square.left, .square.right {
-      width: 100px;
-      height: 100px;
+      width: 100px; height: 100px;
+      transform: translateX(-160px) scale(0.85);
     }
-    .square.left {
-      transform: translateX(-150px);
-    }
-    .square.right {
-      transform: translateX(150px);
-    }
+    .square.right { transform: translateX(160px) scale(0.85); }
   }
 
   /* Animations */
@@ -147,53 +136,28 @@
 
 <div id="particles-js"></div>
 
-<div class="carousel-wrapper" id="wrapper">
-  <div class="square" data-link="#">Undecided</div>
+<div class="carousel-wrapper">
+  <div class="square" data-link="#">Projects</div>
   <div class="square" data-link="Computer_Science.html">Computer Science</div>
   <div class="square" data-link="about-me.html">About Me</div>
-  <div class="square" data-link="#">Undecided</div>
-  <div class="square" data-link="#">Undecided</div>
+  <div class="square" data-link="#">Portfolio</div>
+  <div class="square" data-link="#">Contact</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
-  // Galaxy-style twinkling particles config
+  // Particle config with mobile optimization
   particlesJS("particles-js", {
     particles: {
-      number: { value: 100, density: { enable: true, value_area: 1200 } },
+      number: { value: window.innerWidth < 600 ? 50 : 100, density: { enable: true, value_area: 1200 } },
       color: { value: "#ffffff" },
       shape: { type: "circle" },
-      opacity: {
-        value: 0.3,
-        random: true,
-        anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
-      },
-      size: {
-        value: 2,
-        random: true,
-        anim: { enable: true, speed: 2, size_min: 0.5, sync: false }
-      },
-      line_linked: {
-        enable: true,
-        distance: 120,
-        color: "#aaa",
-        opacity: 0.08,
-        width: 1
-      },
-      move: {
-        enable: true,
-        speed: 0.4,
-        direction: "none",
-        random: true,
-        straight: false,
-        out_mode: "out",
-        bounce: false
-      }
+      opacity: { value: 0.3, random: true },
+      size: { value: 2, random: true },
+      line_linked: { enable: true, distance: 120, color: "#aaa", opacity: 0.08, width: 1 },
+      move: { enable: true, speed: 0.3, random: true }
     },
-    interactivity: {
-      detect_on: "canvas",
-      events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
-    },
+    interactivity: { detect_on: "canvas", events: { resize: true } },
     retina_detect: true
   });
 
@@ -206,53 +170,39 @@
       sq.classList.remove('center', 'left', 'right');
       sq.style.opacity = '0';
       sq.style.pointerEvents = 'none';
-      sq.style.zIndex = '1';
-      sq.style.transform = '';
     });
 
     const center = squares[currentIndex];
     center.classList.add('center');
     center.style.opacity = '1';
     center.style.pointerEvents = 'auto';
-    center.style.zIndex = '10';
 
     const leftIndex = (currentIndex - 1 + total) % total;
     const rightIndex = (currentIndex + 1) % total;
 
-    const left = squares[leftIndex];
-    left.classList.add('left');
-    left.style.opacity = '0.5';
-    left.style.pointerEvents = 'auto';
-    left.style.zIndex = '5';
+    squares[leftIndex].classList.add('left');
+    squares[leftIndex].style.opacity = '0.6';
+    squares[leftIndex].style.pointerEvents = 'auto';
 
-    const right = squares[rightIndex];
-    right.classList.add('right');
-    right.style.opacity = '0.5';
-    right.style.pointerEvents = 'auto';
-    right.style.zIndex = '5';
+    squares[rightIndex].classList.add('right');
+    squares[rightIndex].style.opacity = '0.6';
+    squares[rightIndex].style.pointerEvents = 'auto';
   }
 
-  // Throttle scroll to prevent stacking glitches
+  // Throttle scroll navigation
   let scrollTimeout;
   window.addEventListener('wheel', e => {
     e.preventDefault();
-    if(scrollTimeout) return;
-
+    if (scrollTimeout) return;
     if (e.deltaY > 0) currentIndex = (currentIndex + 1) % total;
     else currentIndex = (currentIndex - 1 + total) % total;
-
     updateSquares();
-
-    scrollTimeout = setTimeout(() => {
-      scrollTimeout = null;
-    }, 300);
+    scrollTimeout = setTimeout(() => scrollTimeout = null, 300);
   }, { passive: false });
 
-  // Swipe handling for mobile
+  // Swipe navigation for touch devices
   let startX = 0;
-  window.addEventListener('touchstart', e => {
-    startX = e.touches[0].clientX;
-  });
+  window.addEventListener('touchstart', e => startX = e.touches[0].clientX);
   window.addEventListener('touchend', e => {
     const endX = e.changedTouches[0].clientX;
     if (startX - endX > 50) currentIndex = (currentIndex + 1) % total;
@@ -260,13 +210,11 @@
     updateSquares();
   });
 
-  // Link squares that have valid links
+  // Click navigation
   squares.forEach(sq => {
     sq.addEventListener('click', () => {
       const url = sq.getAttribute('data-link');
-      if (url && url !== '#') {
-        window.location.href = url;
-      }
+      if (url && url !== '#') window.location.href = url;
     });
   });
 
